@@ -93,8 +93,8 @@ $(document).ready(function(){
                       stop_storing_points_variable(); // stop storing the prediction points
                       var past50 = webgazer.getStoredPoints(); // retrieve the stored points
                       var precision_measurement = calculatePrecision(past50);
-                      var accuracyLabel = "<a>Accuracy | "+precision_measurement+"%</a>";
-                      document.getElementById("Accuracy").innerHTML = accuracyLabel; // Show the accuracy in the nav bar.
+                      // var accuracyLabel = "<a>Accuracy | "+precision_measurement+"%</a>";
+                      // document.getElementById("Accuracy").innerHTML = accuracyLabel; // Show the accuracy in the nav bar.
                       swal({
                         title: "Your accuracy measure is " + precision_measurement + "%",
                         allowOutsideClick: false,
@@ -108,7 +108,7 @@ $(document).ready(function(){
                             ClearCanvas();
                           } else {
                             //use restart function to restart the calibration
-                            document.getElementById("Accuracy").innerHTML = "<a>Not yet Calibrated</a>";
+                            // document.getElementById("Accuracy").innerHTML = "<a>Not yet Calibrated</a>";
                             webgazer.clearData();
                             ClearCalibration();
                             ClearCanvas();

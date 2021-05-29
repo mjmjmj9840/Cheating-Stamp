@@ -8,7 +8,7 @@ window.onload = async function() {
           //   console.log(data); /* data is an object containing an x and y key which are the x and y prediction coordinates (no bounds limiting) */
           //   console.log(clock); /* elapsed time in milliseconds since webgazer.begin() was called */
         })
-        .saveDataAcrossSessions(true)
+        .saveDataAcrossSessions(false)
         .begin();
         webgazer.showVideoPreview(true) /* shows all video previews */
             .showPredictionPoints(true) /* shows a square every 100 milliseconds where current prediction is */
@@ -21,7 +21,7 @@ window.onload = async function() {
         var canvas = document.getElementById("plotting_canvas");
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
-        canvas.style.position = 'relative';
+        canvas.style.position = 'fixed';
     };
     setup();
 
@@ -38,7 +38,7 @@ window.onbeforeunload = function() {
  * Restart the calibration process by clearing the local storage and reseting the calibration point
  */
 function Restart(){
-    document.getElementById("Accuracy").innerHTML = "<a>Not yet Calibrated</a>";
+    // document.getElementById("Accuracy").innerHTML = "<a>Not yet Calibrated</a>";
     webgazer.clearData();
     ClearCalibration();
     PopUpInstruction();

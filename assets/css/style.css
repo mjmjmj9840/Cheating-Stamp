@@ -1,3 +1,86 @@
+/*
+* WebGaer Style
+*/
+body {
+  min-width:600px!important;
+}
+
+/* Video Feed Styling */
+#overlay {
+/* Video Feed Styling:
+* Include the !important keyword to override default styles applied by JS.
+* webgazer.js sets defaults for: display, position, top, left, width, height
+*/
+}
+
+#webgazerVideoContainer {
+  display: block !important; 
+  position: fixed !important;
+  top: 70px !important;
+  right: 0px !important;
+  width: 320px !important;
+  height: 240px !important;
+  z-index: 1;
+}
+
+/* Calibration button styling */
+.Calibration{
+  width: 20px;
+  height: 20px;
+  -webkit-border-radius: 25px;
+  -moz-border-radius: 25px;
+  border-radius: 25px;
+  background-color: #e96b56;
+  opacity: 0.2;
+  border-color: black;
+  border-style: solid;
+  position:fixed;
+}
+
+/* Calibration point position */
+#Pt1{
+  top: 80px;
+  left:340px;
+}
+#Pt2{
+  top: 80px;
+  left:50vw;
+  margin-left: 340;
+}
+#Pt3{
+  top: 80px;
+  right:2vw;
+}
+#Pt4{
+  top:60vh;
+  left:2vw;
+}
+#Pt5{
+  top: 60vh;
+  left: 50vw;
+}
+#Pt6{
+  top: 60vh;
+  right:2vw;
+}
+#Pt7{
+  bottom:2vw;
+  left: 2vw;
+}
+#Pt8{
+  bottom:2vw;
+  left:50vw;
+}
+#Pt9{
+  bottom:2vw;
+  right:2vw;
+}
+
+#warning-message {
+  display: none;
+  z-index: 1070;
+}
+
 /**
 * Template Name: Eterna - v4.2.0
 * Template URL: https://bootstrapmade.com/eterna-free-multipurpose-bootstrap-template/
@@ -273,7 +356,7 @@ h1, h2, h3, h4, h5, h6 {
   color: #fff;
 }
 
-@media (max-width: 991px) {
+@media (max-width: 600px) {
   .mobile-nav-toggle {
     display: block;
   }
@@ -540,7 +623,7 @@ h1, h2, h3, h4, h5, h6 {
 # Sections General
 --------------------------------------------------------------*/
 section {
-  padding: 0 0 80px 0;
+  padding: 40px 0;
 }
 
 .section-bg {
