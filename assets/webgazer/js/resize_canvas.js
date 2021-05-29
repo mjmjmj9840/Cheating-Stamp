@@ -8,5 +8,18 @@ function resize() {
     context.clearRect(0, 0, canvas.width, canvas.height);
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
+
+    console.log(canvas.width);
+    console.log(canvas.height);
+
+    if (canvas.width <= 768 || canvas.height <= 500) {
+        $('#warning-message').css('display', 'block');
+        $(".Calibration").hide();
+    }
+    else {
+        $('#warning-message').css('display', 'none');
+        $(".Calibration").show();
+    }
+
 };
 window.addEventListener('resize', resize, false);
