@@ -9,9 +9,6 @@ function resize() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    console.log(canvas.width);
-    console.log(canvas.height);
-
     if (canvas.width <= 768 || canvas.height <= 500) {
         $('#warning-message').css('display', 'block');
         $(".Calibration").hide();

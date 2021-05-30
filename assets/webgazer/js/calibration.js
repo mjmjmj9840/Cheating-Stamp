@@ -105,7 +105,9 @@ $(document).ready(function(){
                       }).then(isConfirm => {
                           if (isConfirm){
                             //clear the calibration & hide the last middle button
-                            ClearCanvas();
+                            // ClearCanvas();
+                            location.replace("exam.html");
+
                           } else {
                             //use restart function to restart the calibration
                             // document.getElementById("Accuracy").innerHTML = "<a>Not yet Calibrated</a>";

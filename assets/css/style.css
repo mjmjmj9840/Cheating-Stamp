@@ -2180,7 +2180,7 @@ section {
   color: #fff;
 }
 
-
+/**
 #side{
   width: 20%;
   height: 500px;
@@ -2226,4 +2226,22 @@ section {
   font-size: 30px;
   font-weight: bolder;
   
+}
+*/
+
+#stick-sidebar {
+  width: 320px;
+}
+
+.sticky-top div div{
+  padding-top: 14px;
+  padding-bottom: 14px;
+}
+
+.notice, .time{
+  text-align: center;
+  padding-top: 37px;
+  padding-bottom: 37px;
+  border: 1px solid black;
+  border-radius: 6px;
 }
