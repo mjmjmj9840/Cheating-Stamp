@@ -19,7 +19,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  *
  */
-var objectdetect = (function() {
+ var objectdetect = (function() {
 	"use strict";
     	
     var /**
@@ -10620,7 +10620,7 @@ if (typeof exports !== 'undefined') {
      * @return {webgazer} this
      */
     webgazer.showPredictionPoints = function(bool) {
-        showGazeDot = false;
+        showGazeDot = bool;
         gazeDot.style.left = '-5px';
         gazeDot.style.display = bool ? 'block' : 'none';
         return webgazer;

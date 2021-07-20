@@ -10980,7 +10980,7 @@ function store_points(x, y, k) {
     webgazer.showPredictionPoints = function(bool) {
         showGazeDot = false;
         gazeDot.style.left = '-5px';
-        gazeDot.style.display = bool ? 'block' : 'none';
+        gazeDot.style.display = bool ? 'none' : 'none';
         return webgazer;
     };
 
