@@ -10620,7 +10620,7 @@ if (typeof exports !== 'undefined') {
      * @return {webgazer} this
      */
     webgazer.showPredictionPoints = function(bool) {
-        showGazeDot = bool;
+        showGazeDot = false;
         gazeDot.style.left = '-5px';
         gazeDot.style.display = bool ? 'block' : 'none';
         return webgazer;
