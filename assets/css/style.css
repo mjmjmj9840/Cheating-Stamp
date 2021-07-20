@@ -4,6 +4,9 @@
 body {
   min-width:600px!important;
 }
+main{
+  min-height: 720px;
+}
 
 /* Video Feed Styling */
 #overlay {
@@ -16,11 +19,15 @@ body {
 #webgazerVideoContainer {
   display: block !important; 
   position: fixed !important;
-  top: 70px !important;
-  right: 0px !important;
+  top: 160px !important;
+  left: 40px !important;
   width: 320px !important;
   height: 240px !important;
   z-index: 1;
+}
+#webgazerVideoFeed {
+  width: 320px !important;
+  height: 240px !important;
 }
 
 /* Calibration button styling */
@@ -2180,7 +2187,7 @@ section {
   color: #fff;
 }
 
-/**
+/*
 #side{
   width: 20%;
   height: 500px;
@@ -2229,19 +2236,33 @@ section {
 }
 */
 
-#stick-sidebar {
+.side_c{
+  width: 400px;
+}
+
+#sticky-sidebar{
+  position: fixed;
+  bottom: 90px;
+  width: 300px;
   width: 320px;
+  left: 40px;
 }
 
 .sticky-top div div{
-  padding-top: 14px;
-  padding-bottom: 14px;
+  padding-top: 2px;
+  padding-bottom: 2px;
 }
 
 .notice, .time{
   text-align: center;
-  padding-top: 37px;
-  padding-bottom: 37px;
+  padding: 30px 0;
   border: 1px solid black;
   border-radius: 6px;
+}
+.notice {
+  padding: 70px 0;
+}
+
+.row.py-3 .col h1 {
+  margin: 40px 0;
 }
