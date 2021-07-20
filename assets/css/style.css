@@ -1,11 +1,20 @@
 /*
 * WebGaer Style
 */
+html, body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
 body {
   min-width:600px!important;
 }
+
 main {
   min-height: 400px;
+  height: 87%;
+  overflow-y: scroll;
 }
 
 /* Video Feed Styling */
@@ -158,11 +167,11 @@ h1, h2, h3, h4, h5, h6 {
 # Header
 --------------------------------------------------------------*/
 #header {
-  height: 70px;
+  height: 13%;
   transition: all 0.5s;
   z-index: 997;
   transition: all 0.5s;
-  background: #fff;
+  background: #545454;
   box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
 }
 
@@ -179,7 +188,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #header .logo h1 a, #header .logo h1 a:hover {
-  color: #545454;
+  color: #fff;
   text-decoration: none;
 }
 
@@ -222,7 +231,7 @@ h1, h2, h3, h4, h5, h6 {
   padding: 10px 0 10px 30px;
   font-family: "Poppins", sans-serif;
   font-size: 14px;
-  color: #545454;
+  color: #fff;
   white-space: nowrap;
   transition: 0.3s;
 }
