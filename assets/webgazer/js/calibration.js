@@ -6,6 +6,7 @@ var CalibrationPoints={};
  */
 function ClearCanvas(){
   $(".Calibration").hide();
+  $(".RandomCalibration").hide();
   var canvas = document.getElementById("plotting_canvas");
   canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
 }
@@ -67,62 +68,60 @@ $(document).ready(function(){
       }
 
       if (PointCalibrate >= 9){ // last point is calibrated
+        swal({
+          title:"Random Calibration",
+          text: "화면에 나타나는 점을 2초내에 클릭해주세요. ",
+          buttons:{
+            cancel: false,
+            confirm: true
+          }
+        }).then(isConfirm => {
             //using jquery to grab every element in Calibration class and hide them except the middle point.
             $(".Calibration").hide();
-            $("#Pt5").show();
-
-            // clears the canvas
-            var canvas = document.getElementById("plotting_canvas");
-            canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
-
-            // notification for the measurement process
-            swal({
-              title: "Calculating measurement",
-              text: "Please don't move your mouse & stare at the middle dot for the next 5 seconds. This will allow us to calculate the accuracy of our predictions.",
-              closeOnEsc: false,
-              allowOutsideClick: false,
-              closeModal: true
-            }).then( isConfirm => {
-
-                // makes the variables true for 5 seconds & plots the points
-                $(document).ready(function(){
-
-                  store_points_variable(); // start storing the prediction points
-
-                  sleep(5000).then(() => {
-                      stop_storing_points_variable(); // stop storing the prediction points
-                      var past50 = webgazer.getStoredPoints(); // retrieve the stored points
-                      var precision_measurement = calculatePrecision(past50);
-                      // var accuracyLabel = "<a>Accuracy | "+precision_measurement+"%</a>";
-                      // document.getElementById("Accuracy").innerHTML = accuracyLabel; // Show the accuracy in the nav bar.
-                      swal({
-                        title: "Your accuracy measure is " + precision_measurement + "%",
-                        allowOutsideClick: false,
-                        buttons: {
-                          cancel: "Recalibrate",
-                          confirm: true,
-                        }
-                      }).then(isConfirm => {
-                          if (isConfirm){
-                            //clear the calibration & hide the last middle button
-                            // ClearCanvas();
-                            location.replace("exam.html");
-
-                          } else {
-                            //use restart function to restart the calibration
-                            // document.getElementById("Accuracy").innerHTML = "<a>Not yet Calibrated</a>";
-                            webgazer.clearData();
-                            ClearCalibration();
-                            ClearCanvas();
-                            ShowCalibrationPoint();
-                          }
-                      });
-                  });
+            let timerId = setInterval(() => ShowRandomCalibraionPoint(), 2000);
+            setTimeout(() => {
+              clearInterval(timerId);
+              $(".RandomCalibration").hide();
+              if (PointCalibrate < 12){
+                swal({
+                  title:"Pleas Recalibrate.",
+                  text: "정확도가 너무 낮습니다. 보정 과정을 다시 진행해주세요. ",
+                  buttons:{
+                    cancel: false,
+                    confirm: true
+                  }
+                }).then(isConfirm => {
+                    // recalibrate
+                    webgazer.clearData();
+                    ClearCalibration();
+                    ClearCanvas();
+                    ShowCalibrationPoint();
                 });
-            });
-          }
+              } else{
+                sleep(2000).then(() => {
+                  CalculateMeasurement();
+                });
+              }
+            }, 15000);
+        });
+      }
     });
 });
+
+function ShowRandomCalibraionPoint() {
+  // 랜덤 위치에 점 띄우기
+  let random_x = Math.floor(Math.random() * 86) + 10;
+  let random_y = Math.floor(Math.random() * 73) + 20;
+  $(".RandomCalibration").css('top', random_y + '%');
+  $(".RandomCalibration").css('left', random_x + '%');
+  $(".RandomCalibration").css('background-color', 'red');
+  $(".RandomCalibration").show();
+
+  $(".RandomCalibration").click(function(){ // click event on the random calibration button
+    PointCalibrate++;
+    $(".RandomCalibration").css('background-color', 'yellow');
+  });
+}
 
 /**
  * Show the Calibration Points
@@ -130,6 +129,64 @@ $(document).ready(function(){
 function ShowCalibrationPoint() {
   $(".Calibration").show();
   $("#Pt5").hide(); // initially hides the middle button
+}
+
+function CalculateMeasurement() {
+  $("#Pt5").show();
+  // clears the canvas
+  var canvas = document.getElementById("plotting_canvas");
+  canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+
+  // notification for the measurement process
+  swal({
+    title: "Calculating measurement",
+    text: "Please don't move your mouse & stare at the middle dot for the next 5 seconds. This will allow us to calculate the accuracy of our predictions.",
+    closeOnEsc: false,
+    allowOutsideClick: false,
+    closeModal: true
+  }).then( isConfirm => {
+      // makes the variables true for 5 seconds & plots the points
+      $(document).ready(function(){
+
+        store_points_variable(); // start storing the prediction points
+
+        sleep(5000).then(() => {
+            stop_storing_points_variable(); // stop storing the prediction points
+            var past50 = webgazer.getStoredPoints(); // retrieve the stored points
+            var precision_measurement = calculatePrecision(past50);
+            // var accuracyLabel = "<a>Accuracy | "+precision_measurement+"%</a>";
+            // document.getElementById("Accuracy").innerHTML = accuracyLabel; // Show the accuracy in the nav bar.
+            // 정확도가 75% 이상이어야 시험 입장 가능
+            if(precision_measurement < 65){
+              swal({
+                title: "Your accuracy measure is " + precision_measurement + "%",
+                text: "정확도가 너무 낮습니다. 보정 과정을 다시 진행해주세요. ",
+                buttons:{
+                  cancel: false,
+                  confirm: true
+                }
+              }).then(isConfirm => {
+                // recalibrate
+                webgazer.clearData();
+                ClearCalibration();
+                ClearCanvas();
+                ShowCalibrationPoint();
+              });
+            } else{
+              swal({
+                title: "Your accuracy measure is " + precision_measurement + "%",
+                allowOutsideClick: false,
+                buttons: {
+                  cancel: false,
+                  confirm: true,
+                }
+              }).then(isConfirm => {
+                  location.replace("exam.html");
+              });
+            }
+        });
+      });
+  });
 }
 
 /**

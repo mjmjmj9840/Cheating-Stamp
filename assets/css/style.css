@@ -57,18 +57,30 @@ main {
   position:fixed;
 }
 
+.RandomCalibration{
+  width: 20px;
+  height: 20px;
+  -webkit-border-radius: 25px;
+  -moz-border-radius: 25px;
+  border-radius: 25px;
+  background-color: 'red';
+  border-color: black;
+  border-style: solid;
+  position:absolute;
+}
+
 /* Calibration point position */
 #Pt1{
-  top: 80px;
-  left:340px;
+  top: 18%;
+  left:380px;
 }
 #Pt2{
-  top: 80px;
+  top: 18%;
   left:50vw;
   margin-left: 340;
 }
 #Pt3{
-  top: 80px;
+  top: 18%;
   right:2vw;
 }
 #Pt4{
