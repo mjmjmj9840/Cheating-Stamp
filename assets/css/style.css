@@ -1,12 +1,6 @@
 /*
 * WebGaer Style
 */
-html, body {
-  margin: 0;
-  height: 100%;
-  overflow: hidden;
-}
-
 body {
   min-width:600px!important;
 }
