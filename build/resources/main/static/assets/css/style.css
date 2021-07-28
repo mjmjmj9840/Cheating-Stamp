@@ -800,7 +800,7 @@ section {
     position: absolute;
     left: 10px; top: 15px;
     font-size: 18px; color: #999;
-    transition: top .5s ease;
+    transition: all .5s ease;
 }
 .int-area label.warning {
     color: #dc143c !important;
@@ -809,7 +809,7 @@ section {
 }
 .int-area input:focus + label,
 .int-area input:valid + label {
-    top: 0;
+    top: -2px;
     font-size: 13px; color: #4169e1
 }
 .btn-area {margin-top: 30px;}
