@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<HTML>
+
+<HEAD>
+    <META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
+    <TITLE>ETRA2018 WebGazer Dataset Extractor / Viewer</TITLE>
+    <link rel="stylesheet" type="text/css" href="webgazerExtractClient.css">
+</HEAD>
+<script src="./tensorflow.js"></script>
+<script src="./webgazer.js"></script>
+<BODY LANG="en-US" LINK="#0000ff" DIR="LTR" onload="onLoad();">
+    <div id="myMouse"></div>
+    <div id="tobiiGP"></div>
+    <div id="wgGP"></div>
+
+    <canvas id="wsCanvas" width=640 height=480 onload=onLoad()></canvas>
+    <video id="screencap" width=800 height=500 onload=onLoad() preload></video>
+    <div id="scTimeOffsetDiv">
+    <button id="showScreenCap" onclick="toggleScreenCap()">Show ScreenCap</button>&nbsp;&nbsp;&nbsp;&nbsp;<input type="number" id="scTimeOffset" size=10 required value=0.0><button id="scTimeOffsetButton" onclick='setScreenCapTimeOffset()'>Set screen cap time offset</button>
+    </div>
+    <div id="diagDiv">
+    <p id="partvidframe"></p>
+    <p id="parcipants_status"></p>
+    <p id="videos_status"></p>
+    <p id="wgError"></p>
+    <p id="procFPS"></p>
+    </div>
+    <script src="webgazerExtractClient.js"></script>
+</BODY>
+
+</HTML>
