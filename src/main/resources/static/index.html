@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
   <meta charset="utf-8">
@@ -54,7 +54,8 @@
         <ul>
           <li><a class="active" href="/">Home</a></li>
           <li><a href="about.html">About</a></li>
-          <li><a href="/user/login">Login</a></li>
+          <li sec:authorize="!isAuthenticated()"><a href="/user/login">Login</a></li>
+          <li sec:authorize="isAuthenticated()"><a href="/user/logout">Logout</a></li>
           <li class="dropdown"><a href="#"><span>Eye-tracking</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
               <li><a href="calibration.html">Calibration</a></li>
