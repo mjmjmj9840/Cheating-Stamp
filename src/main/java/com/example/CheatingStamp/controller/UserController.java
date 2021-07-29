@@ -16,26 +16,26 @@ public class UserController {
     private final UserService userService;
 
     // 로그인 페이지
-    @GetMapping("/user/login")
+    @GetMapping("/login")
     public String login() {
         return "login";
     }
 
     // 로그인 실패 페이지
-    @GetMapping("/user/login/error")
+    @GetMapping("/login-error")
     public String loginError(Model model) {
         model.addAttribute("loginError", true);
         return "login";
     }
 
     // 회원 가입 페이지
-    @GetMapping("/user/signup")
+    @GetMapping("/signup")
     public String signup() {
         return "signup";
     }
 
     // 회원 가입 요청 처리
-    @PostMapping("/user/signup")
+    @PostMapping("/signup")
     public String registerUser(SignupRequestDto requestDto) {
         userService.registerUser(requestDto);
         return "redirect:/";
