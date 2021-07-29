@@ -10,8 +10,7 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor // 기본 생성자 생성
 @Entity // DB 테이블 역할
-public class User {
-
+public class User extends Timestamped {
     public User(String username, String password, UserRole role) {
         this.username = username;
         this.password = password;

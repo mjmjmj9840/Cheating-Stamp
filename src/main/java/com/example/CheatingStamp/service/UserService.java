@@ -4,23 +4,18 @@ import com.example.CheatingStamp.dto.SignupRequestDto;
 import com.example.CheatingStamp.model.User;
 import com.example.CheatingStamp.model.UserRole;
 import com.example.CheatingStamp.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@RequiredArgsConstructor
 @Service
 public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
     private static final String SUPERVISOR_TOKEN = "1234";
-
-    @Autowired
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
 
     public void registerUser(SignupRequestDto requestDto) {
         String username = requestDto.getUsername();
