@@ -5,28 +5,33 @@ import com.example.CheatingStamp.model.User;
 import com.example.CheatingStamp.model.UserRole;
 import com.example.CheatingStamp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
 public class UserService {
+    private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
     private static final String SUPERVISOR_TOKEN = "1234";
 
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public void registerUser(SignupRequestDto requestDto) {
         String username = requestDto.getUsername();
-        String password = requestDto.getPassword();
         // 회원 email 중복 확인
         Optional<User> found = userRepository.findByUsername(username);
         if (found.isPresent()) {
             throw new IllegalArgumentException("해당 email로 가입 내역이 존재합니다.");
         }
+
+        // 패스워드 인코딩
+        String password = passwordEncoder.encode(requestDto.getPassword());
 
         // 사용자 ROLE 확인
         UserRole role = UserRole.USER;
