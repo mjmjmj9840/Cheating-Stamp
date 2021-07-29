@@ -32,20 +32,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // 다음 url은 login 없이 허용
                 .antMatchers("/assets/**").permitAll()
                 .antMatchers("/").permitAll()
-                .antMatchers("/user/**").permitAll()
+                .antMatchers("/login").permitAll()
+                .antMatchers("/signup").permitAll()
                 .antMatchers("/h2-console/**").permitAll()
                 // 그 외 모든 요청은 인증과정 필요
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/user/login")
-                .failureUrl("/user/login/error")
-                .loginProcessingUrl("/user/login")
+                .loginPage("/login")
+                .failureUrl("/login-error")
+                .loginProcessingUrl("/login")
                 .defaultSuccessUrl("/")
                 .permitAll()
                 .and()
                 .logout()
-                .logoutUrl("/user/logout")
+                .logoutUrl("/logout")
                 .logoutSuccessUrl("/")
                 .permitAll();
     }

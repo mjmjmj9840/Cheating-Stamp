@@ -11,23 +11,23 @@
     <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
 
     <!-- Favicons -->
-    <link href="/assets/img/favicon.png" rel="icon">
-    <link href="/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+    <link href="./assets/img/favicon.png" rel="icon">
+    <link href="./assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
           rel="stylesheet">
 
     <!-- Vendor CSS Files -->
-    <link href="/assets/vendor/animate.css/animate.min.css" rel="stylesheet">
-    <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-    <link href="/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-    <link href="/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-    <link href="/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+    <link href="./assets/vendor/animate.css/animate.min.css" rel="stylesheet">
+    <link href="./assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="./assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="./assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="./assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
     <!-- Template Main CSS File -->
-    <link href="/assets/css/style.css" rel="stylesheet">
+    <link href="./assets/css/style.css" rel="stylesheet">
 </head>
 
 <body>
@@ -43,8 +43,8 @@
             <ul>
                 <li><a class="active" href="/">Home</a></li>
                 <li><a href="about.html">About</a></li>
-                <li sec:authorize="!isAuthenticated()"><a href="/user/login">Login</a></li>
-                <li sec:authorize="isAuthenticated()"><a href="/user/logout">Logout</a></li>
+                <li sec:authorize="!isAuthenticated()"><a href="/login">Login</a></li>
+                <li sec:authorize="isAuthenticated()"><a href="/logout">Logout</a></li>
                 <li class="dropdown"><a href="#"><span>Eye-tracking</span> <i class="bi bi-chevron-down"></i></a>
                     <ul>
                         <li><a href="calibration.html">Calibration</a></li>
@@ -63,7 +63,7 @@
     <div class="login-form">
         <h1>WELCOME!</h1>
         <div th:if="${loginError}" class="alert alert-danger" role="alert">로그인에 실패하였습니다.</div>
-        <form action="/user/login" method="post">
+        <form action="/login" method="post">
             <div class="int-area">
                 <input type="email" name="username" id="username" autocomplete="off" required>
                 <label for="username">Username (email address)</label>
@@ -76,7 +76,7 @@
                 <button id="btn" type="submit">LOGIN</button>
             </div>
         </form>
-        <div class="caption" id="sign-up-btn" onclick="location.href='/user/signup'">Sign Up</div>
+        <div class="caption" id="sign-up-btn" onclick="location.href='/signup'">Sign Up</div>
     </div>
 </div>
 
@@ -86,10 +86,10 @@
     let btn = $('#btn');
 
     $(btn).on('click', function () {
-        if ($(username).val() == "") {
-            $(username).next('label').addClass('warning');
-        } else if ($(password).val() == "") {
-            $(password).next('label').addClass('warning');
+        if (username.val() == "") {
+            username.next('label').addClass('warning');
+        } else if (password.val() == "") {
+            password.next('label').addClass('warning');
         }
     });
 </script>
