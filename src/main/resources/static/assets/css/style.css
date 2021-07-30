@@ -771,7 +771,7 @@ section {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;   
+    height: 100vh;
 }
 
 .login-form {position: relative; z-index: 2;}
@@ -801,6 +801,11 @@ section {
     left: 10px; top: 15px;
     font-size: 18px; color: #999;
     transition: all .5s ease;
+}
+.int-area p{
+  margin-top: 9px;
+  font-size: 12px;
+  color: #999;
 }
 .int-area label.warning {
     color: #dc143c !important;
