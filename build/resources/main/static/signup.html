@@ -5,32 +5,29 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>CheatingStamp</title>
-
-    <!--Template Main CSS File-->
-    <link href="assets/css/style.css" rel="stylesheet">
+    <title>SignUp</title>
 
     <!-- Login JS Files -->
     <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
 
     <!-- Favicons -->
-    <link href="assets/img/favicon.png" rel="icon">
-    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+    <link href="./assets/img/favicon.png" rel="icon">
+    <link href="./assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
           rel="stylesheet">
 
     <!-- Vendor CSS Files -->
-    <link href="assets/vendor/animate.css/animate.min.css" rel="stylesheet">
-    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-    <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-    <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+    <link href="./assets/vendor/animate.css/animate.min.css" rel="stylesheet">
+    <link href="./assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="./assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="./assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="./assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
     <!-- Template Main CSS File -->
-    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="./assets/css/style.css" rel="stylesheet">
 
     <script>
         function onclickSupervisor() {
@@ -40,62 +37,50 @@
             var box = document.getElementById("supervisor-token");
 
             // If the checkbox is checked, display the output text
-            if (checkBox.checked == true) {
+            if (checkBox.checked === true) {
                 box.style.display = "block";
             } else {
                 box.style.display = "none";
             }
         }
     </script>
+
+    <!-- ======= Header ======= -->
+    <script>
+        $(document).ready(function () {
+            $("#head").load("./signup.html", function () {
+                //페이지 별로 다른 메뉴 css 적용도 가능
+                document.getElementById("header").classList.add("show");
+            });
+        })
+    </script>
 </head>
 
 <body>
-<script src="assets/webgazer/node_modules/jquery/dist/jquery.min.js"></script>
-<script src="assets/webgazer/node_modules/sweetalert/dist/sweetalert.min.js"></script>
-
-<script src="assets/webgazer/js/main.js"></script>
-<script src="assets/webgazer/js/calibration.js"></script>
-<script src="assets/webgazer/js/precision_calculation.js"></script>
-<script src="assets/webgazer/js/precision_store_points.js"></script>
-
 <!-- ======= Header ======= -->
-<header id="header" class="d-flex align-items-center fixed-top">
-    <div class="container d-flex justify-content-between align-items-center">
-
-        <div class="logo">
-            <h1><a href="index.html">Cheating Stamp</a></h1>
-        </div>
-
-        <nav id="navbar" class="navbar">
-            <ul>
-                <li><a class="active" href="index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="login.html">Login</a></li>
-                <li class="dropdown"><a href="#"><span>Eye-tracking</span> <i class="bi bi-chevron-down"></i></a>
-                    <ul>
-                        <li><a href="calibration.html">Calibration</a></li>
-                        <li><a href="#">Accuracy Test</a></li>
-
-                    </ul>
-                </li>
-            </ul>
-            <i class="bi bi-list mobile-nav-toggle"></i>
-        </nav><!-- .navbar -->
-
-    </div>
-</header><!-- End Header -->
+<div id='head'></div>
 
 <div class="login-box">
     <div class="login-form">
         <h1>Sign Up</h1>
-        <form action="/user/signup" method="post">
+        <form action="/signup" method="post">
+            <div class="int-area">
+                <input type="text" name="name" id="name" autocomplete="off" required>
+                <label for="username">Name</label>
+            </div>
+
             <div class="int-area">
                 <input type="email" name="username" id="username" autocomplete="off" required>
                 <label for="username">Username (email address)</label>
             </div>
             <div class="int-area">
-                <input type="password" name="pw" id="pw" autocomplete="off" required>
-                <label for="pw">Password</label>
+                <input type="password" name="password" id="password" autocomplete="off" required>
+                <label for="password">Password</label>
+            </div>
+            <div class="int-area">
+                <input type="password" name="password-check" id="password-check" autocomplete="off" required minlength="6">
+                <label for="password-check">Password Check</label>
+                <p>※비밀번호는 영어,숫자의 조합 6자리 이상으로 입력이 가능합니다.</p>
             </div>
 
             <input id="supervisor-check" type="checkbox" name="supervisor" onclick="onclickSupervisor()">감독관
@@ -110,6 +95,20 @@
         </form>
     </div>
 </div>
+
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+<!-- Vendor JS Files -->
+<script src="./assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="./assets/vendor/glightbox/js/glightbox.min.js"></script>
+<script src="./assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+<script src="./assets/vendor/php-email-form/validate.js"></script>
+<script src="./assets/vendor/purecounte./r/purecounter.js"></script>
+<script src="./assets/vendor/swiper/swiper-bundle.min.js"></script>
+<script src="./assets/vendor/waypoints/noframework.waypoints.js"></script>
+
+<!-- Template Main JS File -->
+<script src="./assets/js/main.js"></script>
 
 </body>
 

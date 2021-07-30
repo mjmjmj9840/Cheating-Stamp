@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="ko">
 
 <head>
   <meta charset="utf-8">
@@ -28,6 +28,17 @@
   <link href="./assets/css/style.css" rel="stylesheet">
   <link href="./assets/css/exam.css" rel="stylesheet">
 
+  <!-- ======= Header ======= -->
+  <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $("#head").load("./header.html", function () {
+        //페이지 별로 다른 메뉴 css 적용도 가능
+        document.getElementById("header").classList.add("show");
+      });
+    })
+  </script>
+
   <!-- =======================================================
   * Template Name: Eterna - v4.2.0
   * Template URL: https://bootstrapmade.com/eterna-free-multipurpose-bootstrap-template/
@@ -41,34 +52,8 @@
   <script src="./assets/js/index.js" defer></script>
 
   <!-- ======= Header ======= -->
-  <header id="header" class="d-flex align-items-center">
-    <div class="container d-flex justify-content-between align-items-center">
+  <div id='head'></div>
 
-      <div class="logo" style="">
-        <h1><a href="/">Cheating Stamp</a></h1>
-        <!-- Uncomment below if you prefer to use an image logo -->
-        <!-- <a href="index.html"><img src="./assets/img/logo.png" alt="" class="img-fluid"></a>-->
-      </div>
-
-      <nav id="navbar" class="navbar">
-        <ul>
-          <li><a class="active" href="/">Home</a></li>
-          <li><a href="about.html">About</a></li>
-          <li sec:authorize="!isAuthenticated()"><a href="/login">Login</a></li>
-          <li sec:authorize="isAuthenticated()"><a href="/logout">Logout</a></li>
-          <li class="dropdown"><a href="#"><span>Eye-tracking</span> <i class="bi bi-chevron-down"></i></a>
-            <ul>
-              <li><a href="calibration.html">Calibration</a></li>
-              <li><a href="#">Accuracy Test</a></li>
-
-            </ul>
-          </li>
-        </ul>
-        <i class="bi bi-list mobile-nav-toggle"></i>
-      </nav><!-- .navbar -->
-
-    </div>
-  </header><!-- End Header -->
   <main id="main">
       <div class="row py-3">
         <div class="side_c" id="side_i">
