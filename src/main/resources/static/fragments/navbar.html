@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <header th:fragment="fragment-navbar" id="header" class="d-flex align-items-center">
+        <div class="container d-flex justify-content-between align-items-center">
+            <div class="logo">
+                <h1><a href="/">Cheating Stamp</a></h1>
+            </div>
+
+            <nav id="navbar" class="navbar">
+                <ul>
+                    <li><a class="active" href="/">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li sec:authorize="!isAuthenticated()"><a href="/login">Login</a></li>
+                    <li sec:authorize="isAuthenticated()"><a href="/logout">Logout</a></li>
+                    <li class="dropdown"><a href="#"><span>Eye-tracking</span> <i class="bi bi-chevron-down"></i></a>
+                        <ul>
+                            <li><a href="calibration.html">Calibration</a></li>
+                            <li><a href="#">Accuracy Test</a></li>
+
+                        </ul>
+                    </li>
+                </ul>
+                <i class="bi bi-list mobile-nav-toggle"></i>
+            </nav>
+        </div>
+    </header>
+</html>
+
