@@ -5,8 +5,10 @@ import com.example.CheatingStamp.model.User;
 import com.example.CheatingStamp.model.UserRole;
 import com.example.CheatingStamp.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import com.example.CheatingStamp.security.UserDetailsServiceImpl;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.Errors;
 
 import java.util.Optional;
 

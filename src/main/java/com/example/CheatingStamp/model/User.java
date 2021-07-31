@@ -1,9 +1,11 @@
 package com.example.CheatingStamp.model;
 
+import com.sun.istack.NotNull;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
+import org.springframework.security.crypto.password.PasswordEncoder;
 import javax.persistence.*;
 
 @Setter
@@ -11,6 +13,8 @@ import javax.persistence.*;
 @NoArgsConstructor // 기본 생성자 생성
 @Entity // DB 테이블 역할
 public class User extends Timestamped {
+
+    @Builder
     public User(String username, String password, UserRole role) {
         this.username = username;
         this.password = password;
@@ -23,13 +27,17 @@ public class User extends Timestamped {
     private Long id;
 
     // username으로 email 저장
-    @Column(nullable = false)
+    @Column(unique = true)
+    @NotNull
     private String username;
 
-    @Column(nullable = false)
+    @NotNull
     private String password;
+    public void encodePassword(PasswordEncoder passwordEncoder) {   // 암호화
+        this.password = passwordEncoder.encode(this.password);
+    }
 
-    @Column(nullable = false)
+    @NotNull
     @Enumerated(value = EnumType.STRING)
     private UserRole role;
 }
