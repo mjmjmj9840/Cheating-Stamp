@@ -32,9 +32,8 @@
     <!-- ======= Header ======= -->
     <script>
         $(document).ready(function () {
-            $("#head").load("./header.html", function () {
-                //페이지 별로 다른 메뉴 css 적용도 가능
-                document.getElementById("header").classList.add("show");
+            $("#head").load("./header.html #header", function () {
+        //페이지 별로 다른 메뉴 css 적용도 가능
             });
         })
     </script>
@@ -86,7 +85,7 @@
 <script src="./assets/vendor/glightbox/js/glightbox.min.js"></script>
 <script src="./assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
 <script src="./assets/vendor/php-email-form/validate.js"></script>
-<script src="./assets/vendor/purecounte./r/purecounter.js"></script>
+<script src="./assets/vendor/purecounter/purecounter.js"></script>
 <script src="./assets/vendor/swiper/swiper-bundle.min.js"></script>
 <script src="./assets/vendor/waypoints/noframework.waypoints.js"></script>
 

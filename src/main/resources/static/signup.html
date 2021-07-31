@@ -48,11 +48,10 @@
     <!-- ======= Header ======= -->
     <script>
         $(document).ready(function () {
-            $("#head").load("./header.html", function () {
+            $("#head").load("./header.html #header", function () {
                 //페이지 별로 다른 메뉴 css 적용도 가능
-                document.getElementById("header").classList.add("show");
             });
-        })
+        });
     </script>
 </head>
 
@@ -63,23 +62,25 @@
 <div class="login-box">
     <div class="login-form">
         <h1>Sign Up</h1>
-        <form action="/signup" method="post">
+        <form method="post" th:action="@{signup}" th:object="${signupRequestDto}">
             <div class="int-area">
                 <input type="text" name="name" id="name" autocomplete="off" required>
                 <label for="username">Name</label>
             </div>
 
             <div class="int-area">
-                <input type="email" name="username" id="username" autocomplete="off" required>
+                <input type="email" name="username" id="username" th:classappend="${#fields.hasErrors('username')} ? 'is-invalid'" autocomplete="off" required>
                 <label for="username">Username (email address)</label>
+                <p class="invalid-feedback" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">존재하는 아이디</p>
             </div>
             <div class="int-area">
-                <input type="password" name="password" id="password" autocomplete="off" required>
+                <input type="password" name="password" id="password"  th:classappend="${#fields.hasErrors('password')} ? 'is-invalid'" autocomplete="off" required>
                 <label for="password">Password</label>
+                <p class="invalid-feedback" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">비밀번호 불일치</p>
             </div>
             <div class="int-area">
-                <input type="password" name="password-check" id="password-check" autocomplete="off" required minlength="6">
-                <label for="password-check">Password Check</label>
+                <input type="password" name="password_check" id="password_check" autocomplete="off" required minlength="6">
+                <label for="password_check">Password Check</label>
                 <p>※비밀번호는 영어,숫자의 조합 6자리 이상으로 입력이 가능합니다.</p>
             </div>
 
@@ -103,7 +104,7 @@
 <script src="./assets/vendor/glightbox/js/glightbox.min.js"></script>
 <script src="./assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
 <script src="./assets/vendor/php-email-form/validate.js"></script>
-<script src="./assets/vendor/purecounte./r/purecounter.js"></script>
+<script src="./assets/vendor/purecounter/purecounter.js"></script>
 <script src="./assets/vendor/swiper/swiper-bundle.min.js"></script>
 <script src="./assets/vendor/waypoints/noframework.waypoints.js"></script>
 
