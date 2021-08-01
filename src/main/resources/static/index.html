@@ -1,170 +1,126 @@
 <!DOCTYPE html>
-<html lang="ko">
-
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-  <title>CheatingStamp</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
-
-  <!-- Favicons -->
-  <link href="./assets/img/favicon.png" rel="icon">
-  <link href="./assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-
-  <!-- Vendor CSS Files -->
-  <link href="./assets/vendor/animate.css/animate.min.css" rel="stylesheet">
-  <link href="./assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="./assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="./assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="./assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="./assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-
-  <!-- Template Main CSS File -->
-  <link href="./assets/css/style.css" rel="stylesheet">
-
-  <!-- ======= Header ======= -->
-  <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-  <script>
-    $(document).ready(function () {
-      $("#head").load("./header.html #header", function () {
-        //페이지 별로 다른 메뉴 css 적용도 가능
-      });
-    });
-  </script>
-
-  <!-- =======================================================
-  * Template Name: Eterna - v4.2.0
-  * Template URL: https://bootstrapmade.com/eterna-free-multipurpose-bootstrap-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
+    <div th:replace="./fragments/header.html :: fragment-header"></div>
 </head>
 
 <body>
-  <!-- ======= Header ======= -->
-  <div id='head'></div>
+    <!-- ======= Header ======= -->
+    <div th:replace="./fragments/navbar.html :: fragment-navbar"></div>
 
-  <!-- ======= Hero Section ======= -->
-  <section id="hero">
-    <div class="hero-container">
-      <div id="heroCarousel" data-bs-interval="5000" class="carousel slide carousel-fade" data-bs-ride="carousel">
+    <!-- ======= Hero Section ======= -->
+    <section id="hero">
+        <div class="hero-container">
+            <div id="heroCarousel" data-bs-interval="5000" class="carousel slide carousel-fade" data-bs-ride="carousel">
 
-        <ol class="carousel-indicators" id="hero-carousel-indicators"></ol>
+                <ol class="carousel-indicators" id="hero-carousel-indicators"></ol>
 
-        <div class="carousel-inner" role="listbox">
+                <div class="carousel-inner" role="listbox">
 
-          <!-- Slide 1 -->
-          <div class="carousel-item active">
-            <div class="carousel-container">
-              <div class="carousel-content">
-                <h2 class="animate__animated animate__fadeInDown">Welcome to <span>Cheating Stamp</span></h2>
-                <p class="animate__animated animate__fadeInUp">할수있다 애들아</p>
-                <a href="exam.html" class="btn-get-started animate__animated animate__fadeInUp">Test Start</a>
-              </div>
+                    <!-- Slide 1 -->
+                    <div class="carousel-item active">
+                        <div class="carousel-container">
+                            <div class="carousel-content">
+                                <h2 class="animate__animated animate__fadeInDown">Welcome to <span>Cheating Stamp</span>
+                                </h2>
+                                <p class="animate__animated animate__fadeInUp">할수있다 애들아</p>
+                                <a href="/exam" class="btn-get-started animate__animated animate__fadeInUp">Test
+                                    Start</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 2 -->
+                    <div class="carousel-item">
+                        <div class="carousel-container">
+                            <div class="carousel-content">
+                                <h2 class="animate__animated fanimate__adeInDown">Lorem <span>Ipsum Dolor</span></h2>
+                                <p class="animate__animated animate__fadeInUp">Ut velit est quam dolor ad a aliquid qui
+                                    aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem
+                                    mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti
+                                    vel. Minus et tempore modi architecto.</p>
+                                <a href="" class="btn-get-started animate__animated animate__fadeInUp">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 3 -->
+                    <div class="carousel-item">
+                        <div class="carousel-container">
+                            <div class="carousel-content">
+                                <h2 class="animate__animated animate__fadeInDown">Sequi ea <span>Dime Lara</span></h2>
+                                <p class="animate__animated animate__fadeInUp">Ut velit est quam dolor ad a aliquid qui
+                                    aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem
+                                    mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti
+                                    vel. Minus et tempore modi architecto.</p>
+                                <a href="" class="btn-get-started animate__animated animate__fadeInUp">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <a class="carousel-control-prev" href="#heroCarousel" role="button" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon bi bi-chevron-left" aria-hidden="true"></span>
+                </a>
+
+                <a class="carousel-control-next" href="#heroCarousel" role="button" data-bs-slide="next">
+                    <span class="carousel-control-next-icon bi bi-chevron-right" aria-hidden="true"></span>
+                </a>
+
             </div>
-          </div>
-
-          <!-- Slide 2 -->
-          <div class="carousel-item">
-            <div class="carousel-container">
-              <div class="carousel-content">
-                <h2 class="animate__animated fanimate__adeInDown">Lorem <span>Ipsum Dolor</span></h2>
-                <p class="animate__animated animate__fadeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p>
-                <a href="" class="btn-get-started animate__animated animate__fadeInUp">Read More</a>
-              </div>
-            </div>
-          </div>
-
-          <!-- Slide 3 -->
-          <div class="carousel-item">
-            <div class="carousel-container">
-              <div class="carousel-content">
-                <h2 class="animate__animated animate__fadeInDown">Sequi ea <span>Dime Lara</span></h2>
-                <p class="animate__animated animate__fadeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p>
-                <a href="" class="btn-get-started animate__animated animate__fadeInUp">Read More</a>
-              </div>
-            </div>
-          </div>
-
         </div>
+    </section>
 
-        <a class="carousel-control-prev" href="#heroCarousel" role="button" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon bi bi-chevron-left" aria-hidden="true"></span>
-        </a>
+    <main id="main">
 
-        <a class="carousel-control-next" href="#heroCarousel" role="button" data-bs-slide="next">
-          <span class="carousel-control-next-icon bi bi-chevron-right" aria-hidden="true"></span>
-        </a>
+        <!-- ======= Featured Section ======= -->
+        <section id="featured" class="featured">
+            <div class="container">
 
-      </div>
-    </div>
-  </section><!-- End Hero -->
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="icon-box">
+                            <i class="bi bi-card-checklist"></i>
+                            <h3><a href="">Exam Schedule</a></h3>
+                            <p>You can check the exam schedule.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 mt-4 mt-lg-0">
+                        <div class="icon-box">
+                            <i class="bi bi-bar-chart"></i>
+                            <h3><a href="">Eye tracking Accuracy</a></h3>
+                            <p>You can check the self-calibration result.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 mt-4 mt-lg-0">
+                        <div class="icon-box">
+                            <i class="bi bi-binoculars"></i>
+                            <h3><a href="">Sed ut perspiciatis</a></h3>
+                            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                                pariatur</p>
+                        </div>
+                    </div>
+                </div>
 
-  <main id="main">
-
-    <!-- ======= Featured Section ======= -->
-    <section id="featured" class="featured">
-      <div class="container">
-
-        <div class="row">
-          <div class="col-lg-4">
-            <div class="icon-box">
-              <i class="bi bi-card-checklist"></i>
-              <h3><a href="">Exam Schedule</a></h3>
-              <p>You can check the exam schedule.</p>
             </div>
-          </div>
-          <div class="col-lg-4 mt-4 mt-lg-0">
-            <div class="icon-box">
-              <i class="bi bi-bar-chart"></i>
-              <h3><a href="">Eye tracking Accuracy</a></h3>
-              <p>You can check the self-calibration result.</p>
+        </section>
+
+        <!-- ======= Clients Section ======= -->
+        <section id="clients" class="clients">
+            <div class="container">
+
+                <div class="section-title">
+                    <h2>적을게 있을까?</h2>
+                    <p>cheating stamp :)</p>
+                </div>
             </div>
-          </div>
-          <div class="col-lg-4 mt-4 mt-lg-0">
-            <div class="icon-box">
-              <i class="bi bi-binoculars"></i>
-              <h3><a href="">Sed ut perspiciatis</a></h3>
-              <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>
-            </div>
-          </div>
-        </div>
+        </section>
 
-      </div>
-    </section><!-- End Featured Section -->
+    </main>
 
-    <!-- ======= Clients Section ======= -->
-    <section id="clients" class="clients">
-      <div class="container">
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-        <div class="section-title">
-          <h2>적을게 있을까?</h2>
-          <p>cheating stamp :)</p>
-        </div>
-      </div>
-    </section><!-- End Clients Section -->
-
-  </main><!-- End #main -->
-
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
-  <!-- Vendor JS Files -->
-  <script src="./assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="./assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="./assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="./assets/vendor/php-email-form/validate.js"></script>
-  <script src="./assets/vendor/purecounter/purecounter.js"></script>
-  <script src="./assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="./assets/vendor/waypoints/noframework.waypoints.js"></script>
-
-  <!-- Template Main JS File -->
-  <script src="./assets/js/main.js"></script>
-
+    <div th:replace="./fragments/config.html :: fragment-config"></div>
 </body>
-
 </html>
