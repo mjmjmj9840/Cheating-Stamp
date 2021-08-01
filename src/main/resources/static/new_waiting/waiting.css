@@ -1,0 +1,7 @@
+.time span {
+  font-size: large;
+}
+
+.disabled {
+  display: none;
+}
