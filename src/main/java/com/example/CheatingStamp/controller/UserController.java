@@ -29,11 +29,11 @@ public class UserController {
     }
 
     // 로그인 실패 페이지
-//    @GetMapping("/login-error")
-//    public String loginError(Model model) {
-//        model.addAttribute("loginError", true);
-//        return "login";
-//    }
+    @GetMapping("/login-error")
+    public String loginError(Model model) {
+        model.addAttribute("loginError", true);
+        return "login";
+    }
 
     // 회원 가입 페이지
     @GetMapping("/signup")
