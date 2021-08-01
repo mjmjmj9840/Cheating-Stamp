@@ -1,60 +1,17 @@
 <!DOCTYPE html>
-<html lang="ko">
-
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-  <title>Calibration</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
-
-  <!-- Favicons -->
-  <link href="./assets/img/favicon.png" rel="icon">
-  <link href="./assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-
-  <!-- Vendor CSS Files -->
-  <link href="./assets/vendor/animate.css/animate.min.css" rel="stylesheet">
-  <link href="./assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="./assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="./assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="./assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="./assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-
-  <!-- Template Main CSS File -->
-  <link href="./assets/css/style.css" rel="stylesheet">
+  <div th:replace="./fragments/header.html :: fragment-header"></div>
 
   <!-- webgazer.js -->
   <script src="./assets/webgazer/webgazer.js"></script>
-
-  <!-- ======= Header ======= -->
-  <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-  <script>
-    $(document).ready(function () {
-      $("#head").load("./header.html", function () {
-        //페이지 별로 다른 메뉴 css 적용도 가능
-        document.getElementById("header").classList.add("show");
-      });
-    })
-  </script>
-
 </head>
 
 <body>
-  <canvas id="plotting_canvas" width="500" height="500" style="cursor:crosshair;"></canvas>
+  <div th:replace="./fragments/webgazer_config.html :: fragment-webgazer-config"></div>
 
-  <script src="./assets/webgazer/node_modules/jquery/dist/jquery.min.js"></script>
-  <script src="./assets/webgazer/node_modules/sweetalert/dist/sweetalert.min.js"></script>
-
-  <script src="./assets/webgazer/js/main.js"></script>
-  <script src="./assets/webgazer/js/calibration.js"></script>
-  <script src="./assets/webgazer/js/precision_calculation.js"></script>
-  <script src="./assets/webgazer/js/precision_store_points.js"></script>
-
-  <div id='head'></div>
+  <!-- ======= Header ======= -->
+  <div th:replace="./fragments/navbar.html :: fragment-navbar"></div>
 
   <div class="calibrationDiv">
     <input type="button" class="Calibration" id="Pt1" />
@@ -92,21 +49,8 @@
     <p>Make window bigger to view contents. Resize the browser window over a height of <code>500px</code> or a width of <code>768px</code> and you won't see the content anymore.</p>
   </div>
 
-  <!-- Vendor JS Files -->
-  <script src="./assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="./assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="./assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="./assets/vendor/php-email-form/validate.js"></script>
-  <script src="./assets/vendor/purecounter/purecounter.js"></script>
-  <script src="./assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="./assets/vendor/waypoints/noframework.waypoints.js"></script>
-
-  <!-- Template Main JS File -->
-  <script src="./assets/js/main.js"></script>
-
+  <div th:replace="./fragments/config.html :: fragment-config"></div>
   <!-- Webgazer JS Files -->
   <script src="./assets/webgazer/js/resize_canvas.js"></script>
-
 </body>
-
 </html>
