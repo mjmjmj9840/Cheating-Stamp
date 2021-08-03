@@ -15,6 +15,7 @@
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
     <!-- Vendor CSS Files -->
     <link href=".././assets/vendor/animate.css/animate.min.css" rel="stylesheet">
@@ -73,20 +74,32 @@
 
     <section id="body-time">
         <div class="sec-box">
-            <hr/>
-            <p class="time-title"></p>
-            <span class="time">
-              <span class="hours"></span>
-              <span class="col">:</span>
-              <span class="minutes"></span>
-              <span class="col">:</span>
-              <span class="seconds"></span>
-            </span>
-          
-          </div>
-
+            <div class="exam-title">
+                <div class="material-icons">edit</div>
+                <div class="list1">응시 시험</div>
+                <div class="title">컴퓨터구조 기말고사</div>
+            </div>
+            <div class="exam-time">
+                <div class="material-icons">schedule</div>
+                <div class="list1">시험 시간</div>
+                <div class="title">70분</div>
+            </div>
+            <div class="exam-timer">
+                <div class="material-icons">timer</div>
+                <div id="var" class="time-title list1"></div>
+                <div class="time title">
+                    <span class="hours"></span>
+                    <span class="col">:</span>
+                    <span class="minutes"></span>
+                    <span class="col">:</span>
+                    <span class="seconds"></span>
+                </div>
+            </div>
+        </div>
+        <div class="btn-exam">
           <input id='target_btn' type='button' value='시험시작'/>
-    </section>
+        </div>
+        </section>
 
 
 </body>
