@@ -40,4 +40,8 @@ public class User extends Timestamped {
     @NotNull
     @Enumerated(value = EnumType.STRING)
     private UserRole role;
+
+    @NotNull
+    @Column
+    private int calibrationRate = 0;  // 아이트래킹 결과
 }

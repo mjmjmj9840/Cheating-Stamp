@@ -53,4 +53,8 @@ public class UserDetailsImpl implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.emptyList();
     }
+
+    public int getCalibrationRate() {
+        return user.getCalibrationRate();
+    }
 }
