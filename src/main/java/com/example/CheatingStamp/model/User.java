@@ -1,5 +1,6 @@
 package com.example.CheatingStamp.model;
 
+import com.example.CheatingStamp.dto.CalibrationRateRequestDto;
 import com.sun.istack.NotNull;
 import lombok.Builder;
 import lombok.Getter;
@@ -44,4 +45,8 @@ public class User extends Timestamped {
     @NotNull
     @Column
     private int calibrationRate = 0;  // 아이트래킹 결과
+
+    public void updateCalibrationRate(CalibrationRateRequestDto requestDto) {
+        this.calibrationRate = requestDto.getCalibrationRate();
+    }
 }

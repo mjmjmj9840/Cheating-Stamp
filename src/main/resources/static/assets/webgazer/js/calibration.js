@@ -181,7 +181,15 @@ function CalculateMeasurement() {
                   confirm: true,
                 }
               }).then(isConfirm => {
-                  location.replace("exam.html");
+                  $.ajax({
+                      type: "POST",
+                      url: '/calibration',
+                      contentType: "application/json",
+                      data: JSON.stringify({calibrationRate: precision_measurement}),
+                      success: function (response) {
+                          location.replace("/waiting");
+                      }
+                  })
               });
             }
         });

@@ -1,5 +1,6 @@
 package com.example.CheatingStamp.service;
 
+import com.example.CheatingStamp.dto.CalibrationRateRequestDto;
 import com.example.CheatingStamp.dto.SignupRequestDto;
 import com.example.CheatingStamp.model.User;
 import com.example.CheatingStamp.model.UserRole;
@@ -10,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
 
+import javax.transaction.Transactional;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -41,5 +43,12 @@ public class UserService {
 
         User user = new User(username, password, role);
         userRepository.save(user);
+    }
+
+    @Transactional
+    public User updateCalibrationRate(Long id, CalibrationRateRequestDto requestDto) {
+        User user = userRepository.findById(id).get();
+        user.updateCalibrationRate(requestDto);
+        return user;
     }
 }
