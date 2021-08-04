@@ -1,9 +1,9 @@
 function remaindTime() {
   var now = new Date(); //현재시간을 구한다. 
-  var end = new Date(now.getFullYear(),now.getMonth(),now.getDate(),0,29,29);
+  var end = new Date(now.getFullYear(),now.getMonth(),now.getDate(),16,36,0);
 //오늘날짜의 오후 x시 - 시험종료시간
 
-  var open = new Date(now.getFullYear(),now.getMonth(),now.getDate(),0,29,25);
+  var open = new Date(now.getFullYear(),now.getMonth(),now.getDate(),16,33,17);
 //오늘날짜의 오후 x시 - 시험시작시간
 
   var nt = now.getTime(); // 현재시간

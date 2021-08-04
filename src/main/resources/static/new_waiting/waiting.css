@@ -1,7 +1,3 @@
-.time span {
-  font-size: large;
-}
-
 /* js관련 class name */
 .disabled {
   display: none;
@@ -12,6 +8,7 @@
   width: 95% !important;
   font-weight: 700;
   font-size: 20px !important;
+  transition: 1s;
 }
 
 /* Body */
@@ -24,6 +21,7 @@
 .sec-box {
   text-align: center;
   display: inline-block;
+  width: auto;
 }
 
 .exam-title, 
@@ -31,7 +29,6 @@
 .exam-timer {
   margin-top: 8vh;
   border-bottom: 1px solid black;
-  width: 40vw;
   display: flex;
   align-items: center;
   padding-bottom: 3px;
@@ -50,6 +47,8 @@
 .exam-timer .list1 {
   font-size: 1.2vw;
   width: 20%;
+  min-width: 9vw;
+  margin-left: 8px;
 }
 
 .exam-title .title, 
@@ -58,10 +57,11 @@
   width: 75%;
   font-weight: 600;
   font-size: 1.6vw;
+  margin-left: 8vw;
+  margin-right: 1vw;
 }
 .exam-timer .title {
   font-weight: 700;
-  font-size: 1.8vw;
 }
 
 /* 버튼 */
@@ -77,4 +77,11 @@
   border: none;
   border-radius: 25px;
   font-weight: 600;
+  outline: none;
+  box-shadow: 1px 2.5px 0 rgb(0,0,0,0.5);
+}
+.btn-exam input:active {
+  position: relative;
+  top:2px;
+  box-shadow: 1px 1px 0 rgb(0,0,0,0.5);
 }
