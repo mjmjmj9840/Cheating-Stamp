@@ -33,9 +33,6 @@ public class User extends Timestamped {
 
     @NotNull
     private String password;
-    public void encodePassword(PasswordEncoder passwordEncoder) {   // 암호화
-        this.password = passwordEncoder.encode(this.password);
-    }
 
     @NotNull
     @Enumerated(value = EnumType.STRING)
