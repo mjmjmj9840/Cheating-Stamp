@@ -1,8 +1,6 @@
 package com.example.CheatingStamp.controller;
 
-import com.example.CheatingStamp.model.User;
 import com.example.CheatingStamp.security.UserDetailsImpl;
-import com.example.CheatingStamp.service.ExamService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -17,8 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Controller
 public class ExamController {
-    private final ExamService examService;
-
+    // 응시자와 시험 정보 빼오는 부분 서비스로 분리하기
     // 시험 대기 화면
     @GetMapping("/waiting")
     public String waiting(@AuthenticationPrincipal UserDetailsImpl userDetails, Model model) {
