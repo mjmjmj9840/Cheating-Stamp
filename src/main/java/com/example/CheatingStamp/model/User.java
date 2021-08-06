@@ -42,9 +42,8 @@ public class User extends Timestamped {
     @Enumerated(value = EnumType.STRING)
     private UserRole role;
 
-    @NotNull
     @Column
-    private int calibrationRate = 0;  // 아이트래킹 결과
+    private int calibrationRate;  // 아이트래킹 결과
 
     public void updateCalibrationRate(CalibrationRateRequestDto requestDto) {
         this.calibrationRate = requestDto.getCalibrationRate();

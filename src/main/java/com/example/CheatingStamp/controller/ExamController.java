@@ -1,6 +1,9 @@
 package com.example.CheatingStamp.controller;
 
+import com.example.CheatingStamp.model.User;
 import com.example.CheatingStamp.security.UserDetailsImpl;
+import com.example.CheatingStamp.service.ExamService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,8 +14,11 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@RequiredArgsConstructor
 @Controller
 public class ExamController {
+    private final ExamService examService;
+
     // 시험 대기 화면
     @GetMapping("/waiting")
     public String waiting(@AuthenticationPrincipal UserDetailsImpl userDetails, Model model) {
@@ -20,8 +26,8 @@ public class ExamController {
         // 예정된 시험이 없을 경우 홈 화면으로 넘김(시험 DB 완성 후 수정)
 
         // 아이트래킹 보정 전일 경우 보정 화면으로 넘김
-        int calibrationRate = userDetails.getUser().getCalibrationRate();
-        if (calibrationRate < 65) {
+        int calibrationRate = userDetails.getUser().getCalibrationRate();;
+        if (calibrationRate < 50) {
             model.addAttribute("doesNotCalibrate", true);
             return "redirect:/calibration";
         }

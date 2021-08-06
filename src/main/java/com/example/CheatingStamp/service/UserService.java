@@ -46,8 +46,7 @@ public class UserService {
     }
 
     @Transactional
-    public User updateCalibrationRate(Long id, CalibrationRateRequestDto requestDto) {
-        User user = userRepository.findById(id).get();
+    public User updateCalibrationRate(User user, CalibrationRateRequestDto requestDto) {
         user.updateCalibrationRate(requestDto);
         return user;
     }

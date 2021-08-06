@@ -5,12 +5,11 @@ import com.example.CheatingStamp.model.User;
 import com.example.CheatingStamp.security.UserDetailsImpl;
 import com.example.CheatingStamp.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @RequiredArgsConstructor
 @Controller
@@ -25,8 +24,9 @@ public class CalibrationController {
     }
 
     @PostMapping("/calibration")
-    public void saveCalibrationRate(@AuthenticationPrincipal UserDetailsImpl userDetails, @RequestParam CalibrationRateRequestDto requestDto) {
-        Long userId = userDetails.getUser().getId();
-        userService.updateCalibrationRate(userId, requestDto);
+    public String saveCalibrationRate(@AuthenticationPrincipal UserDetailsImpl userDetails, @RequestBody CalibrationRateRequestDto requestDto) {
+        User user = userDetails.getUser();
+        userService.updateCalibrationRate(user, requestDto);
+        return "redirect:/waiting";
     }
 }
