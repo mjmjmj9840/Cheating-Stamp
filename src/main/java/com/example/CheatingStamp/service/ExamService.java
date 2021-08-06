@@ -2,17 +2,12 @@ package com.example.CheatingStamp.service;
 
 import com.example.CheatingStamp.dto.CreateExamRequestDto;
 import com.example.CheatingStamp.model.Exam;
-import com.example.CheatingStamp.model.UserRole;
 import com.example.CheatingStamp.repository.ExamRepository;
-import jdk.vm.ci.meta.Local;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.BindingResult;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Optional;
 import java.util.UUID;
 
 @RequiredArgsConstructor

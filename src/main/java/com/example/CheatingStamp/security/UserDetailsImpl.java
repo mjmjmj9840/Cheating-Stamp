@@ -29,6 +29,10 @@ public class UserDetailsImpl implements UserDetails {
         return user.getUsername();
     }
 
+    public int getCalibrationRate() {
+        return user.getCalibrationRate();
+    }
+
     @Override
     public boolean isAccountNonExpired() {
         return true;

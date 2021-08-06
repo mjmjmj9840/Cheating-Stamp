@@ -10,16 +10,4 @@ public class HomeController {
     public String home() {
         return "index";
     }
-
-    // 아이트래킹 보정 페이지
-    @GetMapping("/calibration")
-    public String calibration() {
-        return "calibration";
-    }
-
-    // 시험 페이지
-    @GetMapping("/exam")
-    public String exam() {
-        return "exam";
-    }
 }
