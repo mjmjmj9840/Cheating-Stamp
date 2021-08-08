@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.HashMap;
+import java.util.Optional;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -36,5 +39,40 @@ public class ExamService {
 
         Exam exam = new Exam(code, title, starTime, endTime);
         examRepository.save(exam);
+    }
+
+    public Long getExamIdByCode(String code) {
+        Optional<Exam> found = examRepository.findByCode(code);
+        if (!found.isPresent()) {
+            throw new NullPointerException("해당 코드의 시험이 존재하지 않습니다.");
+        }
+        return found.get().getId();
+    }
+
+    public Long getFirstExamId(Long userId) {
+        // userId에 해당하는 응시자의 가장 가까운 시험의 id를 반환
+        return 1L;
+    }
+
+    public HashMap getExamInfo(Long id) {
+        HashMap<String,String> infoMap = new HashMap<String,String>();
+        Exam exam = examRepository.getById(id);
+        // examCode
+        String examCode = exam.getCode();
+        infoMap.put("examCode", examCode);
+        // examTitle
+        String examTitle = exam.getTitle();
+        infoMap.put("examTitle", examTitle);
+        // examStartTime
+        String examStartTime = exam.getStartTime().format(DateTimeFormatter.ofPattern("yyyyMMddHHmm"));
+        infoMap.put("examStartTime", examStartTime);
+        // examEndTime
+        String examEndTime = exam.getEndTime().format(DateTimeFormatter.ofPattern("yyyyMMddHHmm"));
+        infoMap.put("examEndTime", examEndTime);
+        // examTime
+        String examTime = ChronoUnit.MINUTES.between(exam.getStartTime(), exam.getEndTime()) + "분";
+        infoMap.put("examTime", examTime);
+
+        return infoMap;
     }
 }

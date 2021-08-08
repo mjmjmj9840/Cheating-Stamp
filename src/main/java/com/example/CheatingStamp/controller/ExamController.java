@@ -2,7 +2,6 @@ package com.example.CheatingStamp.controller;
 
 import com.example.CheatingStamp.dto.CreateExamRequestDto;
 import com.example.CheatingStamp.service.ExamService;
-import com.example.CheatingStamp.validator.ExamValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,9 +13,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.List;
+import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 
 
 @RequiredArgsConstructor
@@ -24,7 +22,6 @@ import java.util.List;
 public class ExamController {
 
     private final ExamService examService;
-    private final ExamValidator examValidator;
 
     // 시험 생성 페이지
     @GetMapping("/TESTexam")
@@ -56,20 +53,15 @@ public class ExamController {
             return "calibration";
         }
 
+        // 가장 가까운 시험의 정보 받아오기
+        Long examId = examService.getFirstExamId(userId);
+        HashMap<String,String> infoMap = examService.getExamInfo(examId);
 
-        // 시작시간, 종료시간, 시험제목, 시험코드 빼오기
-        // 현재는 임의의 값(시험 DB 완성 후 수정)
-        LocalDateTime examStartTime = LocalDateTime.now().plusMinutes(30);  // 30분 뒤 시험 시작
-        LocalDateTime examEndTime = LocalDateTime.now().plusHours(1);  // 1시간 뒤 시험 종료
-        String examTime = String.valueOf(ChronoUnit.MINUTES.between(examStartTime, examEndTime)) + "분";
-        String examTitle = "소프트웨어 공학^^*";
-        String examCode = "sldkj2349djfkln23kn4bl9";
-
-        model.addAttribute("examStartTime", examStartTime);
-        model.addAttribute("examEndTime", examEndTime);
-        model.addAttribute("examTime", examTime);
-        model.addAttribute("examTitle", examTitle);
-        model.addAttribute("examCode", examCode);
+        model.addAttribute("examStartTime", infoMap.get("examStartTime"));  // yyyyMMddHHmm
+        model.addAttribute("examEndTime", infoMap.get("examEndTime"));  // yyyyMMddHHmm
+        model.addAttribute("examTime", infoMap.get("examTime"));  // mm분
+        model.addAttribute("examTitle", infoMap.get("examTitle"));
+        model.addAttribute("examCode", infoMap.get("examCode"));
 
         return "waiting";
     }
@@ -77,29 +69,24 @@ public class ExamController {
     // 시험 화면
     @GetMapping("/exam/{code}")
     public String exam(@AuthenticationPrincipal UserDetailsImpl userDetails, @PathVariable String code, Model model) {
-        // 시험ID, 시작시간, 종료시간 빼오기(시험 DB 완성 후 수정)
-        Long examId = 1L;
-        LocalDateTime examStartTime = LocalDateTime.now().minusMinutes(10);  // 10분 전 시험 시작
-        LocalDateTime examEndTime = LocalDateTime.now().plusHours(1);  // 1시간 뒤 시험 종료
-        LocalDateTime now = LocalDateTime.now();
+        // 시험 코드에 해당하는 시험 정보 받아오기
+        Long examId = examService.getExamIdByCode(code);
+        HashMap<String,String> infoMap = examService.getExamInfo(examId);
+        String now = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmm"));
         // 시험 시작 전일 경우 대기 화면으로 넘김
-        if (now.isBefore(examStartTime)) {
+        if (now.compareTo(infoMap.get("examStartTime")) < 0) {
             return "redirect:/waiting";
         }
         // 시험 종료 후엔 접근할 수 없음
-        if (now.isAfter(examEndTime)) {
+        if (now.compareTo(infoMap.get("examEndTime")) > 0) {
             return "redirect:/";
         }
 
-
-        // 시험제목, 시험문제 빼오기(시험 DB 완성 후 수정)
-        String examTitle = "소프트웨어 공학";
-        List<String> questionList = new ArrayList<>();
-        questionList.add("1번 문제~~~");
         model.addAttribute("examId", examId);
-        model.addAttribute("examEndTime", examEndTime);
-        model.addAttribute("examTitle", examTitle);
-        model.addAttribute("questionList", questionList);
+        model.addAttribute("examTime", infoMap.get("examTime"));
+        model.addAttribute("examEndTime", infoMap.get("examEndTime"));
+        model.addAttribute("examTitle", infoMap.get("examTitle"));
+        // model.addAttribute("questionList", questionList);
 
         return "exam";
     }
