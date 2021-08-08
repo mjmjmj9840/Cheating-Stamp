@@ -14,6 +14,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +38,7 @@ public class ExamController {
         //examValidator.validate(createExamRequestDto, bindingResult);    // 날짜 유효성 검사
 
         examService.createExam(createExamRequestDto);
-        return "redirect:/exam";
+        return "redirect:/";
     }
 
     // 응시자와 시험 정보 빼오는 부분 서비스로 분리하기
@@ -49,10 +50,10 @@ public class ExamController {
 
         // 아이트래킹 보정 전일 경우 보정 화면으로 넘김
         int calibrationRate = userDetails.getUser().getCalibrationRate();
-        ;
+
         if (calibrationRate < 50) {
             model.addAttribute("doesNotCalibrate", true);
-            return "redirect:/calibration";
+            return "calibration";
         }
 
 
@@ -60,11 +61,13 @@ public class ExamController {
         // 현재는 임의의 값(시험 DB 완성 후 수정)
         LocalDateTime examStartTime = LocalDateTime.now().plusMinutes(30);  // 30분 뒤 시험 시작
         LocalDateTime examEndTime = LocalDateTime.now().plusHours(1);  // 1시간 뒤 시험 종료
+        String examTime = String.valueOf(ChronoUnit.MINUTES.between(examStartTime, examEndTime)) + "분";
         String examTitle = "소프트웨어 공학^^*";
         String examCode = "sldkj2349djfkln23kn4bl9";
 
         model.addAttribute("examStartTime", examStartTime);
         model.addAttribute("examEndTime", examEndTime);
+        model.addAttribute("examTime", examTime);
         model.addAttribute("examTitle", examTitle);
         model.addAttribute("examCode", examCode);
 
