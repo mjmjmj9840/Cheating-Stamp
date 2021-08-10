@@ -1,7 +1,6 @@
 package com.example.CheatingStamp.model;
 
 import com.sun.istack.NotNull;
-import com.sun.org.apache.bcel.internal.generic.ACONST_NULL;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,6 +8,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Setter
 @Getter
@@ -41,4 +42,12 @@ public class Exam extends Timestamped {
     @NotNull
     private LocalDateTime endTime;
 
+    @OneToMany
+    @JoinColumn(name = "EXAM_ID")
+    private List<Question> questions = new ArrayList<Question>();
+
+    public void addQuestion(Question question) {
+        questions.add(question);
+        question.setExam(this);
+    }
 }
