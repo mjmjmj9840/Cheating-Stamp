@@ -90,5 +90,11 @@ public class ExamController {
 
         return "exam";
     }
+
+    // 임시 시험 화면
+    @GetMapping("/exam")
+    public String exam(@AuthenticationPrincipal UserDetailsImpl userDetails) {
+        return "exam";
+    }
 }
 
