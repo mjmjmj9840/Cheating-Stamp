@@ -156,8 +156,8 @@ function CalculateMeasurement() {
             var precision_measurement = calculatePrecision(past50);
             // var accuracyLabel = "<a>Accuracy | "+precision_measurement+"%</a>";
             // document.getElementById("Accuracy").innerHTML = accuracyLabel; // Show the accuracy in the nav bar.
-            // 정확도가 75% 이상이어야 시험 입장 가능
-            if(precision_measurement < 65){
+            // 정확도가 50% 이상이어야 시험 입장 가능(나중에 수정)
+            if(precision_measurement < 50){
               swal({
                 title: "Your accuracy measure is " + precision_measurement + "%",
                 text: "정확도가 너무 낮습니다. 보정 과정을 다시 진행해주세요. ",
@@ -181,7 +181,12 @@ function CalculateMeasurement() {
                   confirm: true,
                 }
               }).then(isConfirm => {
-                  location.replace("exam.html");
+                  $.ajax({
+                      type: "POST",
+                      url: '/calibration',
+                      contentType: "application/json",
+                      data: JSON.stringify({calibrationRate: precision_measurement}),
+                  })
               });
             }
         });
