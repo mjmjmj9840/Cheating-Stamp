@@ -96,5 +96,11 @@ public class ExamController {
     public String exam(@AuthenticationPrincipal UserDetailsImpl userDetails) {
         return "exam";
     }
+
+    // 시험 종료 화면
+    @GetMapping("/examEnd")
+    public String examEnd(Model model) {
+        return "examEnd";
+    }
 }
 
