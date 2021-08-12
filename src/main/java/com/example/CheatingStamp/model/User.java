@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Setter
 @Getter
@@ -38,6 +40,9 @@ public class User extends Timestamped {
     @NotNull
     @Enumerated(value = EnumType.STRING)
     private UserRole role;
+
+    @ManyToMany(mappedBy = "users")
+    private List<Exam> exams = new ArrayList<Exam>();
 
     @Column
     private int calibrationRate;  // 아이트래킹 결과
