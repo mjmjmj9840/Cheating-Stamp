@@ -36,7 +36,7 @@ window.onload = () => {
 
     startBtn.onclick = async () => { // 녹화 시작 버튼을 누른 경우
 
-        desktopStream = await navigator.mediaDevices.getDisplayMedia({ video: { width: 1280 , height: 720 }, audio: false }); // 비디오스트림 생성
+        desktopStream = await navigator.mediaDevices.getDisplayMedia({ video: { width: 720 , height: 480 }, audio: false }); // 비디오스트림 생성
         // voiceStream = await navigator.mediaDevices.getUserMedia({ video: false, audio: true }); // 오디오스트림 생성
 
         const tracks = [
