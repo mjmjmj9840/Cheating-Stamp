@@ -864,6 +864,7 @@ section {
   height: 100vh;
 }
 .text-box h1 {
+  margin-top: 200px;
   font-size: 32px;    color: #000;
   text-align: center;
   margin-bottom: 60px;
