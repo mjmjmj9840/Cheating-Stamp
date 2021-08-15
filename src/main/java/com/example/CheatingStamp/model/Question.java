@@ -41,7 +41,7 @@ public class Question extends Timestamped {
 @Getter
 @NoArgsConstructor
 @Entity
-class Choice {
+class Choice extends Timestamped {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     private int id;

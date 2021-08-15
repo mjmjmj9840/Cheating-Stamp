@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor
 @Entity
-public class Video {
+public class Video extends Timestamped {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     private Long id;
@@ -22,6 +22,10 @@ public class Video {
 
     @Column(columnDefinition = "TEXT")
     private String filePath;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "EXAM_ID", insertable = false, updatable = false)
+    private Exam exam;
 
     @Builder
     public Video(Long id, String title, String filePath) {

@@ -57,4 +57,13 @@ public class Exam extends Timestamped {
         questions.add(question);
         question.setExam(this);
     }
+
+    @OneToMany
+    @JoinColumn(name = "EXAM_ID")
+    private List<Video> videos = new ArrayList<Video>();
+
+    public void addVideo(Video video) {
+        videos.add(video);
+        video.setExam(this);
+    }
 }
