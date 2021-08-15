@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="./fragments/header.html :: fragment-header"></div>
+    <!-- waiting page header file -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link href="./assets/css/waiting.css" rel="stylesheet">
+    <script type="text/javascript" src="./assets/js/waiting.js" defer></script>
+</head>
+
+<body>
+    <!-- ======= Header ======= -->
+    <div th:replace="./fragments/navbar.html :: fragment-navbar"></div>
+
+    <section id="body-time">
+        <div class="sec-box">
+            <div class="exam-title">
+                <div class="material-icons">edit</div>
+                <div class="list1">응시 시험</div>
+                <div class="title" th:text="${examTitle}"></div>
+            </div>
+            <div class="exam-time">
+                <div class="material-icons">schedule</div>
+                <div class="list1">시험 시간</div>
+                <div class="title" th:text="${examTime}"></div>
+            </div>
+            <div class="exam-timer">
+                <div class="material-icons">timer</div>
+                <div id="var" class="time-title list1"></div>
+                <div class="time title">
+                    <span class="hours"></span>
+                    <span class="col">:</span>
+                    <span class="minutes"></span>
+                    <span class="col">:</span>
+                    <span class="seconds"></span>
+                </div>
+            </div>
+        </div>
+        <div class="btn-exam">
+          <input id='target_btn' type='button' value='시험시작'/>
+        </div>
+    </section>
+
+    <div th:replace="./fragments/config.html :: fragment-config"></div>
+</body>
+</html>

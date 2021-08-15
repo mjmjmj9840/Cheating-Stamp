@@ -3,3 +3,13 @@ html, body {
 	height: 100%;
 	overflow: hidden;
 }
+
+.alert.alert-danger {
+	position: fixed;
+	width: 50vw;
+	display: none;
+}
+
+.alert-true {
+	display: block !important;
+}

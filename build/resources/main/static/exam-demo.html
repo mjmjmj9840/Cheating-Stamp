@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>CheatingStamp</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="./assets/vendor/animate.css/animate.min.css" rel="stylesheet">
+    <link href="./assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="./assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="./assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="./assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="./assets/css/style.css" rel="stylesheet">
+
+    <!-- JQuery File -->
+    <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link href="./assets/css/exam.css" rel="stylesheet">
+</head>
+
+<body>
+    <script defer src="./assets/webgazer/webgazer.js"></script>
+    <script src="./assets/js/index.js" defer></script>
+
+    <!-- ======= Header ======= -->
+    <header id="header" class="d-flex align-items-center">
+      <div class="container d-flex justify-content-between align-items-center">
+          <div class="logo">
+              <h1><a href="/">Cheating Stamp</a></h1>
+          </div>
+
+          <nav id="navbar" class="navbar">
+              <ul>
+                  <li><a class="active" href="/">Home</a></li>
+                  <li><a href="#">About</a></li>
+                  <li sec:authorize="!isAuthenticated()"><a href="/login">Login</a></li>
+                  <li sec:authorize="isAuthenticated()"><a href="/logout">Logout</a></li>
+                  <li class="dropdown"><a href="#"><span>Eye-tracking</span> <i class="bi bi-chevron-down"></i></a>
+                      <ul>
+                          <li><a href="/calibration">Calibration</a></li>
+                          <li><a href="#">Accuracy Test</a></li>
+
+                      </ul>
+                  </li>
+              </ul>
+              <i class="bi bi-list mobile-nav-toggle"></i>
+          </nav>
+      </div>
+  </header>
+
+    <main id="main">
+        <div class="row py-3">
+            <div class="side_c" id="side_i">
+                <div class="nav flex-column" id="sidebar-nav">
+                    <div class="notice-box">
+                        <p class="notice">ㅡ ㅡ ㅡ 감독관 공지사항 ㅡ ㅡ ㅡ <br/>-- <br/>-- <br/>-- </p>
+                    </div>
+                    <div class="time-box">
+                        <p class="time">종료까지 남은 시간<br>
+                            00 : 00 : 00</p>
+                    </div>
+                    <div class="button text-center">
+                        <a href="#" class="btn btn-primary">질문하기</a>
+                        <a href="#" class="btn btn-dark">끝내기</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col" id="main">
+                <div class="alert alert-danger" role="alert">
+                    수험자의 시선이 경계 범위를 넘었습니다. 주의하세요.
+                  </div>
+                <h1>시험 문제</h1>
+                <p>Chambray sustainable roof party. Shoreditch vegan artisan Helvetica. Tattooed Codeply <br/> Echo Park
+                    Godard kogi, next level irony ennui twee squid fap selvage. Meggings flannel Brooklyn literally small
+                    batch, mumblecore PBR try-hard kale chips. Brooklyn vinyl lumbersexual bicycle rights, viral fap cronut
+                    leggings squid chillwave pickled gentrify mustache. 3 wolf moon hashtag church-key Odd Future. Austin
+                    messenger bag normcore, Helvetica Williamsburg sartorial tote bag distillery Portland before they sold
+                    out gastropub taxidermy Vice.</p>
+                <p>3 wolf moon retro jean shorts chambray sustainable roof party. Shoreditch <br/>vegan artisan Helvetica.
+                    Tattooed Codeply Echo Park Godard kogi, next level irony ennui twee squid fap selvage. Meggings
+                    flannel<br/> Brooklyn literally small batch, mumblecore PBR try-hard kale chips. Brooklyn vinyl
+                    lumbersexual bicycle rights, viral fap cronut leggings squid chillwave pickled gentrify mustache. 3 wolf
+                    moon hashtag church-key Odd Future. Austin messenger bag normcore, Helvetica Williamsburg sartorial tote
+                    bag distillery Portland before they sold out gastropub taxidermy Vice.</p>
+                <p>3 wolf moon retro jean shorts chambray sustainable roof party. Shoreditch <br/>vegan artisan Helvetica.
+                    Tattooed Codeply Echo Park Godard kogi, next level irony ennui twee squid fap selvage. Meggings
+                    flannel<br/> Brooklyn literally small batch, mumblecore PBR try-hard kale chips. Brooklyn vinyl
+                    lumbersexual bicycle rights, viral fap cronut leggings squid chillwave pickled gentrify mustache. 3 wolf
+                    moon hashtag church-key Odd Future. Austin messenger bag normcore, Helvetica Williamsburg sartorial tote
+                    bag distillery Portland before they sold out gastropub taxidermy Vice.</p>
+            </div>
+        </div>
+    </main>
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Vendor JS Files -->
+    <script src="./assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="./assets/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="./assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="./assets/vendor/php-email-form/validate.js"></script>
+    <script src="./assets/vendor/purecounter/purecounter.js"></script>
+    <script src="./assets/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="./assets/vendor/waypoints/noframework.waypoints.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="./assets/js/main.js"></script>
+    <script src="./assets/js/exam.js"></script>
+</body>
+</html>

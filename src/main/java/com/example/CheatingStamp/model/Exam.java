@@ -42,6 +42,13 @@ public class Exam extends Timestamped {
     @NotNull
     private LocalDateTime endTime;
 
+    @ManyToMany
+    @JoinTable(
+            name = "user_exam",
+            joinColumns = @JoinColumn(name = "user_id"),    // 현재 엔티티를 참조하는 외래 키
+            inverseJoinColumns = @JoinColumn(name = "exam_id")) // 반대 방향 엔티티를 참조하는 외래 키
+    private List<User> users = new ArrayList<User>();
+
     @OneToMany
     @JoinColumn(name = "EXAM_ID")
     private List<Question> questions = new ArrayList<Question>();

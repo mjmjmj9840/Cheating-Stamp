@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="./fragments/header.html :: fragment-header"></div>
+</head>
+
+<body>
+    <!-- ======= Header ======= -->
+    <div th:replace="./fragments/navbar.html :: fragment-navbar"></div>
+
+    <div class="text-box">
+         <h1>시험이 종료되었습니다.<br>수고하셨습니다!</h1>
+           
+        <div class="btn-box">
+            <button id="btn" type="button" onclick="location.href='/'">HOME →</button>
+        </div>
+    
+            <div class="caption" id="index-btn" onclick="location.href='/logout'">LOGOUT</div>
+    </div>
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+    <div th:replace="./fragments/config.html :: fragment-config"></div>
+</body>
+</html>

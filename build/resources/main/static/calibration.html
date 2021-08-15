@@ -49,6 +49,14 @@
     <p>Make window bigger to view contents. Resize the browser window over a height of <code>500px</code> or a width of <code>768px</code> and you won't see the content anymore.</p>
   </div>
 
+  <script type="text/javascript" th:inline="javascript">
+    <!-- 보정 과정 안했을 때 에러 메세지 -->
+    let error = [[ ${doesNotCalibrate} ]];
+    if (error) {
+      alert("아이트래킹 보정을 먼저 진행해주세요.");
+      window.location.replace("/calibration");
+    }
+  </script>
   <div th:replace="./fragments/config.html :: fragment-config"></div>
   <!-- Webgazer JS Files -->
   <script src="./assets/webgazer/js/resize_canvas.js"></script>

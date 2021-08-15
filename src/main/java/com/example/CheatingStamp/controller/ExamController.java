@@ -102,5 +102,11 @@ public class ExamController {
     public String testRecord(@AuthenticationPrincipal UserDetailsImpl userDetails) {
         return "TESTrecord";
     }
+
+    // 시험 종료 화면
+    @GetMapping("/examEnd")
+    public String examEnd(Model model) {
+        return "examEnd";
+    }
 }
 
