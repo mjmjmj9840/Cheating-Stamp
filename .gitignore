@@ -95,9 +95,11 @@ local.properties
 .idea/**/dbnavigator.xml
 
 # Gradle
-.idea/**/gradle.xml
-.idea/**/libraries
-.gradle/
+.gradle
+.gradle/checksums
+/build/
+.gradletasknamecache
+
 
 # Gradle and Maven with auto-import
 # When using Gradle or Maven with auto-import, you should exclude module files,
@@ -592,3 +594,6 @@ FodyWeavers.xsd
 # Additional files built by Visual Studio
 
 # End of https://www.toptal.com/developers/gitignore/api/intellij,eclipse,visualstudio,java
+
+### my ignore ###
+src/main/resources/application.yml

@@ -97,6 +97,12 @@ public class ExamController {
         return "exam";
     }
 
+    // 녹화 테스트 화면
+    @GetMapping("/TESTrecord")
+    public String testRecord(@AuthenticationPrincipal UserDetailsImpl userDetails) {
+        return "TESTrecord";
+    }
+
     // 시험 종료 화면
     @GetMapping("/examEnd")
     public String examEnd(Model model) {
