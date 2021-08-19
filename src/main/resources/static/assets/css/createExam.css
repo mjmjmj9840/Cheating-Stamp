@@ -1,0 +1,71 @@
+h1 {
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.login-box{
+  margin-top: 60px;
+  height: max-content;
+}
+
+.question {
+  display: flex;
+  align-items: center;
+}
+.question .QA {
+  border: none;
+  outline: none;
+  border-bottom: 1px solid rgb(160, 159, 159);
+  width: 400px;
+}
+
+.buttonA {
+  padding-top: 10px;
+}
+.notice{
+  color: rgba(0, 0, 236, 0.658);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.material-icons {
+  font-size: 15px;
+  font-weight: 600;
+  opacity: 90%;
+}
+.buttonA input,
+.btnRemove {
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  border: 1px solid black;
+  outline: none;
+  box-shadow: 1px 1px 0 rgba(77, 77, 77, 0.199);
+}
+.buttonA input:active,
+.btnRemove:active {
+  position: relative;
+  top:2px;
+  box-shadow: 1px 1px 0 rgb(0,0,0,0.5);
+}
+#btn {
+  font-weight: 600;
+  outline: none;
+  box-shadow: 1px 2.5px 0 rgb(0,0,0,0.5);
+  margin-bottom: 10px;
+}
+#btn:active {
+  position: relative;
+  top:2px;
+  box-shadow: 1px 1px 0 rgb(0,0,0,0.5);
+}
+
+
+.Qnum {
+  margin-top: 30px;
+  display: block;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
