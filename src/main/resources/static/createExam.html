@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>CheatingStamp</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <!-- Vendor CSS Files -->
+    <link href="./assets/vendor/animate.css/animate.min.css" rel="stylesheet">
+    <link href="./assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="./assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="./assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="./assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="./assets/css/style.css" rel="stylesheet">
+
+    <!-- JQuery File -->
+    <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <link href="./assets/css/createExam.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <!-- ======= Header ======= -->
+    <header id="header" class="d-flex align-items-center">
+      <div class="container d-flex justify-content-between align-items-center">
+          <div class="logo">
+              <h1><a href="/">Cheating Stamp</a></h1>
+          </div>
+
+          <nav id="navbar" class="navbar">
+              <ul>
+                  <li><a class="active" href="/">Home</a></li>
+                  <li><a href="#">About</a></li>
+                  <li sec:authorize="!isAuthenticated()"><a href="/login">Login</a></li>
+                  <li sec:authorize="isAuthenticated()"><a href="/logout">Logout</a></li>
+                  <li class="dropdown"><a href="#"><span>Eye-tracking</span> <i class="bi bi-chevron-down"></i></a>
+                      <ul>
+                          <li><a href="/calibration">Calibration</a></li>
+                          <li><a href="#">Accuracy Test</a></li>
+
+                      </ul>
+                  </li>
+              </ul>
+              <i class="bi bi-list mobile-nav-toggle"></i>
+          </nav>
+      </div>
+  </header>
+
+    <div class="login-box">
+        <div class="login-form">
+            <h1>Create Exam</h1>
+            <form method="post" th:action="@{TESTexam}" th:object="${createExamRequestDto}">    <!--th:action@{html파일 이름}-->
+                <!--시험 제목 입력 폼-->
+                <div class="int-area">
+                    <input type="text" name="examTitle" id="title" autocomplete="off" required>
+                    <label for="title">Title</label>
+                </div>
+                <!--시험 시작 시각, 제한 시각 입력 폼-->
+                <div class="int-area">
+                    <input type="datetime-local" name="examStartTime" id="examStartTime" th:classappend="${#fields.hasErrors('examStartTime')} ? 'is-invalid'" autocomplete="off" required>
+                    <label for="examStartTime">시작 시각</label>
+<!--                    <p class="invalid-feedback" th:if="${#fields.hasErrors('startTime')}" th:errors="*{startTime}">error 1</p>-->
+                </div>
+                <div class="int-area">
+                    <input type="datetime-local" name="examEndTime" id="examEndTime" th:classappend="${#fields.hasErrors('examEndTime')} ? 'is-invalid'" autocomplete="off" required>
+                    <label for="examEndTime">제한 시각</label>
+<!--                    <p class="invalid-feedback" th:if="${#fields.hasErrors('endTime')}" th:errors="*{endTime}">error 2</p>-->
+                </div>
+                
+                <div class="notice"><span class="material-icons">add_circle_outline</span> &nbsp; 버튼을 눌러 시험문제를 하나씩 추가하세요.</div>
+                <div class="buttons">
+                </div>
+                <div class="buttonA">      
+                    <input type="button" class="btnAdd" value="+"><br>        
+                </div>
+
+                <div class="btn-area">
+                    <button id="btn" type="submit">시험 생성</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Vendor JS Files -->
+    <script src="./assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="./assets/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="./assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="./assets/vendor/php-email-form/validate.js"></script>
+    <script src="./assets/vendor/purecounter/purecounter.js"></script>
+    <script src="./assets/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="./assets/vendor/waypoints/noframework.waypoints.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="./assets/js/main.js"></script>
+    <script src="./assets/js/createExam.js"></script>
+
+</body>
+</html>
