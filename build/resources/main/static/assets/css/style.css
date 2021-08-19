@@ -764,6 +764,11 @@ section {
   padding: 4px 0;
   font-size: 0.8vh;
 }
+.exam-timer .list1 {
+  text-align: center;
+  padding: 4px 0;
+  font-size: 0.8vh;
+}
 
 .row.py-3 .col {
   max-width: 65%;

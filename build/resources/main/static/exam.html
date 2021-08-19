@@ -8,6 +8,7 @@
 <body>
     <script defer src="./assets/webgazer/webgazer.js"></script>
     <script src="./assets/js/index.js" defer></script>
+    <script type="text/javascript" src="./assets/js/exam.js" defer></script>
 
     <!-- ======= Header ======= -->
     <div th:replace="./fragments/navbar.html :: fragment-navbar"></div>
@@ -20,8 +21,16 @@
                         <p class="notice">ㅡ ㅡ ㅡ 감독관 공지사항 ㅡ ㅡ ㅡ <br/>-- <br/>-- <br/>-- </p>
                     </div>
                     <div class="time-box">
-                        <p class="time">종료까지 남은 시간<br>
-                            00 : 00 : 00</p>
+                        <div class="exam-timer">
+                            <div id="var" class="time-title list1"></div>
+                            <div class="time title">
+                                <span class="hours"></span>
+                                <span class="col">:</span>
+                                <span class="minutes"></span>
+                                <span class="col">:</span>
+                                <span class="seconds"></span>
+                            </div>
+                        </div>
                     </div>
                     <div class="button text-center">
                         <a href="#" class="btn btn-primary">질문하기</a>
