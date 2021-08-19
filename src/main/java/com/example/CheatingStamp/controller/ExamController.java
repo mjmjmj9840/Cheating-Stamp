@@ -1,7 +1,10 @@
 package com.example.CheatingStamp.controller;
 
 import com.example.CheatingStamp.dto.CreateExamRequestDto;
+import com.example.CheatingStamp.dto.VideoRequestDto;
 import com.example.CheatingStamp.service.ExamService;
+import com.example.CheatingStamp.service.S3Service;
+import com.example.CheatingStamp.service.VideoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,7 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.example.CheatingStamp.security.UserDetailsImpl;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
@@ -22,6 +27,8 @@ import java.util.HashMap;
 public class ExamController {
 
     private final ExamService examService;
+    private final S3Service s3Service;
+    private final VideoService videoService;
 
     // 시험 생성 페이지
     @GetMapping("/TESTexam")
@@ -101,6 +108,22 @@ public class ExamController {
     @GetMapping("/TESTrecord")
     public String testRecord(@AuthenticationPrincipal UserDetailsImpl userDetails) {
         return "TESTrecord";
+    }
+
+    // 응시 영상 업로드
+    @PostMapping("/upload")
+    public String uploadVideo(@AuthenticationPrincipal UserDetailsImpl userDetails, MultipartFile file) throws IOException {
+        // s3에 응시 영상 업로드
+        String title = userDetails.getUser().getUsername();
+        String filePath = s3Service.upload(file, title);
+        // DB에 영상 이름과 url 저장
+        VideoRequestDto requestDto = new VideoRequestDto();
+        requestDto.setTitle(title);
+        requestDto.setFilePath(filePath);
+
+        videoService.savePost(requestDto);
+
+        return "redirect:/examEnd";
     }
 
     // 시험 종료 화면

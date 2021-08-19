@@ -44,9 +44,7 @@ public class S3Service {
                 .build();
     }
 
-    public String upload(MultipartFile file) throws IOException {
-        String fileName = file.getOriginalFilename();
-
+    public String upload(MultipartFile file, String title) throws IOException {
         // ObejctMetadata 설정
         byte[] bytes = IOUtils.toByteArray(file.getInputStream());
         ObjectMetadata objectMetadata = new ObjectMetadata();
@@ -54,8 +52,8 @@ public class S3Service {
         objectMetadata.setContentType(file.getContentType());
 
         // S3에 저장
-        s3Client.putObject(new PutObjectRequest(bucket, fileName, file.getInputStream(), objectMetadata)
+        s3Client.putObject(new PutObjectRequest(bucket, title, file.getInputStream(), objectMetadata)
                 .withCannedAcl(CannedAccessControlList.PublicRead));
-        return s3Client.getUrl(bucket, fileName).toString();
+        return s3Client.getUrl(bucket, title).toString();
     }
 }
