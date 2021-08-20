@@ -26,19 +26,17 @@ public class ExamService {
     }
 
     // requestDto로부터 정보 받아와 객체 생성
-    public void createExam(CreateExamRequestDto requestDto) {
-
+    public Long createExam(CreateExamRequestDto requestDto) {
         String title = requestDto.getTitle();
         String code = UUID.randomUUID().toString().replace("-", "");    // 고유식별자(UUID) 생성
-
         LocalDateTime starTime = StringToTime(requestDto.getStartTime());
-        System.out.println(starTime);
-
         LocalDateTime endTime = StringToTime(requestDto.getEndTime());
-        System.out.println(endTime);
+        String questions = requestDto.getQuestions();
 
-        Exam exam = new Exam(code, title, starTime, endTime);
+        Exam exam = new Exam(code, title, starTime, endTime, questions);
         examRepository.save(exam);
+
+        return exam.getId();
     }
 
     public Long getExamIdByCode(String code) {

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.example.CheatingStamp.security.UserDetailsImpl;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -31,17 +32,15 @@ public class ExamController {
     private final VideoService videoService;
 
     // 시험 생성 페이지
-    @GetMapping("/TESTexam")
-    public String setExam(Model model) {
-        model.addAttribute("createExamRequestDto", new CreateExamRequestDto());
-        return "TESTexam";
+    @GetMapping("/createExam")
+    public String createExam(@AuthenticationPrincipal UserDetailsImpl userDetails) {
+        return "createExam";
     }
 
-    @PostMapping("/TESTexam")
-    public String createExam(CreateExamRequestDto createExamRequestDto, BindingResult bindingResult) {
-        //examValidator.validate(createExamRequestDto, bindingResult);    // 날짜 유효성 검사
+    @PostMapping("/createExam")
+    public String saveExam(@RequestBody CreateExamRequestDto requestDto) {
+        examService.createExam(requestDto);
 
-        examService.createExam(createExamRequestDto);
         return "redirect:/";
     }
 
