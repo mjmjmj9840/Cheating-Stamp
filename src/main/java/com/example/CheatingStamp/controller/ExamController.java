@@ -5,16 +5,14 @@ import com.example.CheatingStamp.dto.VideoRequestDto;
 import com.example.CheatingStamp.service.ExamService;
 import com.example.CheatingStamp.service.S3Service;
 import com.example.CheatingStamp.service.VideoService;
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import com.example.CheatingStamp.security.UserDetailsImpl;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -37,11 +35,12 @@ public class ExamController {
         return "createExam";
     }
 
+    @ResponseBody
     @PostMapping("/createExam")
-    public String saveExam(@RequestBody CreateExamRequestDto requestDto) {
+    public String saveExam(@ModelAttribute CreateExamRequestDto requestDto) {
         examService.createExam(requestDto);
 
-        return "redirect:/";
+        return "redirect:/index";
     }
 
     // 응시자와 시험 정보 빼오는 부분 서비스로 분리하기

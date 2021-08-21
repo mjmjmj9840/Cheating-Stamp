@@ -60,17 +60,18 @@ $(document).ready(function () {
                 jsonArray.push(JSON.parse(jsonObj));
             }
 
-            let data = new Object();
-            data.title = formData['title'];
-            data.startTime = formData['startTime'];
-            data.endTime = formData['endTime'];
-            data.questions = JSON.stringify(jsonArray);
+            var data = new FormData();
+            data.append('title', formData['title']);
+            data.append('startTime', formData['startTime']);
+            data.append('endTime', formData['endTime']);
+            data.append('questions', JSON.stringify(jsonArray));
 
             $.ajax({
                 url: "/createExam",
                 type: "POST",
-                contentType: "application/json",
-                data: JSON.stringify(data),
+                processData: false,
+                contentType: false,
+                data: data,
                 success: function (response) {
                     alert("시험을 성공적으로 생성했습니다.");
                     window.location.href = '/';
