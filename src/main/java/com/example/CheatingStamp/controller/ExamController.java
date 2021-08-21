@@ -1,8 +1,10 @@
 package com.example.CheatingStamp.controller;
 
 import com.example.CheatingStamp.dto.CreateExamRequestDto;
+import com.example.CheatingStamp.dto.SaveAnswerRequestDto;
 import com.example.CheatingStamp.dto.VideoRequestDto;
 import com.example.CheatingStamp.service.ExamService;
+import com.example.CheatingStamp.service.AnswerService;
 import com.example.CheatingStamp.service.S3Service;
 import com.example.CheatingStamp.service.VideoService;
 import com.fasterxml.jackson.databind.util.JSONPObject;
@@ -26,6 +28,7 @@ import java.util.HashMap;
 public class ExamController {
 
     private final ExamService examService;
+    private final AnswerService answerService;
     private final S3Service s3Service;
     private final VideoService videoService;
 
@@ -94,6 +97,14 @@ public class ExamController {
         // model.addAttribute("questionList", questionList);
 
         return "exam";
+    }
+
+    @ResponseBody
+    @PostMapping("/exam")
+    public String saveAnswer(@ModelAttribute SaveAnswerRequestDto requestDto) {
+        answerService.createAnswer(requestDto);
+
+        return "redirect:/examEnd";
     }
 
     // 임시 시험 화면
