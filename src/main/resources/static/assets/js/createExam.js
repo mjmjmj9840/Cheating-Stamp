@@ -39,17 +39,7 @@ $(document).ready(function () {
 
     $("#submit-btn").click(function () {
         let formData = $("#form").serializeObject();
-
-        // form validation check
-        if (formData['title'].length == 0) {
-            alert("시험 제목을 입력해주세요.");
-        } else if (formData['startTime'] < localISOTime) {
-            alert("시작 날짜를 다시 설정해주세요.");
-        } else if (formData['endTime'] < formData['startTime']) {
-            alert("종료 날짜를 다시 설정해주세요.");
-        } else if (id <= 1) {
-            alert("시험 문제를 입력해주세요.");
-        } else {
+        if (validateForm(formData)) {
             // question 목록을 json array로 저장
             let jsonArray = new Array();
             for (let i = 1; i < id; i++) {
@@ -60,7 +50,7 @@ $(document).ready(function () {
                 jsonArray.push(JSON.parse(jsonObj));
             }
 
-            var data = new FormData();
+            let data = new FormData();
             data.append('title', formData['title']);
             data.append('startTime', formData['startTime']);
             data.append('endTime', formData['endTime']);
@@ -88,4 +78,22 @@ $(document).ready(function () {
 function resize(obj) {
     obj.style.height = "1px";
     obj.style.height = (12 + obj.scrollHeight) + "px";
+}
+
+function validateForm(formData) {
+    let isValidate = false;
+
+    if (formData['title'] == "" || formData['title'] == null) {
+        alert("시험 제목을 입력해주세요.");
+    } else if (formData['startTime'] <= localISOTime) {
+        alert("시작 날짜를 다시 설정해주세요.");
+    } else if (formData['endTime'] <= formData['startTime']) {
+        alert("종료 날짜를 다시 설정해주세요.");
+    } else if (id <= 1) {
+        alert("시험 문제를 입력해주세요.");
+    } else {
+        isValidate = true;
+    }
+
+    return isValidate;
 }
