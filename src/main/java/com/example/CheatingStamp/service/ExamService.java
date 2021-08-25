@@ -70,6 +70,9 @@ public class ExamService {
         // examTime
         String examTime = ChronoUnit.MINUTES.between(exam.getStartTime(), exam.getEndTime()) + "분";
         infoMap.put("examTime", examTime);
+        // questionList
+        String questions = exam.getQuestions();
+        infoMap.put("questions", questions);
 
         return infoMap;
     }

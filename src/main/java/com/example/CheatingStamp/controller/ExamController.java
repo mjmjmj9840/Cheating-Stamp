@@ -75,7 +75,7 @@ public class ExamController {
     }
 
     // 시험 화면
-    @GetMapping("/exam/{code}")
+    @GetMapping("/{code}")
     public String exam(@AuthenticationPrincipal UserDetailsImpl userDetails, @PathVariable String code, Model model) {
         // 시험 코드에 해당하는 시험 정보 받아오기
         Long examId = examService.getExamIdByCode(code);
@@ -94,7 +94,7 @@ public class ExamController {
         model.addAttribute("examTime", infoMap.get("examTime"));
         model.addAttribute("examEndTime", infoMap.get("examEndTime"));
         model.addAttribute("examTitle", infoMap.get("examTitle"));
-        // model.addAttribute("questionList", questionList);
+        model.addAttribute("questions", infoMap.get("questions"));
 
         return "exam";
     }

@@ -17,6 +17,21 @@ setInterval(function()
     }
 }, 1000 );
 
+
+$(document).ready(function () {
+    // 시험 문제 및 답안란 출력
+    var questionsString = $("#questions").val();
+    var questions = JSON.parse(questionsString);
+    for (var i = 0; i < questions.length; i++) {
+        // console.log(questions[i]);   // -> {1: "문제"}
+        // console.log(questions[i][i+1]);  // -> 문제
+        var question = '<p class="question">' + questions[i][i+1] + '</p>';
+        var answer = '<textarea rows="8" cols="30" class="answer"></textarea>'; // 임시로..
+        $('#exam').append(question);
+        $('#exam').append(answer);
+    }
+});
+
 // 사용자 작성 답안을 JSON 배열로 리턴
 function saveAnswer() {
 
