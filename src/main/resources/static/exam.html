@@ -22,6 +22,9 @@
                         <p class="notice">ㅡ ㅡ ㅡ 감독관 공지사항 ㅡ ㅡ ㅡ <br/>-- <br/>-- <br/>-- </p>
                     </div>
                     <div class="time-box">
+                        <input type="hidden" id="examStartTime" th:value="${examStartTime}" />
+                        <input type="hidden" id="examEndTime" th:value="${examEndTime}" />
+                        <input type="hidden" id="examTime" th:value="${examTime}" />
                         <div class="exam-timer">
                             <div id="var" class="time-title list1"></div>
                             <div class="time title">
