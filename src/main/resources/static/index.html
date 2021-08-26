@@ -136,6 +136,14 @@
 
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
+    <script type="text/javascript" th:inline="javascript">
+        <!-- 시험이 없을 때 에러 메세지 -->
+        let error = [[ ${noExam} ]];
+        if (error) {
+            alert("예정된 시험이 없습니다.");
+            window.location.replace("/");
+        }
+    </script>
     <div th:replace="./fragments/config.html :: fragment-config"></div>
 </body>
 </html>
