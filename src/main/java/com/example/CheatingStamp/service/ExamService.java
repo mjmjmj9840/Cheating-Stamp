@@ -47,11 +47,6 @@ public class ExamService {
         return found.get().getId();
     }
 
-    public Long getFirstExamId(Long userId) {
-        // userId에 해당하는 응시자의 가장 가까운 시험의 id를 반환
-        return 1L;
-    }
-
     public HashMap getExamInfo(Long id) {
         HashMap<String,String> infoMap = new HashMap<String,String>();
         Exam exam = examRepository.getById(id);

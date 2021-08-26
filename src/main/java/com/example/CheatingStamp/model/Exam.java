@@ -28,6 +28,7 @@ public class Exam extends Timestamped {
 
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
+    @Column(name = "exam_id")
     private Long id;
 
     @Column(unique = true)
@@ -48,10 +49,15 @@ public class Exam extends Timestamped {
 
     @ManyToMany
     @JoinTable(
-            name = "user_exam",
-            joinColumns = @JoinColumn(name = "user_id"),    // 현재 엔티티를 참조하는 외래 키
-            inverseJoinColumns = @JoinColumn(name = "exam_id")) // 반대 방향 엔티티를 참조하는 외래 키
+            name = "exam_user",
+            joinColumns = @JoinColumn(name = "exam_id"),    // 현재 엔티티를 참조하는 외래 키
+            inverseJoinColumns = @JoinColumn(name = "user_id")) // 반대 방향 엔티티를 참조하는 외래 키
     private List<User> users = new ArrayList<User>();
+
+    public void addUser(User user) {
+        users.add(user);
+        user.getExams().add(this);
+    }
 
     @OneToMany
     @JoinColumn(name = "EXAM_ID")
