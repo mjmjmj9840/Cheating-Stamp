@@ -2,16 +2,17 @@ package com.example.CheatingStamp.service;
 
 import com.example.CheatingStamp.dto.CalibrationRateRequestDto;
 import com.example.CheatingStamp.dto.SignupRequestDto;
+import com.example.CheatingStamp.model.Exam;
 import com.example.CheatingStamp.model.User;
 import com.example.CheatingStamp.model.UserRole;
 import com.example.CheatingStamp.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import com.example.CheatingStamp.security.UserDetailsServiceImpl;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.Errors;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -49,5 +50,22 @@ public class UserService {
     public User updateCalibrationRate(User user, CalibrationRateRequestDto requestDto) {
         user.updateCalibrationRate(requestDto);
         return user;
+    }
+
+    public Long getFirstExamId(User user) {
+        List<Exam> exams = user.getExams();
+        if (exams.size() == 0) {  // 예정된 시험이 없을 경우
+            return -1L;
+        }
+        Long firstExamId = exams.get(0).getId();
+        LocalDateTime firstExamStartTime = exams.get(0).getStartTime();
+        for (int i = 1; i < exams.size(); i++) {
+            Exam exam = exams.get(i);
+            // 가장 가까운 시험 id 갱신
+            if (exam.getStartTime().compareTo(firstExamStartTime) < 0)
+                firstExamId = exam.getId();
+        }
+
+        return firstExamId;
     }
 }
