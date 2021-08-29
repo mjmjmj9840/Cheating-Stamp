@@ -1,0 +1,89 @@
+body {
+  overflow-y: scroll;
+}
+.mainArea h1 {
+  font-size: 34px;
+  font-weight: 700;
+  width: fit-content;
+  margin: 0 auto;
+  height: 1vh;
+}
+.mainArea {
+  height: 70vh;
+}
+
+.inputEmail {
+  margin-top: 12vh;
+  display: flex;
+  justify-content: center;
+  max-height: 80%;
+  min-height: 80%;
+}
+.inputEmail div {
+  width: 54vw;
+  margin-left: 12%;
+}
+.inputEmail .role {
+  width: 24vw;
+  margin: 0 0 4vh 0;
+}
+.inputEmail h5 {
+  margin-left: 30%;
+  font-weight: 600;
+  width: fit-content;
+  border-bottom: #ee8b7a 2px solid;
+  font-size: 3.2vh;
+}
+.inputEmail input {
+  width: 19vw;
+  border-radius: 4px;
+  outline: none;
+  border: solid rgb(75, 75, 75) 1.5px;
+}
+.inputEmail input::placeholder {
+  font-size: small;
+} 
+.inputEmail button {
+  border-radius: 6px;
+  outline: none;
+  border: solid rgb(66, 66, 66) 1.5px;
+  box-shadow: 1px 2px 0 rgb(0,0,0,0.5);
+  padding: 3.5px 12px 2.5px 12px;
+  background: #ee8b7a;
+  color: #fff;
+  font-weight: 600;
+  font-size: 14px;
+  height: fit-content;
+}
+.inputEmail button:active {
+  position: relative;
+  top:2px;
+  box-shadow: 1px 1px 0 rgb(0,0,0,0.5);
+}
+.inputEmail .screen {
+  width: 28vw;
+  margin: auto -2vw;
+  margin-top: 4vh;
+  border: 1.4px solid black;
+  height: 86%;
+  border-radius: 4px;
+  overflow-y: scroll;
+}
+.inputEmail .screen div {
+  width: 94%;
+  margin: 2px 0px 3px 8px;
+}
+.inputEmail .screen .removeBtnS, 
+.inputEmail .screen .removeBtnT {
+  border-radius: 50%;
+  padding: 0px 7px 0px 7px !important;
+  float: right;
+}
+
+.btn-area{
+  text-align: center;
+}
+#submit-btn {
+  margin: 10vh 0 10px 0;
+  width: 20vw;
+}

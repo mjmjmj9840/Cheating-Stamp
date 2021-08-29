@@ -38,7 +38,7 @@ function saveAnswer() {
 /*타이머*/
 function remainTime() {
   var now = new Date(); //현재시간을 구한다.
-  var end = new Date(now.getFullYear(),now.getMonth(),now.getDate(),8,50,0);
+  var end = new Date(now.getFullYear(),now.getMonth(),now.getDate(),14,39,0);
 //오늘날짜의 오후 x시 - 시험종료시간
 
   var open = new Date(now.getFullYear(),now.getMonth(),now.getDate(),4,45,17);
