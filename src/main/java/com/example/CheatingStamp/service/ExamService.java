@@ -37,6 +37,7 @@ public class ExamService {
         Exam exam = new Exam(code, title, starTime, endTime, questions);
         examRepository.save(exam);
 
+        System.out.println(code);   // (FE) exam code 출력
         return exam.getId();
     }
 
@@ -91,7 +92,7 @@ public class ExamService {
 
         infoMap.put("supervisors", supervisors);
         infoMap.put("testers", testers);
-
+      
         return infoMap;
     }
 }

@@ -76,16 +76,18 @@ public class ExamController {
     }
 
     // 시험 화면
-    @GetMapping("/exam/{code}")
+    @GetMapping("/{code}")
     public String exam(@AuthenticationPrincipal UserDetailsImpl userDetails, @PathVariable String code, Model model) {
         // 시험 코드에 해당하는 시험 정보 받아오기
         Long examId = examService.getExamIdByCode(code);
         HashMap<String,String> infoMap = examService.getExamInfo(examId);
         String now = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmm"));
         // 시험 시작 전일 경우 대기 화면으로 넘김
+        /* (구현때문에 잠깐 주석처리)
         if (now.compareTo(infoMap.get("examStartTime")) < 0) {
             return "redirect:/waiting";
         }
+        */
         // 시험 종료 후엔 접근할 수 없음
         if (now.compareTo(infoMap.get("examEndTime")) > 0) {
             return "redirect:/";
@@ -93,9 +95,10 @@ public class ExamController {
 
         model.addAttribute("examId", examId);
         model.addAttribute("examTime", infoMap.get("examTime"));
+        model.addAttribute("examStartTime", infoMap.get("examStartTime"));
         model.addAttribute("examEndTime", infoMap.get("examEndTime"));
         model.addAttribute("examTitle", infoMap.get("examTitle"));
-        // model.addAttribute("questionList", questionList);
+        model.addAttribute("questions", infoMap.get("questions"));
 
         return "exam";
     }
