@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="./fragments/header.html :: fragment-header"></div>
+    <link href="./assets/css/exam.css" rel="stylesheet">
+</head>
+
+<body>
+    <script defer src="./assets/webgazer/webgazer.js"></script>
+    <script src="./assets/js/index.js" defer></script>
+    <script type="text/javascript" src="./assets/js/examSetting.js" defer></script>
+
+    <!-- ======= Header ======= -->
+    <div th:replace="./fragments/navbar.html :: fragment-navbar"></div>
+
+    <main id ="main">
+        <div th:each="exam: ${examList}">
+            <p th:text="${exam.examId}"></p>
+            <p th:text="${exam.examTitle}"></p>
+            <p th:text="${exam.examStartTime}"></p>
+            <p th:text="${exam.examEndTime}"></p>
+        </div>
+    </main>
+
+    <!-- 만약 js에서 변수 수정이 필요할 경우 -->
+    <!--
+    <script th:inline="javascript">
+        var examArray = new Array();
+        var examCount = /*[[${#lists.size(examList)}]]*/
+        /*[# th:each="exam: ${examList}"]*/
+        var examInfo = new Object();
+        examInfo.examId =  /*[[${exam.examId}]]*/;
+        examInfo.examTitle =  /*[[${exam.examTitle}]]*/;
+        examArray.push(examInfo);
+        /*[/]*/
+    </script>
+    -->
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+    <div th:replace="./fragments/config.html :: fragment-config"></div>
+</body>
+</html>
