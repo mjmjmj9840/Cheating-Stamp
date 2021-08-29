@@ -57,7 +57,7 @@ let testers = [];
         let tmp = {
                     "supervisors": ["ab@ab", "bc@bc"], 
                     "testers": ["aa@aa", "bb@bb"],
-                  } 
+                  }  
 
         for (let i = 0; i < tmp.supervisors.length; i++) {
           $('.screenS').append(
