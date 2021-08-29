@@ -3,15 +3,12 @@ package com.example.CheatingStamp.controller;
 import com.example.CheatingStamp.dto.CreateExamRequestDto;
 import com.example.CheatingStamp.dto.SaveAnswerRequestDto;
 import com.example.CheatingStamp.dto.VideoRequestDto;
-import com.example.CheatingStamp.service.ExamService;
-import com.example.CheatingStamp.service.AnswerService;
-import com.example.CheatingStamp.service.S3Service;
-import com.example.CheatingStamp.service.VideoService;
-import com.fasterxml.jackson.databind.util.JSONPObject;
+import com.example.CheatingStamp.repository.ExamRepository;
+import com.example.CheatingStamp.repository.ExamUserRepository;
+import com.example.CheatingStamp.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import com.example.CheatingStamp.security.UserDetailsImpl;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -21,6 +18,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+import java.util.List;
 
 
 @RequiredArgsConstructor
@@ -29,6 +27,7 @@ public class ExamController {
 
     private final ExamService examService;
     private final AnswerService answerService;
+    private final UserService userService;
     private final S3Service s3Service;
     private final VideoService videoService;
 
@@ -46,12 +45,15 @@ public class ExamController {
         return "redirect:/index";
     }
 
-    // 응시자와 시험 정보 빼오는 부분 서비스로 분리하기
     // 시험 대기 화면
     @GetMapping("/waiting")
     public String waiting(@AuthenticationPrincipal UserDetailsImpl userDetails, Model model) {
-        Long userId = userDetails.getUser().getId();
-        // 예정된 시험이 없을 경우 홈 화면으로 넘김(시험 DB 완성 후 수정)
+        Long examId = userService.getFirstExamId(userDetails.getUser());
+        // 예정된 시험이 없을 경우 홈 화면으로 넘김
+        if (examId < 0) {
+            model.addAttribute("noExam", true);
+            return "index";
+        }
 
         // 아이트래킹 보정 전일 경우 보정 화면으로 넘김
         int calibrationRate = userDetails.getUser().getCalibrationRate();
@@ -62,7 +64,6 @@ public class ExamController {
         }
 
         // 가장 가까운 시험의 정보 받아오기
-        Long examId = examService.getFirstExamId(userId);
         HashMap<String,String> infoMap = examService.getExamInfo(examId);
 
         model.addAttribute("examStartTime", infoMap.get("examStartTime"));  // yyyyMMddHHmm
@@ -142,6 +143,25 @@ public class ExamController {
     @GetMapping("/examEnd")
     public String examEnd(Model model) {
         return "examEnd";
+    }
+
+    // 시험 상세 화면
+    @GetMapping("/detailExam")
+    public String examDetail(@RequestParam Long examId, Model model) {
+        HashMap<String,String> infoMap = examService.getExamInfo(examId);
+
+        model.addAttribute("examId", examId);
+        model.addAttribute("examStartTime", infoMap.get("examStartTime"));  // yyyyMMddHHmm
+        model.addAttribute("examEndTime", infoMap.get("examEndTime"));  // yyyyMMddHHmm
+        model.addAttribute("examTitle", infoMap.get("examTitle"));
+        model.addAttribute("examCode", infoMap.get("examCode"));
+        model.addAttribute("examQuestions", infoMap.get("examQuestions"));
+
+        HashMap<String, List> userInfoMap = examService.getExamUsers(examId);
+        model.addAttribute("supervisors", userInfoMap.get("supervisors"));
+        model.addAttribute("testers", userInfoMap.get("testers"));
+
+        return "detailExam";
     }
 }
 
