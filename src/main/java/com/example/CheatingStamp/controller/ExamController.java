@@ -3,6 +3,8 @@ package com.example.CheatingStamp.controller;
 import com.example.CheatingStamp.dto.CreateExamRequestDto;
 import com.example.CheatingStamp.dto.SaveAnswerRequestDto;
 import com.example.CheatingStamp.dto.VideoRequestDto;
+import com.example.CheatingStamp.model.Exam;
+import com.example.CheatingStamp.model.User;
 import com.example.CheatingStamp.service.ExamService;
 import com.example.CheatingStamp.service.AnswerService;
 import com.example.CheatingStamp.service.S3Service;
@@ -20,7 +22,9 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 
 @RequiredArgsConstructor
@@ -139,6 +143,38 @@ public class ExamController {
     @GetMapping("/examEnd")
     public String examEnd(Model model) {
         return "examEnd";
+    }
+
+
+    
+    // ======= 감독관용 화면 =======
+    
+    // 시험 관리 페이지
+    @GetMapping("/examSetting")
+    public String examSetting(@AuthenticationPrincipal UserDetailsImpl userDetails, Model model) {
+        // 권한을 가진 유저인지 확인
+        User user = userDetails.getUser();
+        if (user.getRole().name() != "SUPERVISOR"){
+            return "redirect:/index";
+        }
+
+        // 유저가 관리하는 시험 정보 받아오기
+        List<Exam> exams = user.getExams();
+        List<HashMap<String, String>> examList = new ArrayList<>();
+        for (int i = 0; i < exams.size(); i++) {
+            Long examId = exams.get(i).getId();
+            HashMap<String, String> exam = new HashMap<>();
+            HashMap<String,String> infoMap = examService.getExamInfo(examId);
+
+            exam.put("examId", examId.toString());
+            exam.put("examTitle", infoMap.get("examTitle"));
+            exam.put("examStartTime", infoMap.get("examStartTime"));
+            exam.put("examEndTime", infoMap.get("examEndTime"));
+            examList.add(exam);
+        }
+        model.addAttribute("examList", examList);
+
+        return "examSetting";
     }
 }
 
