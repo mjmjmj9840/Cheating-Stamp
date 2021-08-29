@@ -25,6 +25,8 @@
                 <div class="title" th:text="${examTime}"></div>
             </div>
             <div class="exam-timer">
+                <input type="hidden" id="startTime" th:value="${examStartTime}" />
+                <input type="hidden" id="endTime" th:value="${examEndTime}" />
                 <div class="material-icons">timer</div>
                 <div id="var" class="time-title list1"></div>
                 <div class="time title">
