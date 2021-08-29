@@ -2502,7 +2502,7 @@
     }
 
     if (resize) {
-      window.addEventListener('resize', instance.update, passive);
+      window.('resize', instance.update, passive);
     }
 
     return function () {

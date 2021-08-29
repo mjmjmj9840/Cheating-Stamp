@@ -137,6 +137,7 @@ function remainTime() {
         $(".minutes").html(min);
         $(".seconds").html(sec);
     }
+
 }
 setInterval(remainTime,1000);
 
