@@ -3,6 +3,8 @@ package com.example.CheatingStamp.controller;
 import com.example.CheatingStamp.dto.CreateExamRequestDto;
 import com.example.CheatingStamp.dto.SaveAnswerRequestDto;
 import com.example.CheatingStamp.dto.VideoRequestDto;
+import com.example.CheatingStamp.repository.ExamRepository;
+import com.example.CheatingStamp.repository.ExamUserRepository;
 import com.example.CheatingStamp.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -16,6 +18,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+import java.util.List;
 
 
 @RequiredArgsConstructor
@@ -137,6 +140,25 @@ public class ExamController {
     @GetMapping("/examEnd")
     public String examEnd(Model model) {
         return "examEnd";
+    }
+
+    // 시험 상세 화면
+    @GetMapping("/detailExam")
+    public String examDetail(@RequestParam Long examId, Model model) {
+        HashMap<String,String> infoMap = examService.getExamInfo(examId);
+
+        model.addAttribute("examId", examId);
+        model.addAttribute("examStartTime", infoMap.get("examStartTime"));  // yyyyMMddHHmm
+        model.addAttribute("examEndTime", infoMap.get("examEndTime"));  // yyyyMMddHHmm
+        model.addAttribute("examTitle", infoMap.get("examTitle"));
+        model.addAttribute("examCode", infoMap.get("examCode"));
+        model.addAttribute("examQuestions", infoMap.get("examQuestions"));
+
+        HashMap<String, List> userInfoMap = examService.getExamUsers(examId);
+        model.addAttribute("supervisors", userInfoMap.get("supervisors"));
+        model.addAttribute("testers", userInfoMap.get("testers"));
+
+        return "detailExam";
     }
 }
 

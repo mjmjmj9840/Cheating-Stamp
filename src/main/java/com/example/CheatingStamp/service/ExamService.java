@@ -2,6 +2,9 @@ package com.example.CheatingStamp.service;
 
 import com.example.CheatingStamp.dto.CreateExamRequestDto;
 import com.example.CheatingStamp.model.Exam;
+import com.example.CheatingStamp.model.ExamUser;
+import com.example.CheatingStamp.model.User;
+import com.example.CheatingStamp.model.UserRole;
 import com.example.CheatingStamp.repository.ExamRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -9,9 +12,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.HashMap;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @RequiredArgsConstructor
 @Service
@@ -19,7 +20,7 @@ public class ExamService {
     private final ExamRepository examRepository;
 
     // String 타입으로 받아온 startTime, timeout 변수를 LocalDateTime 타입으로 변경
-    public LocalDateTime StringToTime (String string) {
+    public LocalDateTime StringToTime(String string) {
         DateTimeFormatter fomatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
         LocalDateTime timeEdited = LocalDateTime.parse(string, fomatter1);
         return timeEdited;
@@ -48,7 +49,7 @@ public class ExamService {
     }
 
     public HashMap getExamInfo(Long id) {
-        HashMap<String,String> infoMap = new HashMap<String,String>();
+        HashMap<String, String> infoMap = new HashMap<String, String>();
         Exam exam = examRepository.getById(id);
         // examCode
         String examCode = exam.getCode();
@@ -65,6 +66,31 @@ public class ExamService {
         // examTime
         String examTime = ChronoUnit.MINUTES.between(exam.getStartTime(), exam.getEndTime()) + "분";
         infoMap.put("examTime", examTime);
+        // examQuestions
+        String examQuestions = exam.getQuestions();
+        infoMap.put("examQuestions", examQuestions);
+
+        return infoMap;
+    }
+
+    public HashMap getExamUsers(Long id) {
+        HashMap<String, List> infoMap = new HashMap<String, List>();
+        Exam exam = examRepository.getById(id);
+
+        // supervisors, testers
+        List<ExamUser> examUsers = exam.getExamUsers();
+        List<String> supervisors = new ArrayList<>();
+        List<String> testers = new ArrayList<>();
+        for (int i = 0; i < examUsers.size(); i++) {
+            User user = examUsers.get(i).getUser();
+            if (user.getRole() == UserRole.SUPERVISOR)
+                supervisors.add(user.getUsername());
+            else
+                testers.add(user.getUsername());
+        }
+
+        infoMap.put("supervisors", supervisors);
+        infoMap.put("testers", testers);
 
         return infoMap;
     }
