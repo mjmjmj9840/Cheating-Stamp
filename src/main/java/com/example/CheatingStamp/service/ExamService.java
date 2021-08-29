@@ -36,6 +36,7 @@ public class ExamService {
         Exam exam = new Exam(code, title, starTime, endTime, questions);
         examRepository.save(exam);
 
+        System.out.println(code);   // (FE) exam code 출력
         return exam.getId();
     }
 
@@ -70,7 +71,9 @@ public class ExamService {
         // examTime
         String examTime = ChronoUnit.MINUTES.between(exam.getStartTime(), exam.getEndTime()) + "분";
         infoMap.put("examTime", examTime);
-
+        // questionList
+        String questions = exam.getQuestions();
+        infoMap.put("questions", questions);
         return infoMap;
     }
 }
