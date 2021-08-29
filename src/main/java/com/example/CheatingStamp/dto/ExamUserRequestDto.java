@@ -13,5 +13,4 @@ import lombok.NoArgsConstructor;
 public class ExamUserRequestDto {
     private Exam exam;
     private User user;
-    private UserRole userRole;
 }

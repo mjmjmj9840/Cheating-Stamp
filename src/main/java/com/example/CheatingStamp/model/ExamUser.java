@@ -23,8 +23,4 @@ public class ExamUser {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-
-    @NotNull
-    @Enumerated(value = EnumType.STRING)
-    private UserRole role;
 }
