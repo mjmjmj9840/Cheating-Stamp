@@ -41,8 +41,8 @@ public class User extends Timestamped {
     @Enumerated(value = EnumType.STRING)
     private UserRole role;
 
-    @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
-    private List<Exam> exams = new ArrayList<Exam>();
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    private List<ExamUser> examUsers = new ArrayList<ExamUser>();
 
     @Column
     private int calibrationRate;  // 아이트래킹 결과

@@ -3,6 +3,7 @@ package com.example.CheatingStamp.service;
 import com.example.CheatingStamp.dto.CalibrationRateRequestDto;
 import com.example.CheatingStamp.dto.SignupRequestDto;
 import com.example.CheatingStamp.model.Exam;
+import com.example.CheatingStamp.model.ExamUser;
 import com.example.CheatingStamp.model.User;
 import com.example.CheatingStamp.model.UserRole;
 import com.example.CheatingStamp.repository.UserRepository;
@@ -53,14 +54,14 @@ public class UserService {
     }
 
     public Long getFirstExamId(User user) {
-        List<Exam> exams = user.getExams();
-        if (exams.size() == 0) {  // 예정된 시험이 없을 경우
+        List<ExamUser> examUsers = user.getExamUsers();
+        if (examUsers.size() == 0) {  // 예정된 시험이 없을 경우
             return -1L;
         }
-        Long firstExamId = exams.get(0).getId();
-        LocalDateTime firstExamStartTime = exams.get(0).getStartTime();
-        for (int i = 1; i < exams.size(); i++) {
-            Exam exam = exams.get(i);
+        Long firstExamId = examUsers.get(0).getExam().getId();
+        LocalDateTime firstExamStartTime = examUsers.get(0).getExam().getStartTime();
+        for (int i = 1; i < examUsers.size(); i++) {
+            Exam exam = examUsers.get(i).getExam();
             // 가장 가까운 시험 id 갱신
             if (exam.getStartTime().compareTo(firstExamStartTime) < 0)
                 firstExamId = exam.getId();

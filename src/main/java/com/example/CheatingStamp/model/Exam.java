@@ -47,20 +47,11 @@ public class Exam extends Timestamped {
     @NotNull
     private String questions;
 
-    @ManyToMany
-    @JoinTable(
-            name = "exam_user",
-            joinColumns = @JoinColumn(name = "exam_id"),    // 현재 엔티티를 참조하는 외래 키
-            inverseJoinColumns = @JoinColumn(name = "user_id")) // 반대 방향 엔티티를 참조하는 외래 키
-    private List<User> users = new ArrayList<User>();
-
-    public void addUser(User user) {
-        users.add(user);
-        user.getExams().add(this);
-    }
+    @OneToMany(mappedBy = "exam")
+    private List<ExamUser> examUsers = new ArrayList<ExamUser>();
 
     @OneToMany
-    @JoinColumn(name = "EXAM_ID")
+    @JoinColumn(name = "exam_id")
     private List<Video> videos = new ArrayList<Video>();
 
     public void addVideo(Video video) {
