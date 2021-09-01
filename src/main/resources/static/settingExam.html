@@ -28,18 +28,15 @@
                     <div class="times">시험시간</div>
                     <div class="state">현재상황</div>
                 </div>
-                <div class="content" id="delcon">
+                <div class="content" th:each="exam: ${examList}">
+                    <input type="hidden" th:text="${exam.examId}" />
                     <div class="check"><input type="checkbox" class="select"></div>
-                    <div class="num">2</div>
-                    <div class="title"><a href="#">두번째 시험 -demo</a></div>
-                    <div class="times">2021-00-00 00:00:00 ~ 00:00:00</div>
-                    <div class="state">waiting</div>
-                </div>
-                <div class="content">
-                    <div class="check"><input type="checkbox" class="select"></div>
-                    <div class="num">1</div>
-                    <div class="title"><a href="#">첫번째 시험 -demo</a></div>
-                    <div class="times">2021-00-00 00:00:00 ~ 00:00:00</div>
+                    <div class="num" th:text="${examStat.index}+1"></div>
+                    <div class="title" th:text="${exam.examTitle}" th:onclick="'location.href=\'' + 'detailExam?examId=' + @{${exam.examId}} + '\''"></div>
+                    <div class="times" th:text="${#strings.substring(exam.examStartTime, 0, 4) + '-' +
+                         #strings.substring(exam.examStartTime, 4, 6) + '-' + #strings.substring(exam.examStartTime, 6, 8) + ' ' +
+                         #strings.substring(exam.examStartTime, 8, 10) + ':' + #strings.substring(exam.examStartTime, 10, 12) +
+                         '~' + #strings.substring(exam.examEndTime, 8, 10) + ':' + #strings.substring(exam.examEndTime, 10, 12)}"></div>
                     <div class="state">waiting</div>
                 </div>
             </div>

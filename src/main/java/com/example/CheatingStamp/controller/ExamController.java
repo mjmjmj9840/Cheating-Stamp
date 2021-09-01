@@ -22,7 +22,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
-import java.util.ArrayList;
 
 
 @RequiredArgsConstructor
@@ -154,7 +153,7 @@ public class ExamController {
   
     // ======= 감독관용 화면 =======
     // 시험 관리 페이지
-    @GetMapping("/examSetting")
+    @GetMapping("/settingExam")
     public String examSetting(@AuthenticationPrincipal UserDetailsImpl userDetails, Model model) {
         // 권한을 가진 유저인지 확인
         User user = userDetails.getUser();
@@ -168,7 +167,7 @@ public class ExamController {
 
         model.addAttribute("examList", examList);
 
-        return "examSetting";
+        return "settingExam";
     }
 
     // 시험 상세 화면
