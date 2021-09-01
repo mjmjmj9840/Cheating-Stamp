@@ -2,9 +2,6 @@ package com.example.CheatingStamp.service;
 
 import com.example.CheatingStamp.dto.CreateExamRequestDto;
 import com.example.CheatingStamp.model.Exam;
-import com.example.CheatingStamp.model.ExamUser;
-import com.example.CheatingStamp.model.User;
-import com.example.CheatingStamp.model.UserRole;
 import com.example.CheatingStamp.repository.ExamRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -69,28 +66,6 @@ public class ExamService {
         // examQuestions
         String examQuestions = exam.getQuestions();
         infoMap.put("examQuestions", examQuestions);
-
-        return infoMap;
-    }
-
-    public HashMap getExamUsers(Long id) {
-        HashMap<String, List> infoMap = new HashMap<String, List>();
-        Exam exam = examRepository.getById(id);
-
-        // supervisors, testers
-        List<ExamUser> examUsers = exam.getExamUsers();
-        List<String> supervisors = new ArrayList<>();
-        List<String> testers = new ArrayList<>();
-        for (int i = 0; i < examUsers.size(); i++) {
-            User user = examUsers.get(i).getUser();
-            if (user.getRole() == UserRole.SUPERVISOR)
-                supervisors.add(user.getUsername());
-            else
-                testers.add(user.getUsername());
-        }
-
-        infoMap.put("supervisors", supervisors);
-        infoMap.put("testers", testers);
 
         return infoMap;
     }

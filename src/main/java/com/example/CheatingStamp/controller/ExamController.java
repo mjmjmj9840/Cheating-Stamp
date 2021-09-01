@@ -3,8 +3,6 @@ package com.example.CheatingStamp.controller;
 import com.example.CheatingStamp.dto.CreateExamRequestDto;
 import com.example.CheatingStamp.dto.SaveAnswerRequestDto;
 import com.example.CheatingStamp.dto.VideoRequestDto;
-import com.example.CheatingStamp.repository.ExamRepository;
-import com.example.CheatingStamp.repository.ExamUserRepository;
 import com.example.CheatingStamp.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -30,6 +28,7 @@ public class ExamController {
     private final UserService userService;
     private final S3Service s3Service;
     private final VideoService videoService;
+    private final ExamUserService examUserService;
 
     // 시험 생성 페이지
     @GetMapping("/createExam")
@@ -154,11 +153,25 @@ public class ExamController {
         model.addAttribute("examCode", infoMap.get("examCode"));
         model.addAttribute("examQuestions", infoMap.get("examQuestions"));
 
-        HashMap<String, List> userInfoMap = examService.getExamUsers(examId);
+        HashMap<String, List> userInfoMap = examUserService.getExamUsers(examId);
         model.addAttribute("supervisors", userInfoMap.get("supervisors"));
         model.addAttribute("testers", userInfoMap.get("testers"));
 
         return "detailExam";
+    }
+
+    @DeleteMapping("/detailExam")
+    public String deleteExamUser(@RequestParam Long examId, @RequestParam String username) {
+        examUserService.deleteByExamIdAndUsername(examId, username);
+
+        return "redirect:/detailExam";
+    }
+
+    @PostMapping("/detailExam")
+    public String addExamUser(@RequestBody Long examId, @RequestBody String username) {
+        examUserService.addByExamIdAndUsername(examId, username);
+
+        return "redirect:/detailExam";
     }
 }
 
