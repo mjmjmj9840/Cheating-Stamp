@@ -8,6 +8,7 @@ import com.example.CheatingStamp.service.AnswerService;
 import com.example.CheatingStamp.service.S3Service;
 import com.example.CheatingStamp.service.VideoService;
 import com.example.CheatingStamp.service.*;
+import com.example.CheatingStamp.model.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +22,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
+import java.util.ArrayList;
 
 
 @RequiredArgsConstructor
@@ -42,8 +44,9 @@ public class ExamController {
 
     @ResponseBody
     @PostMapping("/createExam")
-    public String saveExam(@ModelAttribute CreateExamRequestDto requestDto) {
-        examService.createExam(requestDto);
+    public String saveExam(@AuthenticationPrincipal UserDetailsImpl userDetails, @ModelAttribute CreateExamRequestDto requestDto) {
+        Long userId = userDetails.getUser().getId();
+        examService.createExam(requestDto, userId);
 
         return "redirect:/index";
     }
@@ -152,32 +155,32 @@ public class ExamController {
     // ======= 감독관용 화면 =======
     
     // 시험 관리 페이지
-//    @GetMapping("/examSetting")
-//    public String examSetting(@AuthenticationPrincipal UserDetailsImpl userDetails, Model model) {
-//        // 권한을 가진 유저인지 확인
-//        User user = userDetails.getUser();
-//        if (user.getRole().name() != "SUPERVISOR"){
-//            return "redirect:/index";
-//        }
-//
-//        // 유저가 관리하는 시험 정보 받아오기
-//        List<Exam> exams = user.getExams();
-//        List<HashMap<String, String>> examList = new ArrayList<>();
-//        for (int i = 0; i < exams.size(); i++) {
-//            Long examId = exams.get(i).getId();
-//            HashMap<String, String> exam = new HashMap<>();
-//            HashMap<String,String> infoMap = examService.getExamInfo(examId);
-//
-//            exam.put("examId", examId.toString());
-//            exam.put("examTitle", infoMap.get("examTitle"));
-//            exam.put("examStartTime", infoMap.get("examStartTime"));
-//            exam.put("examEndTime", infoMap.get("examEndTime"));
-//            examList.add(exam);
-//        }
-//        model.addAttribute("examList", examList);
-//
-//        return "examSetting";
-//    }
+    @GetMapping("/examSetting")
+    public String examSetting(@AuthenticationPrincipal UserDetailsImpl userDetails, Model model) {
+        // 권한을 가진 유저인지 확인
+        User user = userDetails.getUser();
+        if (user.getRole().name() != "SUPERVISOR"){
+            return "redirect:/index";
+        }
+
+        // 유저가 관리하는 시험 정보 받아오기
+        List<ExamUser> exams = user.getExamUsers();
+        List<HashMap<String, String>> examList = new ArrayList<>();
+        for (int i = 0; i < exams.size(); i++) {
+            Long examId = exams.get(i).getId();
+            HashMap<String, String> exam = new HashMap<>();
+            HashMap<String,String> infoMap = examService.getExamInfo(examId);
+
+            exam.put("examId", examId.toString());
+            exam.put("examTitle", infoMap.get("examTitle"));
+            exam.put("examStartTime", infoMap.get("examStartTime"));
+            exam.put("examEndTime", infoMap.get("examEndTime"));
+            examList.add(exam);
+        }
+        model.addAttribute("examList", examList);
+
+        return "examSetting";
+    }
 
     // 시험 상세 화면
     @GetMapping("/detailExam")
