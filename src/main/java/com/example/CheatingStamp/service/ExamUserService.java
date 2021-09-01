@@ -1,5 +1,6 @@
 package com.example.CheatingStamp.service;
 
+import com.example.CheatingStamp.dto.ExamUserRequestDto;
 import com.example.CheatingStamp.model.Exam;
 import com.example.CheatingStamp.model.ExamUser;
 import com.example.CheatingStamp.model.User;
@@ -56,9 +57,9 @@ public class ExamUserService {
     }
 
     @Transactional
-    public void addByExamIdAndUsername(Long examId, String username) {
-        Exam exam = examRepository.findById(examId).get();
-        User user = userRepository.findByUsername(username).get();
+    public void addByExamIdAndUsername(ExamUserRequestDto requestDto) {
+        Exam exam = examRepository.findById(requestDto.getExamId()).get();
+        User user = userRepository.findByUsername(requestDto.getUsername()).get();
         ExamUser examUser = new ExamUser(exam, user);
 
         exam.getExamUsers().add(examUser);
