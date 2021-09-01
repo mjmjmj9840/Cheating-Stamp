@@ -71,4 +71,22 @@ public class ExamService {
 
         return infoMap;
     }
+
+    public List<HashMap<String, String>> getExamByManagerId(Long managerId) {
+        List<Exam> exams = examRepository.findAllByManagerId(managerId);
+
+        List<HashMap<String, String>> examList = new ArrayList<>();
+        for (int i = 0; i < exams.size(); i++) {
+            Long examId = exams.get(i).getId();
+            HashMap<String, String> exam = new HashMap<>();
+            HashMap<String,String> infoMap = getExamInfo(examId);
+
+            exam.put("examId", examId.toString());
+            exam.put("examTitle", infoMap.get("examTitle"));
+            exam.put("examStartTime", infoMap.get("examStartTime"));
+            exam.put("examEndTime", infoMap.get("examEndTime"));
+            examList.add(exam);
+        }
+        return examList;
+    }
 }

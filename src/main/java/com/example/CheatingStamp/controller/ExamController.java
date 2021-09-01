@@ -86,7 +86,7 @@ public class ExamController {
     public String exam(@AuthenticationPrincipal UserDetailsImpl userDetails, @PathVariable String code, Model model) {
         // 시험 코드에 해당하는 시험 정보 받아오기
         Long examId = examService.getExamIdByCode(code);
-        HashMap<String,String> infoMap = examService.getExamInfo(examId);
+        HashMap<String, String> infoMap = examService.getExamInfo(examId);
         String now = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmm"));
         // 시험 시작 전일 경우 대기 화면으로 넘김
         /* (구현때문에 잠깐 주석처리)
@@ -153,7 +153,6 @@ public class ExamController {
 
   
     // ======= 감독관용 화면 =======
-    
     // 시험 관리 페이지
     @GetMapping("/examSetting")
     public String examSetting(@AuthenticationPrincipal UserDetailsImpl userDetails, Model model) {
@@ -164,19 +163,9 @@ public class ExamController {
         }
 
         // 유저가 관리하는 시험 정보 받아오기
-        List<ExamUser> exams = user.getExamUsers();
-        List<HashMap<String, String>> examList = new ArrayList<>();
-        for (int i = 0; i < exams.size(); i++) {
-            Long examId = exams.get(i).getId();
-            HashMap<String, String> exam = new HashMap<>();
-            HashMap<String,String> infoMap = examService.getExamInfo(examId);
+        Long managerId = user.getId();
+        List<HashMap<String, String>> examList = examService.getExamByManagerId(managerId);
 
-            exam.put("examId", examId.toString());
-            exam.put("examTitle", infoMap.get("examTitle"));
-            exam.put("examStartTime", infoMap.get("examStartTime"));
-            exam.put("examEndTime", infoMap.get("examEndTime"));
-            examList.add(exam);
-        }
         model.addAttribute("examList", examList);
 
         return "examSetting";
