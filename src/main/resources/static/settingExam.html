@@ -29,7 +29,7 @@
                     <div class="state">현재상황</div>
                 </div>
                 <div class="content" th:each="exam: ${examList}">
-                    <input type="hidden" th:text="${exam.examId}" />
+                    <input class="examId" type="hidden" th:value="${exam.examId}" />
                     <div class="check"><input type="checkbox" class="select"></div>
                     <div class="num" th:text="${examStat.index}+1"></div>
                     <div class="title" th:text="${exam.examTitle}" th:onclick="'location.href=\'' + 'detailExam?examId=' + @{${exam.examId}} + '\''"></div>

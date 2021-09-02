@@ -14,6 +14,7 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -64,5 +65,12 @@ public class ExamUserService {
         exam.getExamUsers().add(examUser);
         user.getExamUsers().add(examUser);
         examUserRepository.save(examUser);
+    }
+
+    @Transactional
+    public void deleteByExamIds(List<Long> examIds) {
+        for (int i = 0; i < examIds.size(); i++) {
+            examUserRepository.deleteAllByExam_Id(examIds.get(i));
+        }
     }
 }

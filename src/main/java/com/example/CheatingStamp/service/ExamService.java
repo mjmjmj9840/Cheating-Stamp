@@ -88,4 +88,10 @@ public class ExamService {
         }
         return examList;
     }
+
+    public void deleteExamByExamIds(List<Long> examIds) {
+        for (int i = 0; i < examIds.size(); i++) {
+            examRepository.deleteById(examIds.get(i));
+        }
+    }
 }

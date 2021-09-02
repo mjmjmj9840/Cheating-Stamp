@@ -1,24 +1,43 @@
 /*체크박스 선택 및 버튼 활성화*/
-
+var checkedExam = new Array();
 $(document).ready(function(){
 
-  //전체 체크 클릭 시, 나머지 체크 
+  //전체 체크 클릭 시, 나머지 체크
   $("#select-all").click(function(){
       var selectAll=$("#select-all").prop("checked");
-  
+
       if(selectAll){
           $(".select").prop("checked",true);
           $(".delete").css({"backgroundColor":"#e96b56","cursor":"pointer"}).prop("disabled",false);
+
+          // 서버에 보낼 삭제할 시험 목록 담기
+          var idx = 0;
+          checkedExam = [];
+          while($(".examId").eq(idx).val()) {
+            checkedExam.push($(".examId").eq(idx).val());
+            idx++;
+          }
       }
       else{
           $(".select").prop("checked",false);
           $(".delete").css({"backgroundColor":"#ee8b7a","cursor":"auto"}).prop("disabled",true);
+
+          checkedExam = [];
       }
   });
   
   // 모든 체크박스를 클릭하면 버튼 활성화시키기
   $('.select').click(function(){
-      var tmpp = $(this).prop('checked'); 
+      var tmpp = $(this).prop("checked");
+
+      // 서버에 보낼 삭제할 시험 목록 담기
+      if (tmpp) {
+          checkedExam.push($(this).parent().siblings(".examId").val());
+      }
+      else {
+          checkedExam.pop();
+      }
+
       //자식 체크 전체 체크시, 부모 체크박스 체크 됨
       var tt = $(".select").length;
       var ss = $(".select:checked").length;
@@ -63,6 +82,23 @@ function password() {
   }
 
   if (pass1.toLowerCase()!="password" & testV ==3)  history.go(-1);
+
+
+    // 삭제 요청
+    $.ajax({
+        url: '/settingExam',
+        type: 'POST',
+        data: {checkedExam: checkedExam},
+        traditional: true,
+        success: function(response){
+            alert("성공");
+            window.location.href = '/settingExam';
+        },
+        error: function(response) {
+            alert("실패");
+            window.location.href = '/settingExam';
+        }
+    });
 
   return " ";
 } 

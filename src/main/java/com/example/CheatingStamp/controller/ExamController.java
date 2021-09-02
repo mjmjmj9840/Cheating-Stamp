@@ -79,7 +79,7 @@ public class ExamController {
 
         return "waiting";
     }
-
+    /*
     // 시험 화면
     @GetMapping("/{code}")
     public String exam(@AuthenticationPrincipal UserDetailsImpl userDetails, @PathVariable String code, Model model) {
@@ -92,7 +92,7 @@ public class ExamController {
         if (now.compareTo(infoMap.get("examStartTime")) < 0) {
             return "redirect:/waiting";
         }
-        */
+
         // 시험 종료 후엔 접근할 수 없음
         if (now.compareTo(infoMap.get("examEndTime")) > 0) {
             return "redirect:/";
@@ -107,6 +107,7 @@ public class ExamController {
 
         return "exam";
     }
+    */
 
     @ResponseBody
     @PostMapping("/exam")
@@ -152,6 +153,7 @@ public class ExamController {
 
   
     // ======= 감독관용 화면 =======
+
     // 시험 관리 페이지
     @GetMapping("/settingExam")
     public String examSetting(@AuthenticationPrincipal UserDetailsImpl userDetails, Model model) {
@@ -168,6 +170,14 @@ public class ExamController {
         model.addAttribute("examList", examList);
 
         return "settingExam";
+    }
+
+    @ResponseBody
+    @PostMapping("/settingExam")
+    public String examDelete(@AuthenticationPrincipal UserDetailsImpl userDetails, @RequestParam(value="checkedExam") List<Long> checkedExam) {
+        examUserService.deleteByExamIds(checkedExam);
+        examService.deleteExamByExamIds(checkedExam);
+        return "redirect:/settingExam";
     }
 
     // 시험 상세 화면
