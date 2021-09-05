@@ -43,12 +43,11 @@
                 </div>
             </div>
             <div class="col" id="exam">
-                <h1>시험 문제</h1>
                 <!-- 서버로부터 문제 목록 받음 -->
-                <input type="hidden" id="questions" th:value="${questions}" />
+                <input type="hidden" id="questions" th:value="${examQuestions}" />
                 <!-- answer 입력 폼 예시 (class="answer") -->
-                <textarea rows="8" cols="85" class="answer"></textarea>
-                <textarea rows="8" cols="85" class="answer"></textarea>
+<!--                <textarea rows="8" cols="85" class="answer"></textarea>-->
+<!--                <textarea rows="8" cols="85" class="answer"></textarea>-->
             </div>
         </div>
     </main>

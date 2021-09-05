@@ -106,7 +106,7 @@ public class ExamController {
         model.addAttribute("examStartTime", infoMap.get("examStartTime"));
         model.addAttribute("examEndTime", infoMap.get("examEndTime"));
         model.addAttribute("examTitle", infoMap.get("examTitle"));
-        model.addAttribute("questions", infoMap.get("questions"));
+        model.addAttribute("examQuestions", infoMap.get("examQuestions"));
 
         return "exam";
     }
@@ -156,33 +156,33 @@ public class ExamController {
   
     // ======= 감독관용 화면 =======
     
-    // 시험 관리 페이지
-    @GetMapping("/examSetting")
-    public String examSetting(@AuthenticationPrincipal UserDetailsImpl userDetails, Model model) {
-        // 권한을 가진 유저인지 확인
-        User user = userDetails.getUser();
-        if (user.getRole().name() != "SUPERVISOR"){
-            return "redirect:/index";
-        }
-
-        // 유저가 관리하는 시험 정보 받아오기
-        List<Exam> exams = user.getExams();
-        List<HashMap<String, String>> examList = new ArrayList<>();
-        for (int i = 0; i < exams.size(); i++) {
-            Long examId = exams.get(i).getId();
-            HashMap<String, String> exam = new HashMap<>();
-            HashMap<String,String> infoMap = examService.getExamInfo(examId);
-
-            exam.put("examId", examId.toString());
-            exam.put("examTitle", infoMap.get("examTitle"));
-            exam.put("examStartTime", infoMap.get("examStartTime"));
-            exam.put("examEndTime", infoMap.get("examEndTime"));
-            examList.add(exam);
-        }
-        model.addAttribute("examList", examList);
-
-        return "examSetting";
-    }
+//    // 시험 관리 페이지
+//    @GetMapping("/examSetting")
+//    public String examSetting(@AuthenticationPrincipal UserDetailsImpl userDetails, Model model) {
+//        // 권한을 가진 유저인지 확인
+//        User user = userDetails.getUser();
+//        if (user.getRole().name() != "SUPERVISOR"){
+//            return "redirect:/index";
+//        }
+//
+//        // 유저가 관리하는 시험 정보 받아오기
+//        List<Exam> exams = user.getExams();
+//        List<HashMap<String, String>> examList = new ArrayList<>();
+//        for (int i = 0; i < exams.size(); i++) {
+//            Long examId = exams.get(i).getId();
+//            HashMap<String, String> exam = new HashMap<>();
+//            HashMap<String,String> infoMap = examService.getExamInfo(examId);
+//
+//            exam.put("examId", examId.toString());
+//            exam.put("examTitle", infoMap.get("examTitle"));
+//            exam.put("examStartTime", infoMap.get("examStartTime"));
+//            exam.put("examEndTime", infoMap.get("examEndTime"));
+//            examList.add(exam);
+//        }
+//        model.addAttribute("examList", examList);
+//
+//        return "examSetting";
+//    }
 
     // 시험 상세 화면
     @GetMapping("/detailExam")
