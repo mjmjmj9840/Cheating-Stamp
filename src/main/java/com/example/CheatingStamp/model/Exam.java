@@ -18,12 +18,13 @@ import java.util.List;
 public class Exam extends Timestamped {
 
     @Builder
-    public Exam(String code, String title, LocalDateTime startTime, LocalDateTime endTime, String questions) {
+    public Exam(String code, String title, LocalDateTime startTime, LocalDateTime endTime, String questions, Long managerId) {
         this.code = code;
         this.title = title;
         this.startTime = startTime;
         this.endTime = endTime;
         this.questions = questions;
+        this.managerId = managerId;
     }
 
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -46,6 +47,9 @@ public class Exam extends Timestamped {
 
     @NotNull
     private String questions;
+
+    @NotNull
+    private Long managerId;
 
     @OneToMany(mappedBy = "exam")
     private List<ExamUser> examUsers = new ArrayList<ExamUser>();
