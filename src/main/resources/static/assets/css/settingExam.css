@@ -6,8 +6,9 @@ a {
 }
 
 
-@media (max-width: 1000px) {
-    .setting-box {
+@media (max-width: 1200px) {
+    .setting-box,
+    .info-box {
         width: 100%;
         min-width: 320px;
         padding: 0 30px;
@@ -23,19 +24,17 @@ a {
     .exam-list .times {
         width: 25%;
     }
-    .exam-list .state {
-        width: 10%;
-    }
 }
 
 
 .setting-box {
-    width: 1000px;
+    width: 1200px;
     margin: 100px auto;
+    margin-top: 70px;
 }
 
 .setting-title {
-    margin-bottom: 30px;
+    margin-bottom: 25px;
 }
 .setting-title strong {
     color: #3c3c3c;
@@ -46,7 +45,6 @@ a {
     color: #545454;
     font-size: 14px;
 }
-
 
 .exam-list {
     width: 100%;
@@ -81,7 +79,7 @@ a {
     width: 8%;
 }
 .exam-list .title {
-    width: 40%;
+    width: 35%;
     text-align: left;
 }
 .exam-list .top .title {
@@ -99,7 +97,16 @@ a {
     width: 32%;
 }
 .exam-list .state {
-    width: 15%;
+    width: 10%;
+}
+.exam-list .watch {
+    width: 10%;
+}
+.exam-list .watch:hover {
+    color: #e96b56;
+}
+.exam-list .top .watch:hover {
+    color: inherit;
 }
 
 
@@ -159,4 +166,71 @@ a {
 .btn-box .delete {
     background: #ee8b7a;
     color: #fff;
+}
+
+
+/*watchingList.html 에 필요한 css*/
+table {
+    border-collapse: collapse;
+}
+caption {
+    display: none;
+}
+
+.info-box {
+    width: 1200px;
+    margin: 70px auto;
+    
+}
+.info-box .setting-title {
+    margin-bottom: 20px;
+}
+
+.exam-board {
+    border-top: 1.4px solid #3c3c3c;
+    border-bottom: 1.4px solid #3c3c3c;
+    width: 50%;
+    color: #545454;
+    font-size: 14px;
+}
+.exam-board tr {
+    border-bottom: 1.35px solid #d8d8d8;
+}
+.exam-board td {
+    text-align: center;
+    padding: 10px;
+}
+.exam-board .icon {
+    color: #7c7c7c;
+    width : 10%
+}
+.exam-board .top {
+    color: #3c3c3c;
+    font-weight: 600;
+    text-align: left;
+    width : 15%
+}
+
+.exam-list .name {
+    width: 12%;
+}
+.exam-list .username {
+    width: 40%;
+}
+.exam-list .stamp {
+    width: 10%;
+}
+.exam-list .video {
+    width: 10%;
+}
+.exam-list .answer {
+    width: 10%;
+}
+.exam-list .video:hover,
+.exam-list .answer:hover {
+    color: #e96b56;
+}
+.exam-list .top .video:hover,
+.exam-list .top .answer:hover {
+    color: inherit;
 }
