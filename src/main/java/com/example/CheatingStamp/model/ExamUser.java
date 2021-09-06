@@ -1,9 +1,6 @@
 package com.example.CheatingStamp.model;
 
-import com.sun.istack.NotNull;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -11,7 +8,14 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor
 @Entity
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = { "exam_id", "user_id" }))
 public class ExamUser {
+    @Builder
+    public ExamUser(Exam exam, User user) {
+        this.exam = exam;
+        this.user = user;
+    }
+
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     private Long id;

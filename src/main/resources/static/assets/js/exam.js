@@ -52,7 +52,7 @@ function saveAnswer() {
 // 시간 문자열(yyyyMMddHHmm) 파싱
 function parseTime(time) {
     var year = time.substring(0,4);
-    var month = time.substring(4,6);
+    var month = time.substring(4,6) - 1;
     var date = time.substring(6,8);
     var hour = time.substring(8,10);
     var min = time.substring(10,12);
@@ -70,10 +70,6 @@ var examTime = $("#examTime").val(); // 시험 제한 시간 (x분)
 
 function remainTime() {
     var now = new Date().getTime();
-
-//    console.log("now:" + now);
-//    console.log("now:" + new Date().toString());
-//    console.log("start:" + parseTime($("#examEndTime").val()));
 
     if(now<=startTime){ //현재시간이 시험시작시간보다 이르면 시험시작시간까지의 남은 시간을 구한다.
         $(".time").fadeIn();

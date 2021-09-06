@@ -2,9 +2,6 @@ package com.example.CheatingStamp.service;
 
 import com.example.CheatingStamp.dto.CreateExamRequestDto;
 import com.example.CheatingStamp.model.Exam;
-import com.example.CheatingStamp.model.ExamUser;
-import com.example.CheatingStamp.model.User;
-import com.example.CheatingStamp.model.UserRole;
 import com.example.CheatingStamp.repository.ExamRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -27,14 +24,14 @@ public class ExamService {
     }
 
     // requestDto로부터 정보 받아와 객체 생성
-    public Long createExam(CreateExamRequestDto requestDto) {
+    public Long createExam(CreateExamRequestDto requestDto, Long managerId) {
         String title = requestDto.getTitle();
         String code = UUID.randomUUID().toString().replace("-", "");    // 고유식별자(UUID) 생성
         LocalDateTime starTime = StringToTime(requestDto.getStartTime());
         LocalDateTime endTime = StringToTime(requestDto.getEndTime());
         String questions = requestDto.getQuestions();
 
-        Exam exam = new Exam(code, title, starTime, endTime, questions);
+        Exam exam = new Exam(code, title, starTime, endTime, questions, managerId);
         examRepository.save(exam);
 
         System.out.println(code);   // (FE) exam code 출력
@@ -74,25 +71,27 @@ public class ExamService {
         return infoMap;
     }
 
-    public HashMap getExamUsers(Long id) {
-        HashMap<String, List> infoMap = new HashMap<String, List>();
-        Exam exam = examRepository.getById(id);
+    public List<HashMap<String, String>> getExamByManagerId(Long managerId) {
+        List<Exam> exams = examRepository.findAllByManagerId(managerId);
 
-        // supervisors, testers
-        List<ExamUser> examUsers = exam.getExamUsers();
-        List<String> supervisors = new ArrayList<>();
-        List<String> testers = new ArrayList<>();
-        for (int i = 0; i < examUsers.size(); i++) {
-            User user = examUsers.get(i).getUser();
-            if (user.getRole() == UserRole.SUPERVISOR)
-                supervisors.add(user.getUsername());
-            else
-                testers.add(user.getUsername());
+        List<HashMap<String, String>> examList = new ArrayList<>();
+        for (int i = 0; i < exams.size(); i++) {
+            Long examId = exams.get(i).getId();
+            HashMap<String, String> exam = new HashMap<>();
+            HashMap<String,String> infoMap = getExamInfo(examId);
+
+            exam.put("examId", examId.toString());
+            exam.put("examTitle", infoMap.get("examTitle"));
+            exam.put("examStartTime", infoMap.get("examStartTime"));
+            exam.put("examEndTime", infoMap.get("examEndTime"));
+            examList.add(exam);
         }
+        return examList;
+    }
 
-        infoMap.put("supervisors", supervisors);
-        infoMap.put("testers", testers);
-      
-        return infoMap;
+    public void deleteExamByExamIds(List<Long> examIds) {
+        for (int i = 0; i < examIds.size(); i++) {
+            examRepository.deleteById(examIds.get(i));
+        }
     }
 }
