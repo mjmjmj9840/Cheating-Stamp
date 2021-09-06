@@ -9,4 +9,5 @@ import java.util.Optional;
 
 public interface ExamUserRepository extends JpaRepository<ExamUser, Long> {
     Optional<ExamUser> findByExamAndUser(Exam exam, User user);
+    void deleteAllByExam_Id(Long exam_id);
 }

@@ -1,5 +1,6 @@
 package com.example.CheatingStamp.service;
 
+import com.example.CheatingStamp.dto.ExamUserRequestDto;
 import com.example.CheatingStamp.model.Exam;
 import com.example.CheatingStamp.model.ExamUser;
 import com.example.CheatingStamp.model.User;
@@ -14,6 +15,7 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -56,13 +58,20 @@ public class ExamUserService {
     }
 
     @Transactional
-    public void addByExamIdAndUsername(Long examId, String username) {
-        Exam exam = examRepository.findById(examId).get();
-        User user = userRepository.findByUsername(username).get();
+    public void addByExamIdAndUsername(ExamUserRequestDto requestDto) {
+        Exam exam = examRepository.findById(requestDto.getExamId()).get();
+        User user = userRepository.findByUsername(requestDto.getUsername()).get();
         ExamUser examUser = new ExamUser(exam, user);
 
         exam.getExamUsers().add(examUser);
         user.getExamUsers().add(examUser);
         examUserRepository.save(examUser);
+    }
+
+    @Transactional
+    public void deleteByExamIds(List<Long> examIds) {
+        for (int i = 0; i < examIds.size(); i++) {
+            examUserRepository.deleteAllByExam_Id(examIds.get(i));
+        }
     }
 }
