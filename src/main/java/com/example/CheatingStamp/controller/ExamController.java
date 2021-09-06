@@ -1,6 +1,7 @@
 package com.example.CheatingStamp.controller;
 
 import com.example.CheatingStamp.dto.CreateExamRequestDto;
+import com.example.CheatingStamp.dto.ExamUserRequestDto;
 import com.example.CheatingStamp.dto.SaveAnswerRequestDto;
 import com.example.CheatingStamp.dto.VideoRequestDto;
 import com.example.CheatingStamp.service.ExamService;
@@ -17,8 +18,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 
@@ -78,33 +77,33 @@ public class ExamController {
         return "waiting";
     }
 
-    // 시험 화면
-    @GetMapping("/{code}")
-    public String exam(@AuthenticationPrincipal UserDetailsImpl userDetails, @PathVariable String code, Model model) {
-        // 시험 코드에 해당하는 시험 정보 받아오기
-        Long examId = examService.getExamIdByCode(code);
-        HashMap<String,String> infoMap = examService.getExamInfo(examId);
-        String now = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmm"));
-        // 시험 시작 전일 경우 대기 화면으로 넘김
-        /* (구현때문에 잠깐 주석처리)
-        if (now.compareTo(infoMap.get("examStartTime")) < 0) {
-            return "redirect:/waiting";
-        }
-        */
-        // 시험 종료 후엔 접근할 수 없음
-        if (now.compareTo(infoMap.get("examEndTime")) > 0) {
-            return "redirect:/";
-        }
-
-        model.addAttribute("examId", examId);
-        model.addAttribute("examTime", infoMap.get("examTime"));
-        model.addAttribute("examStartTime", infoMap.get("examStartTime"));
-        model.addAttribute("examEndTime", infoMap.get("examEndTime"));
-        model.addAttribute("examTitle", infoMap.get("examTitle"));
-        model.addAttribute("questions", infoMap.get("questions"));
-
-        return "exam";
-    }
+//    // 시험 화면
+//    @GetMapping("/{code}")
+//    public String exam(@AuthenticationPrincipal UserDetailsImpl userDetails, @PathVariable String code, Model model) {
+//        // 시험 코드에 해당하는 시험 정보 받아오기
+//        Long examId = examService.getExamIdByCode(code);
+//        HashMap<String,String> infoMap = examService.getExamInfo(examId);
+//        String now = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmm"));
+//        // 시험 시작 전일 경우 대기 화면으로 넘김
+//        /* (구현때문에 잠깐 주석처리)
+//        if (now.compareTo(infoMap.get("examStartTime")) < 0) {
+//            return "redirect:/waiting";
+//        }
+//        */
+//        // 시험 종료 후엔 접근할 수 없음
+//        if (now.compareTo(infoMap.get("examEndTime")) > 0) {
+//            return "redirect:/";
+//        }
+//
+//        model.addAttribute("examId", examId);
+//        model.addAttribute("examTime", infoMap.get("examTime"));
+//        model.addAttribute("examStartTime", infoMap.get("examStartTime"));
+//        model.addAttribute("examEndTime", infoMap.get("examEndTime"));
+//        model.addAttribute("examTitle", infoMap.get("examTitle"));
+//        model.addAttribute("questions", infoMap.get("questions"));
+//
+//        return "exam";
+//    }
 
     @ResponseBody
     @PostMapping("/exam")
@@ -198,18 +197,18 @@ public class ExamController {
         return "detailExam";
     }
 
-    @DeleteMapping("/detailExam")
-    public String deleteExamUser(@RequestParam Long examId, @RequestParam String username) {
-        examUserService.deleteByExamIdAndUsername(examId, username);
+    @PostMapping("/detailExam")
+    public String addExamUser(@RequestBody ExamUserRequestDto requestDto) {
+        examUserService.addByExamIdAndUsername(requestDto);
 
-        return "redirect:/detailExam";
+        return "redirect:/";
     }
 
-    @PostMapping("/detailExam")
-    public String addExamUser(@RequestBody Long examId, @RequestBody String username) {
-        examUserService.addByExamIdAndUsername(examId, username);
+    @GetMapping("/deleteExam/{examId}/{username}")
+    public String deleteExamUser(@PathVariable Long examId, @PathVariable String username) {
+        examUserService.deleteByExamIdAndUsername(examId, username);
 
-        return "redirect:/detailExam";
+        return "redirect:/";
     }
 }
 
