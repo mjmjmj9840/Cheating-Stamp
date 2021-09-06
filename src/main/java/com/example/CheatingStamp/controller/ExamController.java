@@ -102,7 +102,7 @@ public class ExamController {
         model.addAttribute("examStartTime", infoMap.get("examStartTime"));
         model.addAttribute("examEndTime", infoMap.get("examEndTime"));
         model.addAttribute("examTitle", infoMap.get("examTitle"));
-        model.addAttribute("questions", infoMap.get("questions"));
+        model.addAttribute("examQuestions", infoMap.get("examQuestions"));
 
         return "exam";
     }
@@ -151,7 +151,6 @@ public class ExamController {
 
   
     // ======= 감독관용 화면 =======
-
     // 시험 관리 페이지
     @GetMapping("/settingExam")
     public String examSetting(@AuthenticationPrincipal UserDetailsImpl userDetails, Model model) {
