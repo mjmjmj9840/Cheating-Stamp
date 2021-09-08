@@ -19,6 +19,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 
@@ -80,21 +82,20 @@ public class ExamController {
     }
 
     // 시험 화면
-    @GetMapping("/{code}")
-    public String exam(@AuthenticationPrincipal UserDetailsImpl userDetails, @PathVariable String code, Model model) {
+    @GetMapping("/exam")
+    public String exam(@AuthenticationPrincipal UserDetailsImpl userDetails, @RequestParam String code, Model model) {
         // 시험 코드에 해당하는 시험 정보 받아오기
         Long examId = examService.getExamIdByCode(code);
         HashMap<String, String> infoMap = examService.getExamInfo(examId);
         String now = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmm"));
         // 시험 시작 전일 경우 대기 화면으로 넘김
-        /* (구현때문에 잠깐 주석처리)
         if (now.compareTo(infoMap.get("examStartTime")) < 0) {
             return "redirect:/waiting";
         }
-        */
         // 시험 종료 후엔 접근할 수 없음
         if (now.compareTo(infoMap.get("examEndTime")) > 0) {
-            return "redirect:/";
+            model.addAttribute("endExam", true);
+            return "index";
         }
 
         model.addAttribute("examId", examId);
@@ -113,12 +114,6 @@ public class ExamController {
         answerService.createAnswer(requestDto);
 
         return "redirect:/examEnd";
-    }
-
-    // 임시 시험 화면
-    @GetMapping("/exam")
-    public String exam(@AuthenticationPrincipal UserDetailsImpl userDetails) {
-        return "exam";
     }
 
     // 녹화 테스트 화면
