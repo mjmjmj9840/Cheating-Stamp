@@ -99,6 +99,7 @@ public class ExamController {
         }
 
         model.addAttribute("examId", examId);
+        model.addAttribute("examCode", infoMap.get("examCode"));
         model.addAttribute("examTime", infoMap.get("examTime"));
         model.addAttribute("examStartTime", infoMap.get("examStartTime"));
         model.addAttribute("examEndTime", infoMap.get("examEndTime"));
@@ -109,8 +110,8 @@ public class ExamController {
     }
 
     @ResponseBody
-    @PostMapping("/exam")
-    public String saveAnswer(@ModelAttribute SaveAnswerRequestDto requestDto) {
+    @PostMapping("/exam/{code}")
+    public String saveAnswer(@PathVariable String code, @ModelAttribute SaveAnswerRequestDto requestDto) {
         answerService.createAnswer(requestDto);
 
         return "redirect:/examEnd";
