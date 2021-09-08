@@ -60,11 +60,24 @@ public class UserService {
         }
         Long firstExamId = examUsers.get(0).getExam().getId();
         LocalDateTime firstExamStartTime = examUsers.get(0).getExam().getStartTime();
+        LocalDateTime firstExamEndTime = examUsers.get(0).getExam().getEndTime();
         for (int i = 1; i < examUsers.size(); i++) {
             Exam exam = examUsers.get(i).getExam();
-            // 가장 가까운 시험 id 갱신
-            if (exam.getStartTime().compareTo(firstExamStartTime) < 0)
+            // 종료되지 않은 시험 중 가장 가까운 시험 id 갱신
+            if (firstExamEndTime.compareTo(LocalDateTime.now()) < 0) {
                 firstExamId = exam.getId();
+                firstExamStartTime = exam.getStartTime();
+                firstExamEndTime = exam.getEndTime();
+            } else if (exam.getStartTime().compareTo(firstExamStartTime) < 0 && exam.getEndTime().compareTo(LocalDateTime.now()) > 0){
+                firstExamId = exam.getId();
+                firstExamStartTime = exam.getStartTime();
+                firstExamEndTime = exam.getEndTime();
+            }
+        }
+
+        // 가장 빠른 시험이 이미 종료된 경우
+        if (firstExamEndTime.compareTo(LocalDateTime.now()) < 0) {
+            return -1L;
         }
 
         return firstExamId;
