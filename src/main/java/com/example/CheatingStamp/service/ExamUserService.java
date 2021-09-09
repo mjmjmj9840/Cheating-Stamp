@@ -1,14 +1,14 @@
 package com.example.CheatingStamp.service;
 
 import com.example.CheatingStamp.dto.ExamUserRequestDto;
-import com.example.CheatingStamp.model.Exam;
-import com.example.CheatingStamp.model.ExamUser;
-import com.example.CheatingStamp.model.User;
-import com.example.CheatingStamp.model.UserRole;
+import com.example.CheatingStamp.model.*;
 import com.example.CheatingStamp.repository.ExamRepository;
 import com.example.CheatingStamp.repository.ExamUserRepository;
 import com.example.CheatingStamp.repository.UserRepository;
+import com.example.CheatingStamp.repository.VideoRepository;
 import lombok.RequiredArgsConstructor;
+import org.json.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -22,6 +22,7 @@ import java.util.Optional;
 public class ExamUserService {
     private final ExamRepository examRepository;
     private final UserRepository userRepository;
+    private final VideoRepository videoRepository;
     private final ExamUserRepository examUserRepository;
 
     public HashMap getExamUsers(Long examId) {
@@ -44,6 +45,33 @@ public class ExamUserService {
         infoMap.put("testers", testers);
 
         return infoMap;
+    }
+
+    public JSONArray getTestersInfo(Long examId) {
+        Exam exam = examRepository.findById(examId).get();
+        List<ExamUser> examUsers = exam.getExamUsers();
+
+        JSONArray jsonArray = new JSONArray();
+        for (int i = 0; i < examUsers.size(); i++) {
+            User user = examUsers.get(i).getUser();
+            if (user.getRole() != UserRole.SUPERVISOR) {
+                JSONObject jsonObj = new JSONObject();
+
+                jsonObj.put("name", user.getName()); // 임시
+                String username = user.getUsername();
+                jsonObj.put("username", username);
+                Optional<Video> video = videoRepository.findByTitleAndExam_Id(username, examId);
+                if (video.isPresent()) {
+                    jsonObj.put("watchingVideo", video.get().getId());
+                }
+                else {
+                    jsonObj.put("watchingVideo", null);
+                }
+                jsonArray.put(jsonObj);
+            }
+        }
+
+        return jsonArray;
     }
 
     @Transactional
