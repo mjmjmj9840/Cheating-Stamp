@@ -11,6 +11,7 @@ import com.example.CheatingStamp.service.VideoService;
 import com.example.CheatingStamp.service.*;
 import com.example.CheatingStamp.model.*;
 import lombok.RequiredArgsConstructor;
+import org.json.JSONArray;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +19,8 @@ import com.example.CheatingStamp.security.UserDetailsImpl;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -80,7 +83,7 @@ public class ExamController {
 
         return "waiting";
     }
-
+    
     // 시험 화면
     @GetMapping("/{code}")
     public String exam(@AuthenticationPrincipal UserDetailsImpl userDetails, @PathVariable String code, Model model) {
@@ -210,6 +213,23 @@ public class ExamController {
         examUserService.deleteByExamIdAndUsername(examId, username);
 
         return "redirect:/";
+    }
+
+    // 응시 영상 목록
+    @GetMapping("/watchingList")
+    public String watchingList(@RequestParam Long examId, Model model) {
+        HashMap<String,String> infoMap = examService.getExamInfo(examId);
+
+        model.addAttribute("examId", examId);
+        model.addAttribute("examStartTime", infoMap.get("examStartTime"));
+        model.addAttribute("examEndTime", infoMap.get("examEndTime"));
+        model.addAttribute("examTitle", infoMap.get("examTitle"));
+        model.addAttribute("examCode", infoMap.get("examCode"));
+
+        JSONArray testerInfo = examUserService.getTestersInfo(examId);
+        model.addAttribute("testerInfo", testerInfo);
+
+        return "watchingList";
     }
 }
 
