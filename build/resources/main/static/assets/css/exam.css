@@ -3,7 +3,10 @@ html, body {
 	height: 100%;
 	overflow: hidden;
 }
-
+main {
+	min-height: 200px;
+	height: 80vh !important;
+}
 .alert.alert-danger {
 	position: fixed;
 	width: 50vw;
@@ -12,4 +15,14 @@ html, body {
 
 .alert-true {
 	display: block !important;
+}
+
+.answer{
+	width: 60vw;
+	margin-left: 20px;
+	height: 20vh;
+}
+.question {
+	font-weight: 700;
+	margin: 20px 0 10px 20px;
 }

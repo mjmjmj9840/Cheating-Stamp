@@ -40,7 +40,7 @@
                          #strings.substring(exam.examStartTime, 8, 10) + ':' + #strings.substring(exam.examStartTime, 10, 12) +
                          '~' + #strings.substring(exam.examEndTime, 8, 10) + ':' + #strings.substring(exam.examEndTime, 10, 12)}"></div>
                     <div class="state">waiting</div>
-                    <div class="watch"><i class="far fa-eye"></i></div><!--'/waithingList'로 연결-->
+                    <div class="watch" th:onclick="'location.href=\'' + 'watchingList?examId=' + @{${exam.examId}} + '\''"><i class="far fa-eye"></i></div>
                 </div>
             </div>
 

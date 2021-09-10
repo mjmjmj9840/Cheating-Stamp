@@ -55,16 +55,16 @@
                     <div class="username">username(e-mail)</div>
                     <div class="stamp">스탬프개수</div> <!--임시 항목임-->
                     <div class="state">확인현황</div> <!--임시 항목임-->
-                    <div class="video">응시영상시청</div> <!--'/waithingVideo'로 연결-->
+                    <div class="video">응시영상시청</div>
                     <div class="answer">답안확인</div> <!--임시 항목임-->
                 </div>
-                <div class="content" id="delcon">
+                <div class="content">
                     <div class="num">2</div>
                     <div class="name">박응시</div>
                     <div class="username">park@abc.com</div>
                     <div class="stamp">25</div>
                     <div class="state">확인 전</div>
-                    <div class="video"><i class="fas fa-video"></i></div>
+                    <div class="video" th:onclick="'location.href=\'' + 'watchingVideo?videoId=' + @{${{video.videoId}}} + '\''"><i class="fas fa-video"></i></div>
                     <div class="answer"><i class="fas fa-align-justify"></i></div>
                 </div>
                 <div class="content">
@@ -73,7 +73,7 @@
                     <div class="username">kim@abc.net</div>
                     <div class="stamp">4</div>
                     <div class="state">확인 전</div>
-                    <div class="video"><i class="fas fa-video"></i></div>
+                    <div class="video"><a href="/watchingVideo"><i class="fas fa-video"></i></a></div>
                     <div class="answer"><i class="fas fa-align-justify"></i></div>
                 </div>
             </div>
