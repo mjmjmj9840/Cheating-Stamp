@@ -20,11 +20,12 @@ setInterval(function()
 
 $(document).ready(function () {
     // 시험 문제 및 답안란 출력
-    var questionsString = $("#questions").val();
-    var questions = JSON.parse(questionsString);
+    let questionsString = $("#questions").val();
+    console.log(questionsString);
+    let questions = JSON.parse($("#questions").val());
     for (var i = 0; i < questions.length; i++) {
         // console.log(questions[i]);   // -> {1: "문제"}
-        // console.log(questions[i][i+1]);  // -> 문제
+        //console.log(questions[i][i+1]);  // -> 문제
         var question = '<p class="question">' + questions[i][i+1] + '</p>';
         var answer = '<textarea rows="8" cols="30" class="answer"></textarea>'; // 임시 답안란
         $('#exam').append(question);
@@ -51,7 +52,7 @@ function saveAnswer() {
 // 시간 문자열(yyyyMMddHHmm) 파싱
 function parseTime(time) {
     var year = time.substring(0,4);
-    var month = time.substring(4,6);
+    var month = time.substring(4,6) - 1;
     var date = time.substring(6,8);
     var hour = time.substring(8,10);
     var min = time.substring(10,12);
@@ -69,10 +70,6 @@ var examTime = $("#examTime").val(); // 시험 제한 시간 (x분)
 
 function remainTime() {
     var now = new Date().getTime();
-
-//    console.log("now:" + now);
-//    console.log("now:" + new Date().toString());
-//    console.log("start:" + parseTime($("#examEndTime").val()));
 
     if(now<=startTime){ //현재시간이 시험시작시간보다 이르면 시험시작시간까지의 남은 시간을 구한다.
         $(".time").fadeIn();
