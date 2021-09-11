@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org">
 <head>
     <div th:replace="./fragments/header.html :: fragment-header"></div>
     <!-- waiting page header file -->
@@ -25,6 +26,8 @@
                 <div class="title" th:text="${examTime}"></div>
             </div>
             <div class="exam-timer">
+                <input type="hidden" id="startTime" th:value="${examStartTime}" />
+                <input type="hidden" id="endTime" th:value="${examEndTime}" />
                 <div class="material-icons">timer</div>
                 <div id="var" class="time-title list1"></div>
                 <div class="time title">
