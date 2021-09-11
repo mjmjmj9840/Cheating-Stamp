@@ -57,7 +57,7 @@ public class ExamUserService {
             if (user.getRole() != UserRole.SUPERVISOR) {
                 JSONObject jsonObj = new JSONObject();
 
-                jsonObj.put("name", user.getName()); // 임시
+                jsonObj.put("name", user.getName());
                 String username = user.getUsername();
                 jsonObj.put("username", username);
                 Optional<Video> video = videoRepository.findByTitleAndExam_Id(username, examId);
