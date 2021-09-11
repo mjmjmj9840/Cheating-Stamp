@@ -209,5 +209,22 @@ public class ExamController {
 
         return "redirect:/";
     }
+
+    @GetMapping("/watchingVideo")
+    public String watchingVideo(@RequestParam Long videoId, Model model) {
+
+
+        HashMap<String,String> videoInfo = videoService.getVideoInfo(videoId);
+        if (!videoInfo.isEmpty()) {
+            model.addAttribute("filePath", videoInfo.get("filePath"));
+            model.addAttribute("examTitle", videoInfo.get("examTitle"));
+            model.addAttribute("username", videoInfo.get("username"));
+
+            return "watchingVideo";
+        }
+        else {
+            return "redirect:/";
+        }
+    }
 }
 
