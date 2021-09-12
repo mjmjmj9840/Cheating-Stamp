@@ -12,11 +12,12 @@ public class AnswerService {
     private final AnswerRepository answerRepository;
 
     // requestDto로부터 정보 받아와 객체 생성
-    public Long createAnswer(SaveAnswerRequestDto requestDto) {
+    public Long createAnswer(SaveAnswerRequestDto requestDto, String username) {
         String answers = requestDto.getAnswers();
         String timestamp = requestDto.getTimestamp();
+        Long examId = requestDto.getExamId();
 
-        Answer answer = new Answer(answers, timestamp);
+        Answer answer = new Answer(answers, timestamp, username, examId);
         answerRepository.save(answer);
 
         return answer.getId();

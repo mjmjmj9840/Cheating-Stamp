@@ -18,9 +18,11 @@ import java.util.List;
 public class Answer extends Timestamped {
 
     @Builder
-    public Answer(String answers, String timestamp) {
+    public Answer(String answers, String timestamp, String username, Long examId) {
         this.answers = answers;
         this.timestamp = timestamp;
+        this.username = username;
+        this.examId = examId;
     }
 
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -33,7 +35,9 @@ public class Answer extends Timestamped {
     @NotNull
     private String timestamp;
 
-    // userId (fk)
+    @NotNull
+    private String username;
 
-    // examId (fk)
+    @NotNull
+    private Long examId;
 }

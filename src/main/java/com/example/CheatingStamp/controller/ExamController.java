@@ -18,6 +18,8 @@ import com.example.CheatingStamp.security.UserDetailsImpl;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -87,11 +89,9 @@ public class ExamController {
         HashMap<String, String> infoMap = examService.getExamInfo(examId);
         String now = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmm"));
         // 시험 시작 전일 경우 대기 화면으로 넘김
-        /* (구현때문에 잠깐 주석처리)
         if (now.compareTo(infoMap.get("examStartTime")) < 0) {
             return "redirect:/waiting";
         }
-        */
         // 시험 종료 후엔 접근할 수 없음
         if (now.compareTo(infoMap.get("examEndTime")) > 0) {
             return "redirect:/";
@@ -109,8 +109,9 @@ public class ExamController {
 
     @ResponseBody
     @PostMapping("/exam")
-    public String saveAnswer(@ModelAttribute SaveAnswerRequestDto requestDto) {
-        answerService.createAnswer(requestDto);
+    public String saveAnswer(@AuthenticationPrincipal UserDetailsImpl userDetails, @ModelAttribute SaveAnswerRequestDto requestDto) {
+        String username = userDetails.getUser().getUsername();
+        answerService.createAnswer(requestDto, username);
 
         return "redirect:/examEnd";
     }
