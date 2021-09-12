@@ -154,7 +154,7 @@ function remainTime() {
             contentType: false,
             data: data,
             success: function (response) {
-                alert("timestamp와 답안이 성공적으로 저장되었습니다.");
+                alert("timestamp와 답안이 성공적으로 저장되었습니다. 확인 버튼을 누르고 응시 영상 저장 완료까지 잠시만 기다려주세요.");
                 rec.stop() // 응시 영상 저장
             },
             error: function (response) {
@@ -200,7 +200,7 @@ $("#end-btn").click(function () {
         contentType: false,
         data: data,
         success: function (response) {
-            alert("timestamp와 답안이 성공적으로 저장되었습니다.");
+            alert("timestamp와 답안이 성공적으로 저장되었습니다. 확인 버튼을 누르고 응시 영상 저장 완료까지 잠시만 기다려주세요.");
             rec.stop() // 응시 영상 저장
         },
         error: function (response) {
