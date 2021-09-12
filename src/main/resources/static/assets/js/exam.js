@@ -49,10 +49,8 @@ $(document).ready(function () {
     console.log(questionsString);
     let questions = JSON.parse($("#questions").val());
     for (var i = 0; i < questions.length; i++) {
-        // console.log(questions[i]);   // -> {1: "문제"}
-        //console.log(questions[i][i+1]);  // -> 문제
         var question = '<p class="question">' + questions[i][i+1] + '</p>';
-        var answer = '<textarea rows="8" cols="30" class="answer"></textarea>'; // 임시 답안란
+        var answer = '<textarea rows="8" cols="30" class="answer"></textarea>';
         $('#exam').append(question);
         $('#exam').append(answer);
     }
@@ -144,6 +142,7 @@ function remainTime() {
 
         let code = $("#examCode").val()
         let data = new FormData();
+        data.append('examId', $('#examId').val());
         data.append('answer', JSON.stringify(saveAnswer()));
         data.append('timestamp', timestamp);
 
@@ -189,6 +188,7 @@ function remainTime() {
 $("#end-btn").click(function () {
     let code = $("#examCode").val()
     let data = new FormData();
+    data.append('examId', $('#examId').val());
     data.append('answers', JSON.stringify(saveAnswer()));
     data.append('timestamp', timestamp);
 
