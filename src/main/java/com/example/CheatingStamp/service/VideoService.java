@@ -25,6 +25,7 @@ public class VideoService {
             infoMap.put("filePath", video.get().getFilePath());
             infoMap.put("username", video.get().getTitle());
             infoMap.put("examTitle", video.get().getExam().getTitle());
+            infoMap.put("examId", video.get().getExam().getId().toString()); // answerService 전달용
         }
 
         return infoMap;

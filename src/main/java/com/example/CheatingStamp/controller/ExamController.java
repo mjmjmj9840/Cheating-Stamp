@@ -213,17 +213,24 @@ public class ExamController {
 
     @GetMapping("/watchingVideo")
     public String watchingVideo(@RequestParam Long videoId, Model model) {
-
-
         HashMap<String,String> videoInfo = videoService.getVideoInfo(videoId);
+
         if (!videoInfo.isEmpty()) {
+            String username = videoInfo.get("username");
+            Long examId = Long.valueOf(videoInfo.get("examId"));
+
             model.addAttribute("filePath", videoInfo.get("filePath"));
             model.addAttribute("examTitle", videoInfo.get("examTitle"));
-            model.addAttribute("username", videoInfo.get("username"));
+            model.addAttribute("username", username);
+
+            HashMap<String, List> timestampInfo = answerService.getTimestampByExamIdAndUsername(examId, username);
+            model.addAttribute("timestamp", timestampInfo.get("timestamp"));
 
             return "watchingVideo";
         }
         else {
+            System.out.println("수험자의 응시 영상이 존재하지 않습니다.");
+
             return "redirect:/";
         }
     }
