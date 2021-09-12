@@ -1,6 +1,7 @@
 package com.example.CheatingStamp.service;
 
 import com.example.CheatingStamp.dto.VideoRequestDto;
+import com.example.CheatingStamp.model.Video;
 import com.example.CheatingStamp.repository.VideoRepository;
 import com.example.CheatingStamp.model.Video;
 import lombok.RequiredArgsConstructor;
@@ -13,8 +14,10 @@ import java.util.*;
 public class VideoService {
     private final VideoRepository videoRepository;
 
-    public void savePost(VideoRequestDto requestDto) {
-        videoRepository.save(requestDto.toEntity());
+    public Video savePost(VideoRequestDto requestDto) {
+        Video video = requestDto.toEntity();
+        videoRepository.save(video);
+        return video;
     }
 
     public HashMap getVideoInfo(Long videoId) {

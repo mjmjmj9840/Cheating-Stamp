@@ -76,3 +76,8 @@ function remainTime() {
         }
 }
 setInterval(remainTime,1000);
+
+$('#target_btn').on('click', function () {
+    let code = $('#examCode').text();
+    window.location.href = "/exam?code=" + code;
+});

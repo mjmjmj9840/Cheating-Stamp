@@ -9,7 +9,6 @@
 <body>
     <script defer src="./assets/webgazer/webgazer.js"></script>
     <script src="./assets/js/index.js" defer></script>
-    <script type="text/javascript" src="./assets/js/exam.js" defer></script>
 
     <!-- ======= Header ======= -->
     <div th:replace="./fragments/navbar.html :: fragment-navbar"></div>
@@ -23,6 +22,7 @@
                     </div>
                     <div class="time-box">
                         <input type="hidden" id="examId" th:value="${examId}" />
+                        <input type="hidden" id="examCode" th:value="${examCode}" />
                         <input type="hidden" id="examStartTime" th:value="${examStartTime}" />
                         <input type="hidden" id="examEndTime" th:value="${examEndTime}" />
                         <input type="hidden" id="examTime" th:value="${examTime}" />
@@ -44,6 +44,9 @@
                 </div>
             </div>
             <div class="col" id="exam">
+                <div class="alert alert-danger" role="alert">
+                    수험자의 시선이 경계 범위를 넘었습니다. 주의하세요.
+                </div>
                 <!-- 서버로부터 문제 목록 받음 -->
                 <input type="hidden" id="questions" th:value="${examQuestions}" />
                 <!-- answer 입력 폼 예시 (class="answer") -->
@@ -56,5 +59,6 @@
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
     <div th:replace="./fragments/config.html :: fragment-config"></div>
+    <script src="./assets/js/exam.js"></script>
 </body>
 </html>

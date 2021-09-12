@@ -5,11 +5,11 @@
 }
 .video {
   margin-top: 60px;
-  margin-right: 8vh;
+  margin-right: 10vmin;
 }
 
 video {
-  width: 120vh;
+  width: 110vmin;
 }
 
 .box .text {
@@ -60,3 +60,4 @@ video {
 .time .num:hover {
   color: rgba(0, 0, 250, 0.849);
 }
+

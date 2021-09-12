@@ -11,6 +11,7 @@ import com.example.CheatingStamp.service.VideoService;
 import com.example.CheatingStamp.service.*;
 import com.example.CheatingStamp.model.*;
 import lombok.RequiredArgsConstructor;
+import org.json.JSONArray;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +22,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 
@@ -80,10 +83,10 @@ public class ExamController {
 
         return "waiting";
     }
-
+    
     // 시험 화면
-    @GetMapping("/{code}")
-    public String exam(@AuthenticationPrincipal UserDetailsImpl userDetails, @PathVariable String code, Model model) {
+    @GetMapping("/exam")
+    public String exam(@AuthenticationPrincipal UserDetailsImpl userDetails, @RequestParam String code, Model model) {
         // 시험 코드에 해당하는 시험 정보 받아오기
         Long examId = examService.getExamIdByCode(code);
         HashMap<String, String> infoMap = examService.getExamInfo(examId);
@@ -94,10 +97,12 @@ public class ExamController {
         }
         // 시험 종료 후엔 접근할 수 없음
         if (now.compareTo(infoMap.get("examEndTime")) > 0) {
-            return "redirect:/";
+            model.addAttribute("endExam", true);
+            return "index";
         }
 
         model.addAttribute("examId", examId);
+        model.addAttribute("examCode", infoMap.get("examCode"));
         model.addAttribute("examTime", infoMap.get("examTime"));
         model.addAttribute("examStartTime", infoMap.get("examStartTime"));
         model.addAttribute("examEndTime", infoMap.get("examEndTime"));
@@ -108,38 +113,26 @@ public class ExamController {
     }
 
     @ResponseBody
-    @PostMapping("/exam")
-    public String saveAnswer(@AuthenticationPrincipal UserDetailsImpl userDetails, @ModelAttribute SaveAnswerRequestDto requestDto) {
+    @PostMapping("/exam/{code}")
+    public String saveAnswer(@PathVariable String code, @AuthenticationPrincipal UserDetailsImpl userDetails, @ModelAttribute SaveAnswerRequestDto requestDto) {
         String username = userDetails.getUser().getUsername();
         answerService.createAnswer(requestDto, username);
 
         return "redirect:/examEnd";
     }
 
-    // 임시 시험 화면
-    @GetMapping("/exam")
-    public String exam(@AuthenticationPrincipal UserDetailsImpl userDetails) {
-        return "exam";
-    }
-
-    // 녹화 테스트 화면
-    @GetMapping("/TESTrecord")
-    public String testRecord(@AuthenticationPrincipal UserDetailsImpl userDetails) {
-        return "TESTrecord";
-    }
-
     // 응시 영상 업로드
-    @PostMapping("/upload")
-    public String uploadVideo(@AuthenticationPrincipal UserDetailsImpl userDetails, MultipartFile file) throws IOException {
+    @PostMapping("/upload/{code}")
+    public String uploadVideo(@PathVariable String code, @AuthenticationPrincipal UserDetailsImpl userDetails, MultipartFile file) throws IOException {
         // s3에 응시 영상 업로드
-        String title = userDetails.getUser().getUsername();
-        String filePath = s3Service.upload(file, title);
+        String username = userDetails.getUser().getUsername();
+        String filePath = s3Service.upload(file, code + "_" + username);  // 영상 제목: 시험 코드_응시자 이메일
         // DB에 영상 이름과 url 저장
         VideoRequestDto requestDto = new VideoRequestDto();
-        requestDto.setTitle(title);
+        requestDto.setUsername(username);
         requestDto.setFilePath(filePath);
 
-        videoService.savePost(requestDto);
+        examService.addVideoByExamCode(videoService.savePost(requestDto), code);  // 영상 저장 후 exam과 연결
 
         return "redirect:/examEnd";
     }
@@ -233,6 +226,22 @@ public class ExamController {
 
             return "redirect:/";
         }
+
+    // 응시 영상 목록
+    @GetMapping("/watchingList")
+    public String watchingList(@RequestParam Long examId, Model model) {
+        HashMap<String,String> infoMap = examService.getExamInfo(examId);
+
+        model.addAttribute("examId", examId);
+        model.addAttribute("examStartTime", infoMap.get("examStartTime"));
+        model.addAttribute("examEndTime", infoMap.get("examEndTime"));
+        model.addAttribute("examTitle", infoMap.get("examTitle"));
+        model.addAttribute("examCode", infoMap.get("examCode"));
+
+        JSONArray testerInfo = examUserService.getTestersInfo(examId);
+        model.addAttribute("testerInfo", testerInfo);
+
+        return "watchingList";
     }
 }
 

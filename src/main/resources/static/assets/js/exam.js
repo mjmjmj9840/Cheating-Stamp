@@ -1,7 +1,69 @@
+let blobs;
+let blob; // 데이터
+let rec; // 미디어스트림 기반 Media Recorder 객체
+let stream; // 미디어스트림
+let videoStream; // 비디오스트림
+
+window.onload = async () => {  // 비디오 녹화 함수
+    videoStream = await navigator.mediaDevices.getDisplayMedia({video: {width: 720, height: 480}, audio: false});
+
+    const tracks = [
+        ...videoStream.getVideoTracks(),
+    ];
+
+    stream = new MediaStream(tracks);
+
+    blobs = [];
+
+    rec = new MediaRecorder(stream, {mimeType: 'video/webm; codecs=vp9,opus'});
+    rec.ondataavailable = (e) => blobs.push(e.data);
+
+    rec.onstop = async () => { // 녹화 종료시 영상 파일 만들고 서버로 전송
+        blob = new Blob(blobs, {type: 'video/mp4'});
+        let code = $("#examCode").val()
+        let form = new FormData();
+        form.append('file', blob);
+        $.ajax({
+            url: "/upload/" + code,
+            type: "POST",
+            data: form,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                alert("timestamp와 응시 영상이 성공적으로 저장되었습니다.");
+                window.location.href = '/examEnd'
+            }, error: function (response) {
+                alert("응시 영상 저장에 실패했습니다. 관리자에게 문의해주세요.");
+                window.location.href = '/examEnd'
+            },
+        });
+    };
+
+    rec.start(); // 녹화 시작
+};
+
+$(document).ready(function () {
+    // 시험 문제 및 답안란 출력
+    let questionsString = $("#questions").val();
+    console.log(questionsString);
+    let questions = JSON.parse($("#questions").val());
+    for (var i = 0; i < questions.length; i++) {
+        var question = '<p class="question">' + questions[i][i+1] + '</p>';
+        var answer = '<textarea rows="8" cols="30" class="answer"></textarea>';
+        $('#exam').append(question);
+        $('#exam').append(answer);
+    }
+
+    setInterval(function(){
+        eyetracking();
+        remainTime();
+    }, 1000);
+});
+
 timestamp = new Array
 
-setInterval(function()
-{
+function eyetracking() {
     const alert_ = document.querySelector('.alert-true')
     if (alert_ !== null) {
         let now = new Date();
@@ -15,21 +77,7 @@ setInterval(function()
         timestamp.push(nowString)
         console.log(timestamp)
     }
-}, 1000 );
-
-
-$(document).ready(function () {
-    // 시험 문제 및 답안란 출력
-    let questionsString = $("#questions").val();
-    console.log(questionsString);
-    let questions = JSON.parse($("#questions").val());
-    for (var i = 0; i < questions.length; i++) {
-        var question = '<p class="question">' + questions[i][i+1] + '</p>';
-        var answer = '<textarea rows="8" cols="30" class="answer"></textarea>';
-        $('#exam').append(question);
-        $('#exam').append(answer);
-    }
-});
+}
 
 // 사용자 작성 답안을 JSON 배열로 리턴
 function saveAnswer() {
@@ -92,6 +140,7 @@ function remainTime() {
         $("div.time-title").html("시험 종료");
         $(".time").fadeOut();
 
+        let code = $("#examCode").val()
         let data = new FormData();
         data.append('examId', $('#examId').val());
         data.append('answer', JSON.stringify(saveAnswer()));
@@ -99,17 +148,16 @@ function remainTime() {
 
         //시험이 종료되면 데이터 전송 후, 종료화면으로 이동
         $.ajax({
-            url: "/exam",
+            url: "/exam/" + code,
             type: "POST",
             processData: false,
             contentType: false,
             data: data,
             success: function (response) {
-                alert("timestamp와 답안이 성공적으로 저장되었습니다.");
-                window.location.href = '/examEnd';
+                rec.stop() // 응시 영상 저장
             },
             error: function (response) {
-                alert("저장에 실패했습니다. 관리자에게 문의해주세요.");
+                alert("timestamp와 답안 저장에 실패했습니다. 관리자에게 문의해주세요.");
                 window.location.href = '/examEnd';
             },
         });
@@ -135,10 +183,10 @@ function remainTime() {
     }
 
 }
-setInterval(remainTime,1000);
 
 //끝내기 버튼을 누르면
 $("#end-btn").click(function () {
+    let code = $("#examCode").val()
     let data = new FormData();
     data.append('examId', $('#examId').val());
     data.append('answers', JSON.stringify(saveAnswer()));
@@ -146,17 +194,16 @@ $("#end-btn").click(function () {
 
     //시험이 종료되면 데이터 전송 후, 종료화면으로 이동
     $.ajax({
-        url: "/exam",
+        url: "/exam/" + code,
         type: "POST",
         processData: false,
         contentType: false,
         data: data,
         success: function (response) {
-            alert("timestamp와 답안이 성공적으로 저장되었습니다.");
-            window.location.href = '/examEnd';
+            rec.stop() // 응시 영상 저장
         },
         error: function (response) {
-            alert("저장에 실패했습니다. 관리자에게 문의해주세요.");
+            alert("timestamp와 답안 저장에 실패했습니다. 관리자에게 문의해주세요.");
             window.location.href = '/examEnd';
         },
     });

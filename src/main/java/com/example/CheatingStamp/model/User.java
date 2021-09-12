@@ -17,8 +17,9 @@ import java.util.List;
 public class User extends Timestamped {
 
     @Builder
-    public User(String username, String password, UserRole role) {
+    public User(String username, String name, String password, UserRole role) {
         this.username = username;
+        this.name = name;
         this.password = password;
         this.role = role;
     }
@@ -33,6 +34,9 @@ public class User extends Timestamped {
     @Column(unique = true)
     @NotNull
     private String username;
+
+    @NotNull
+    private String name;
 
     @NotNull
     private String password;

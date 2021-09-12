@@ -18,7 +18,7 @@ public class Video extends Timestamped {
     private Long id;
 
     @NotNull
-    private String title;  // 업로드한 user의 username으로 영상 이름 저장
+    private String username;
 
     @Column(columnDefinition = "TEXT")
     private String filePath;
@@ -28,9 +28,9 @@ public class Video extends Timestamped {
     private Exam exam;
 
     @Builder
-    public Video(Long id, String title, String filePath) {
+    public Video(Long id, String username, String filePath) {
         this.id = id;
-        this.title = title;
+        this.username = username;
         this.filePath = filePath;
     }
 }
