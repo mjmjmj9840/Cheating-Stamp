@@ -120,24 +120,18 @@ public class ExamController {
         return "redirect:/examEnd";
     }
 
-    // 녹화 테스트 화면
-    @GetMapping("/TESTrecord")
-    public String testRecord(@AuthenticationPrincipal UserDetailsImpl userDetails) {
-        return "TESTrecord";
-    }
-
     // 응시 영상 업로드
-    @PostMapping("/upload")
-    public String uploadVideo(@AuthenticationPrincipal UserDetailsImpl userDetails, MultipartFile file) throws IOException {
+    @PostMapping("/upload/{code}")
+    public String uploadVideo(@PathVariable String code, @AuthenticationPrincipal UserDetailsImpl userDetails, MultipartFile file) throws IOException {
         // s3에 응시 영상 업로드
-        String title = userDetails.getUser().getUsername();
-        String filePath = s3Service.upload(file, title);
+        String username = userDetails.getUser().getUsername();
+        String filePath = s3Service.upload(file, code + "_" + username);  // 영상 제목: 시험 코드_응시자 이메일
         // DB에 영상 이름과 url 저장
         VideoRequestDto requestDto = new VideoRequestDto();
-        requestDto.setTitle(title);
+        requestDto.setUsername(username);
         requestDto.setFilePath(filePath);
 
-        videoService.savePost(requestDto);
+        examService.addVideoByExamCode(videoService.savePost(requestDto), code);  // 영상 저장 후 exam과 연결
 
         return "redirect:/examEnd";
     }
