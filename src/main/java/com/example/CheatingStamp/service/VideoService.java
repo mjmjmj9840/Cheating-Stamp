@@ -23,7 +23,7 @@ public class VideoService {
 
         if (video.isPresent()) {
             infoMap.put("filePath", video.get().getFilePath());
-            infoMap.put("username", video.get().getTitle());
+            infoMap.put("username", video.get().getUsername());
             infoMap.put("examTitle", video.get().getExam().getTitle());
             infoMap.put("examId", video.get().getExam().getId().toString()); // answerService 전달용
         }
