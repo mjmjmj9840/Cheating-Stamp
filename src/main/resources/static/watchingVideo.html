@@ -1,93 +1,46 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org">
 <head>
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-    <title>CheatingStamp</title>
-
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-
-    <!-- Vendor CSS Files -->
-    <link href="./assets/vendor/animate.css/animate.min.css" rel="stylesheet">
-    <link href="./assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="./assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-    <link href="./assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-    <link href="./assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-    <link href="./assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-
-    <!-- Template Main CSS File -->
-    <link href="./assets/css/style.css" rel="stylesheet">
-
-    <!-- JQuery File -->
-    <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <div th:replace="./fragments/header.html :: fragment-header"></div>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link href="./assets/css/watchingVideo.css" rel="stylesheet">
 </head>
 
 <body>
-
     <!-- ======= Header ======= -->
-    <header id="header" class="d-flex align-items-center">
-      <div class="container d-flex justify-content-between align-items-center">
-          <div class="logo">
-              <h1><a href="/">Cheating Stamp</a></h1>
-          </div>
+    <div th:replace="./fragments/navbar.html :: fragment-navbar"></div>
 
-          <nav id="navbar" class="navbar">
-              <ul>
-                  <li><a class="active" href="/">Home</a></li>
-                  <li><a href="#">About</a></li>
-                  <li sec:authorize="!isAuthenticated()"><a href="/login">Login</a></li>
-                  <li sec:authorize="isAuthenticated()"><a href="/logout">Logout</a></li>
-                  <li class="dropdown"><a href="#"><span>Eye-tracking</span> <i class="bi bi-chevron-down"></i></a>
-                      <ul>
-                          <li><a href="/calibration">Calibration</a></li>
-                          <li><a href="#">Accuracy Test</a></li>
 
-                      </ul>
-                  </li>
-              </ul>
-              <i class="bi bi-list mobile-nav-toggle"></i>
-          </nav>
-      </div>
-  </header>
-
-  <body>
+    <section>
 
     <div class="box">
       <div class="video">
-      <video controls >
-        <source src='http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4'>
-        Sorry, your browser doesn't support embedded videos.
-      </video>
-    </div>
-    <div class="text">
+        <video controls>
+          <source src='http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4'>
+          Sorry, your browser doesn't support embedded videos.
+        </video>
+      </div>
+      <div class="text">
+        
         <div class="user">
-            <div class="exam" th:text="${examTitle}">시험 제목</div>
-            <div class="info" th:text="${username}">수험자 이름</div>
+          <div class="exam" th:text="${examTitle}"></div>
+          <div class="info" th:text="${username}"></div>
         </div>
-        <div class="stamp"></div>
+
+        <div class="stamp" th:each="stamp : ${timestamp}">
+          <div class="time">
+            <p class="str">[ 시선 이탈 ]</p>
+            <p class="num" th:text="${stamp}"></p>
+          </div>
+        </div>
+
+      </div>
     </div>
-    </div>
 
-  </body>
+  </section>
 
-
-
-    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
-    <!-- Vendor JS Files -->
-    <script src="./assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="./assets/vendor/glightbox/js/glightbox.min.js"></script>
-    <script src="./assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-    <script src="./assets/vendor/php-email-form/validate.js"></script>
-    <script src="./assets/vendor/purecounter/purecounter.js"></script>
-    <script src="./assets/vendor/swiper/swiper-bundle.min.js"></script>
-    <script src="./assets/vendor/waypoints/noframework.waypoints.js"></script>
-
-    <!-- Template Main JS File -->
-    <script src="./assets/js/main.js"></script>
-    <script src="./assets/js/watchingVideo.js"></script>
+    <script type="text/javascript" src="./assets/js/watchingVideo.js" defer></script>
+    <div th:replace="./fragments/config.html :: fragment-config"></div>
 </body>
 </html>
