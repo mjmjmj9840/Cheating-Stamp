@@ -1,23 +1,3 @@
-timestamp = new Array
-
-setInterval(function()
-{
-    const alert_ = document.querySelector('.alert-true')
-    if (alert_ !== null) {
-        let now = new Date();
-
-        let hours = ('0' + now.getHours()).slice(-2);
-        let minutes = ('0' + now.getMinutes()).slice(-2);
-        let seconds = ('0' + now.getSeconds()).slice(-2);
-
-        let nowString = hours + ':' + minutes  + ':' + seconds;
-
-        timestamp.push(nowString)
-        console.log(timestamp)
-    }
-}, 1000 );
-
-
 $(document).ready(function () {
     // 시험 문제 및 답안란 출력
     let questionsString = $("#questions").val();
@@ -31,7 +11,30 @@ $(document).ready(function () {
         $('#exam').append(question);
         $('#exam').append(answer);
     }
+
+    setInterval(function(){
+        eyetracking();
+        remainTime();
+    }, 1000);
 });
+
+timestamp = new Array
+
+function eyetracking() {
+    const alert_ = document.querySelector('.alert-true')
+    if (alert_ !== null) {
+        let now = new Date();
+
+        let hours = ('0' + now.getHours()).slice(-2);
+        let minutes = ('0' + now.getMinutes()).slice(-2);
+        let seconds = ('0' + now.getSeconds()).slice(-2);
+
+        let nowString = hours + ':' + minutes  + ':' + seconds;
+
+        timestamp.push(nowString)
+        console.log(timestamp)
+    }
+}
 
 // 사용자 작성 답안을 JSON 배열로 리턴
 function saveAnswer() {
@@ -94,13 +97,14 @@ function remainTime() {
         $("div.time-title").html("시험 종료");
         $(".time").fadeOut();
 
+        let code = $("#examCode").val()
         let data = new FormData();
         data.append('answer', JSON.stringify(saveAnswer()));
         data.append('timestamp', timestamp);
 
         //시험이 종료되면 데이터 전송 후, 종료화면으로 이동
         $.ajax({
-            url: "/exam",
+            url: "/exam/" + code,
             type: "POST",
             processData: false,
             contentType: false,
@@ -136,17 +140,17 @@ function remainTime() {
     }
 
 }
-setInterval(remainTime,1000);
 
 //끝내기 버튼을 누르면
 $("#end-btn").click(function () {
+    let code = $("#examCode").val()
     let data = new FormData();
     data.append('answers', JSON.stringify(saveAnswer()));
     data.append('timestamp', timestamp);
 
     //시험이 종료되면 데이터 전송 후, 종료화면으로 이동
     $.ajax({
-        url: "/exam",
+        url: "/exam/" + code,
         type: "POST",
         processData: false,
         contentType: false,

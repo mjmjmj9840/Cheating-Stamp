@@ -138,9 +138,14 @@
 
     <script type="text/javascript" th:inline="javascript">
         <!-- 시험이 없을 때 에러 메세지 -->
-        let error = [[ ${noExam} ]];
-        if (error) {
+        let noExam = [[ ${noExam} ]];
+        let endExam = [[ ${endExam} ]];
+        if (noExam) {
             alert("예정된 시험이 없습니다.");
+            window.location.replace("/");
+        }
+        if (endExam) {
+            alert("해당 시험이 이미 종료되었습니다.");
             window.location.replace("/");
         }
     </script>
