@@ -28,8 +28,8 @@
           <div class="info" th:text="${username}"></div>
         </div>
 
-        <div class="stamp" th:each="stamp : ${timestamp}">
-          <div class="time">
+        <div class="stamp">
+          <div class="time" th:each="stamp : ${timestamp}">
             <p class="str">[ 시선 이탈 ]</p>
             <p class="num" th:text="${stamp}"></p>
           </div>
