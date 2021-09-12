@@ -60,7 +60,7 @@ public class ExamUserService {
                 jsonObj.put("name", user.getName()); // 임시
                 String username = user.getUsername();
                 jsonObj.put("username", username);
-                Optional<Video> video = videoRepository.findByTitleAndExam_Id(username, examId);
+                Optional<Video> video = videoRepository.findByUsernameAndExam_Id(username, examId);
                 if (video.isPresent()) {
                     jsonObj.put("watchingVideo", video.get().getId());
                 }

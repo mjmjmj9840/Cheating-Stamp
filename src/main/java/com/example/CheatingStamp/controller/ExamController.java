@@ -206,7 +206,7 @@ public class ExamController {
 
     @GetMapping("/watchingVideo")
     public String watchingVideo(@RequestParam Long videoId, Model model) {
-        HashMap<String,String> videoInfo = videoService.getVideoInfo(videoId);
+        HashMap<String, String> videoInfo = videoService.getVideoInfo(videoId);
 
         if (!videoInfo.isEmpty()) {
             String username = videoInfo.get("username");
@@ -220,12 +220,12 @@ public class ExamController {
             model.addAttribute("timestamp", timestampInfo.get("timestamp"));
 
             return "watchingVideo";
-        }
-        else {
+        } else {
             System.out.println("수험자의 응시 영상이 존재하지 않습니다.");
 
             return "redirect:/";
         }
+    }
 
     // 응시 영상 목록
     @GetMapping("/watchingList")
