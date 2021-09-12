@@ -1,5 +1,5 @@
 window.onload = async () => {
-    const stopBtn = document.getElementById('stopBtn');
+    const stopBtn = document.getElementById('end-btn');
 
     let blobs;
     let blob; // 데이터
