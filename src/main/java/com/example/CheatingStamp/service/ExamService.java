@@ -2,10 +2,12 @@ package com.example.CheatingStamp.service;
 
 import com.example.CheatingStamp.dto.CreateExamRequestDto;
 import com.example.CheatingStamp.model.Exam;
+import com.example.CheatingStamp.model.Video;
 import com.example.CheatingStamp.repository.ExamRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -93,5 +95,14 @@ public class ExamService {
         for (int i = 0; i < examIds.size(); i++) {
             examRepository.deleteById(examIds.get(i));
         }
+    }
+
+    @Transactional
+    public void addVideoByExamCode(Video video, String code) {
+        Optional<Exam> found = examRepository.findByCode(code);
+        if (!found.isPresent()) {
+            throw new NullPointerException("해당 코드의 시험이 존재하지 않습니다.");
+        }
+        found.get().addVideo(video);
     }
 }

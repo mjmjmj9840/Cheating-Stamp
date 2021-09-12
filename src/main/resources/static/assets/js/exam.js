@@ -20,17 +20,18 @@ window.onload = async () => {  // 비디오 녹화 함수
 
     rec.onstop = async () => { // 녹화 종료시 영상 파일 만들고 서버로 전송
         blob = new Blob(blobs, {type: 'video/mp4'});
+        let code = $("#examCode").val()
         let form = new FormData();
         form.append('file', blob);
         $.ajax({
-            url: "/upload",
+            url: "/upload/" + code,
             type: "POST",
             data: form,
             cache: false,
             contentType: false,
             processData: false,
             success: function (response) {
-                alert("응시 영상이 성공적으로 저장되었습니다.");
+                alert("timestamp와 응시 영상이 성공적으로 저장되었습니다.");
                 window.location.href = '/examEnd'
             }, error: function (response) {
                 alert("응시 영상 저장에 실패했습니다. 관리자에게 문의해주세요.");
@@ -154,11 +155,10 @@ function remainTime() {
             contentType: false,
             data: data,
             success: function (response) {
-                alert("timestamp와 답안이 성공적으로 저장되었습니다. 확인 버튼을 누르고 응시 영상 저장 완료까지 잠시만 기다려주세요.");
                 rec.stop() // 응시 영상 저장
             },
             error: function (response) {
-                alert("저장에 실패했습니다. 관리자에게 문의해주세요.");
+                alert("timestamp와 답안 저장에 실패했습니다. 관리자에게 문의해주세요.");
                 window.location.href = '/examEnd';
             },
         });
@@ -200,11 +200,10 @@ $("#end-btn").click(function () {
         contentType: false,
         data: data,
         success: function (response) {
-            alert("timestamp와 답안이 성공적으로 저장되었습니다. 확인 버튼을 누르고 응시 영상 저장 완료까지 잠시만 기다려주세요.");
             rec.stop() // 응시 영상 저장
         },
         error: function (response) {
-            alert("저장에 실패했습니다. 관리자에게 문의해주세요.");
+            alert("timestamp와 답안 저장에 실패했습니다. 관리자에게 문의해주세요.");
             window.location.href = '/examEnd';
         },
     });
