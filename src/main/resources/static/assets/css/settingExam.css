@@ -212,19 +212,16 @@ caption {
 }
 
 .exam-list .name {
-    width: 12%;
+    width: 16%;
 }
 .exam-list .username {
     width: 40%;
 }
-.exam-list .stamp {
-    width: 10%;
-}
 .exam-list .video {
-    width: 10%;
+    width: 18%;
 }
 .exam-list .answer {
-    width: 10%;
+    width: 18%;
 }
 .exam-list .video:hover,
 .exam-list .answer:hover {
