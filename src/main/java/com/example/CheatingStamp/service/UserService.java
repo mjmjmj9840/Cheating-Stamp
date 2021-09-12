@@ -24,7 +24,8 @@ public class UserService {
     private static final String SUPERVISOR_TOKEN = "1234";
 
     public void registerUser(SignupRequestDto requestDto) {
-        String username = requestDto.getUsername();
+        String username = requestDto.getUsername();  // 사용자 이메일
+        String name = requestDto.getName();  // 사용자 이름
         // 회원 email 중복 확인
         Optional<User> found = userRepository.findByUsername(username);
         if (found.isPresent()) {
@@ -42,8 +43,7 @@ public class UserService {
             }
             role = UserRole.SUPERVISOR;
         }
-
-        User user = new User(username, password, role);
+        User user = new User(username, name, password, role);
         userRepository.save(user);
     }
 
