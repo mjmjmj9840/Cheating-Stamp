@@ -11,6 +11,8 @@
 </head>
 
 <body>
+    <script type="text/javascript" src="./assets/js/watchingList.js" defer></script>
+
     <!-- ======= Header ======= -->
     <div th:replace="./fragments/navbar.html :: fragment-navbar"></div>
 
@@ -25,17 +27,20 @@
             <tr>
                 <td class="icon"><i class="fas fa-qrcode"></i></td>
                 <td class="top">시험코드</td>
-                <td class="content">471874819074</td>
+                <td class="content" th:text="${examCode}"></td>
             </tr>
             <tr>
                 <td class="icon"><i class="far fa-edit"></i></td>
                 <td class="top">시험제목</td>
-                <td class="content">시험의 이해</td>
+                <td class="content" th:text="${examTitle}"></td>
             </tr>
             <tr>
                 <td class="icon"><i class="far fa-clock"></i></td>
                 <td class="top">시험시간</td>
-                <td class="content">2021-00-00 00:00:00 ~ 00:00:00</td>
+                <td class="content" th:text="${#strings.substring(examStartTime, 0, 4) + '-' +
+                         #strings.substring(examStartTime, 4, 6) + '-' + #strings.substring(examStartTime, 6, 8) + ' ' +
+                         #strings.substring(examStartTime, 8, 10) + ':' + #strings.substring(examStartTime, 10, 12) +
+                         '~' + #strings.substring(examEndTime, 8, 10) + ':' + #strings.substring(examEndTime, 10, 12)}"></td>
             </tr>
         </table>
     </div>
@@ -51,32 +56,13 @@
             <div class="exam-list">
                 <div class="top">
                     <div class="num">No</div>
-                    <div class="name">이름</div> <!--이름이 안되면 ID-->
+                    <div class="name">이름</div>
                     <div class="username">username(e-mail)</div>
-                    <div class="stamp">스탬프개수</div> <!--임시 항목임-->
-                    <div class="state">확인현황</div> <!--임시 항목임-->
-                    <div class="video">응시영상시청</div> <!--'/waithingVideo'로 연결-->
-                    <div class="answer">답안확인</div> <!--임시 항목임-->
-                </div>
-                <div class="content" id="delcon">
-                    <div class="num">2</div>
-                    <div class="name">박응시</div>
-                    <div class="username">park@abc.com</div>
-                    <div class="stamp">25</div>
-                    <div class="state">확인 전</div>
-                    <div class="video"><i class="fas fa-video"></i></div>
-                    <div class="answer"><i class="fas fa-align-justify"></i></div>
-                </div>
-                <div class="content">
-                    <div class="num">1</div>
-                    <div class="name">김응시</div>
-                    <div class="username">kim@abc.net</div>
-                    <div class="stamp">4</div>
-                    <div class="state">확인 전</div>
-                    <div class="video"><i class="fas fa-video"></i></div>
-                    <div class="answer"><i class="fas fa-align-justify"></i></div>
+                    <div class="video">응시영상시청</div>
+                    <div class="answer">답안확인</div>
                 </div>
             </div>
+            <input type="hidden" id="testerInfo" th:value="${testerInfo}"/>
         </div>
     </div>
 
