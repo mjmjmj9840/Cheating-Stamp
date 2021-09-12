@@ -21,8 +21,9 @@
                 <div class="role"><h5>감독관</h5></div>
                 <input type="text" id="supervisorEmail" placeholder="이메일 입력"/>
                 <button class="addBtnS">추가</button>
-                <div class="screen" th:each="supervisor : ${supervisors}">
-                    <div><span th:text="${supervisor}"></span>
+                <div class="screen">
+                    <div th:each="supervisor : ${supervisors}">
+                        <span th:text="${supervisor}"></span>
                         <button class='removeBtn'>-</button>
                     </div>
                 </div>
@@ -31,17 +32,15 @@
                 <div class="role"><h5>수험자</h5></div>
                 <input type="text" id="testerEmail" placeholder="이메일 입력"/>
                 <button class="addBtnT">추가</button>
-                <div class="screen" th:each="tester : ${testers}">
-                    <div><span th:text="${tester}"></span>
+                <div class="screen">
+                    <div th:each="tester : ${testers}">
+                        <span th:text="${tester}"></span>
                         <button class='removeBtn'>-</button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="btn-area">
-            <button id="submit-btn" type="submit">Save</button>
-        </div>
     </section>
 
     <script type="text/javascript" src="./assets/js/detail.js" defer></script>

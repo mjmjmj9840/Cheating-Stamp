@@ -231,3 +231,8 @@ caption {
 .exam-list .top .answer:hover {
     color: inherit;
 }
+
+/* 시험제목 누를때 커서 포인터 모양으로 */
+.title_ {
+    cursor: pointer;
+}
