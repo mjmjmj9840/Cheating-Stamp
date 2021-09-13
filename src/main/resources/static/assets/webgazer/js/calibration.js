@@ -186,6 +186,13 @@ function CalculateMeasurement() {
                       url: '/calibration',
                       contentType: "application/json",
                       data: JSON.stringify({calibrationRate: precision_measurement}),
+                      success: function (response) {
+                          alert("아이트래킹 보정 과정을 완료했습니다.");
+                          window.location.href = '/waiting'
+                      }, error: function (response) {
+                          alert("아이트래킹 보정 결과 저장에 실패했습니다. 아이트래킹 보정을 다시 진행해주세요.");
+                          window.location.href = '/calibration'
+                      },
                   })
               });
             }
