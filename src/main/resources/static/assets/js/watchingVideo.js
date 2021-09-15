@@ -17,11 +17,10 @@ $(document).ready(function () {
   timeEls.forEach(function (timeEl, index) {
     timeEl.classList.add(`num${index}`)
     timeEl.addEventListener('click', function () {
-      let num = timeEl.classList.value.slice(7) // num0 -> 0
       let sec = 0;
-      sec += parseInt(tmp.timestamp[num].slice(0, 2)) * 3600
-      sec += parseInt(tmp.timestamp[num].slice(3, 5)) * 60
-      sec += parseInt(tmp.timestamp[num].slice(6))
+      sec += parseInt(timeEl.textContent.slice(0, 2)) * 3600
+      sec += parseInt(timeEl.textContent.slice(3, 5)) * 60
+      sec += parseInt(timeEl.textContent.slice(6))
 
       let video = document.querySelector('video')
       video.currentTime = sec
