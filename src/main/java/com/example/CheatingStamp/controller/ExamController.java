@@ -135,13 +135,12 @@ public class ExamController {
     // 시험 관리 페이지
     @GetMapping("/settingExam")
     public String examSetting(@AuthenticationPrincipal UserDetailsImpl userDetails, Model model) {
-        User user = userDetails.getUser();
-        if (user.getRole().name() != "SUPERVISOR"){
-            return "redirect:/index";
+        if (!userValidator.isSupervisor(userDetails)) {
+            return "redirect:/";
         }
 
         // 유저가 관리하는 시험 정보 받아오기
-        Long managerId = user.getId();
+        Long managerId = userDetails.getUser().getId();
         List<HashMap<String, String>> examList = examService.getExamByManagerId(managerId);
 
         model.addAttribute("examList", examList);
@@ -152,6 +151,10 @@ public class ExamController {
     @ResponseBody
     @PostMapping("/settingExam")
     public String examDelete(@AuthenticationPrincipal UserDetailsImpl userDetails, @RequestParam(value="checkedExam") List<Long> checkedExam) {
+        if (!userValidator.isSupervisor(userDetails)) {
+            return "redirect:/";
+        }
+
         examUserService.deleteByExamIds(checkedExam);
         examService.deleteExamByExamIds(checkedExam);
         return "redirect:/settingExam";
@@ -181,7 +184,11 @@ public class ExamController {
 
     // 시험 상세 화면
     @GetMapping("/detailExam")
-    public String examDetail(@RequestParam Long examId, Model model) {
+    public String examDetail(@AuthenticationPrincipal UserDetailsImpl userDetails, @RequestParam Long examId, Model model) {
+        if (!userValidator.isSupervisor(userDetails)) {
+            return "redirect:/";
+        }
+
         HashMap<String,String> infoMap = examService.getExamInfo(examId);
 
         model.addAttribute("examId", examId);
@@ -199,21 +206,33 @@ public class ExamController {
     }
 
     @PostMapping("/detailExam")
-    public String addExamUser(@RequestBody ExamUserRequestDto requestDto) {
+    public String addExamUser(@AuthenticationPrincipal UserDetailsImpl userDetails, @RequestBody ExamUserRequestDto requestDto) {
+        if (!userValidator.isSupervisor(userDetails)) {
+            return "redirect:/";
+        }
+
         examUserService.addByExamIdAndUsername(requestDto);
 
         return "redirect:/";
     }
 
     @GetMapping("/deleteExam/{examId}/{username}")
-    public String deleteExamUser(@PathVariable Long examId, @PathVariable String username) {
+    public String deleteExamUser(@AuthenticationPrincipal UserDetailsImpl userDetails, @PathVariable Long examId, @PathVariable String username) {
+        if (!userValidator.isSupervisor(userDetails)) {
+            return "redirect:/";
+        }
+
         examUserService.deleteByExamIdAndUsername(examId, username);
 
         return "redirect:/";
     }
 
     @GetMapping("/watchingVideo")
-    public String watchingVideo(@RequestParam Long videoId, Model model) {
+    public String watchingVideo(@AuthenticationPrincipal UserDetailsImpl userDetails, @RequestParam Long videoId, Model model) {
+        if (!userValidator.isSupervisor(userDetails)) {
+            return "redirect:/";
+        }
+
         HashMap<String, String> videoInfo = videoService.getVideoInfo(videoId);
 
         if (!videoInfo.isEmpty()) {
@@ -237,7 +256,11 @@ public class ExamController {
 
     // 응시 영상 목록
     @GetMapping("/watchingList")
-    public String watchingList(@RequestParam Long examId, Model model) {
+    public String watchingList(@AuthenticationPrincipal UserDetailsImpl userDetails, @RequestParam Long examId, Model model) {
+        if (!userValidator.isSupervisor(userDetails)) {
+            return "redirect:/";
+        }
+
         HashMap<String,String> infoMap = examService.getExamInfo(examId);
 
         model.addAttribute("examId", examId);
