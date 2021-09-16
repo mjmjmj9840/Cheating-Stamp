@@ -1,8 +1,10 @@
 package com.example.CheatingStamp.service;
 
 import com.example.CheatingStamp.dto.CreateExamRequestDto;
+import com.example.CheatingStamp.model.Answer;
 import com.example.CheatingStamp.model.Exam;
 import com.example.CheatingStamp.model.Video;
+import com.example.CheatingStamp.repository.AnswerRepository;
 import com.example.CheatingStamp.repository.ExamRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,7 @@ import java.util.*;
 @Service
 public class ExamService {
     private final ExamRepository examRepository;
+    private final AnswerRepository answerRepository;
 
     // String 타입으로 받아온 startTime, timeout 변수를 LocalDateTime 타입으로 변경
     public LocalDateTime StringToTime(String string) {
@@ -93,6 +96,11 @@ public class ExamService {
 
     public void deleteExamByExamIds(List<Long> examIds) {
         for (int i = 0; i < examIds.size(); i++) {
+            // answer와 exam은 join column이 없기때문에 직접 삭제해줘야 함
+            List<Answer> answers = answerRepository.findAllByExamId(examIds.get(i));
+            for (int j = 0; j < answers.size(); j++) {
+                answerRepository.delete(answers.get(j));
+            }
             examRepository.deleteById(examIds.get(i));
         }
     }
