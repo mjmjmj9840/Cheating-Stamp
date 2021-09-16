@@ -41,24 +41,6 @@ public class ExamController {
     private final ExamUserService examUserService;
     private final UserValidator userValidator;
 
-    // 시험 생성 페이지
-    @GetMapping("/createExam")
-    public String createExam(@AuthenticationPrincipal UserDetailsImpl userDetails) {
-        if (!userValidator.isSupervisor(userDetails)) {
-            return "redirect:/";
-        }
-        return "createExam";
-    }
-
-    @ResponseBody
-    @PostMapping("/createExam")
-    public String saveExam(@AuthenticationPrincipal UserDetailsImpl userDetails, @ModelAttribute CreateExamRequestDto requestDto) {
-        Long userId = userDetails.getUser().getId();
-        examService.createExam(requestDto, userId);
-
-        return "redirect:/index";
-    }
-
     // 시험 대기 화면
     @GetMapping("/waiting")
     public String waiting(@AuthenticationPrincipal UserDetailsImpl userDetails, Model model) {
@@ -153,7 +135,6 @@ public class ExamController {
     // 시험 관리 페이지
     @GetMapping("/settingExam")
     public String examSetting(@AuthenticationPrincipal UserDetailsImpl userDetails, Model model) {
-        // 권한을 가진 유저인지 확인
         User user = userDetails.getUser();
         if (user.getRole().name() != "SUPERVISOR"){
             return "redirect:/index";
@@ -173,6 +154,28 @@ public class ExamController {
     public String examDelete(@AuthenticationPrincipal UserDetailsImpl userDetails, @RequestParam(value="checkedExam") List<Long> checkedExam) {
         examUserService.deleteByExamIds(checkedExam);
         examService.deleteExamByExamIds(checkedExam);
+        return "redirect:/settingExam";
+    }
+
+    // 시험 생성 페이지
+    @GetMapping("/createExam")
+    public String createExam(@AuthenticationPrincipal UserDetailsImpl userDetails) {
+        if (!userValidator.isSupervisor(userDetails)) {
+            return "redirect:/";
+        }
+        return "createExam";
+    }
+
+    @ResponseBody
+    @PostMapping("/createExam")
+    public String saveExam(@AuthenticationPrincipal UserDetailsImpl userDetails, @ModelAttribute CreateExamRequestDto requestDto) {
+        if (!userValidator.isSupervisor(userDetails)) {
+            return "redirect:/";
+        }
+
+        Long userId = userDetails.getUser().getId();
+        examService.createExam(requestDto, userId);
+
         return "redirect:/settingExam";
     }
 
