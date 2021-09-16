@@ -10,6 +10,7 @@ import com.example.CheatingStamp.service.S3Service;
 import com.example.CheatingStamp.service.VideoService;
 import com.example.CheatingStamp.service.*;
 import com.example.CheatingStamp.model.*;
+import com.example.CheatingStamp.validator.UserValidator;
 import lombok.RequiredArgsConstructor;
 import org.json.JSONArray;
 import org.springframework.stereotype.Controller;
@@ -38,10 +39,14 @@ public class ExamController {
     private final S3Service s3Service;
     private final VideoService videoService;
     private final ExamUserService examUserService;
+    private final UserValidator userValidator;
 
     // 시험 생성 페이지
     @GetMapping("/createExam")
     public String createExam(@AuthenticationPrincipal UserDetailsImpl userDetails) {
+        if (!userValidator.isSupervisor(userDetails)) {
+            return "redirect:/";
+        }
         return "createExam";
     }
 
