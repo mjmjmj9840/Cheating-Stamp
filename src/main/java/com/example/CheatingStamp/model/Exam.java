@@ -54,7 +54,7 @@ public class Exam extends Timestamped {
     @OneToMany(mappedBy = "exam")
     private List<ExamUser> examUsers = new ArrayList<ExamUser>();
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "exam_id")
     private List<Video> videos = new ArrayList<Video>();
 
