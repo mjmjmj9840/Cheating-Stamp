@@ -74,6 +74,12 @@ public class ExamController {
     // 시험 화면
     @GetMapping("/exam")
     public String exam(@AuthenticationPrincipal UserDetailsImpl userDetails, @RequestParam String code, Model model) {
+        User user = userDetails.getUser();
+        if (!examUserService.validationTesterByUserAndExamCode(user, code)) {
+            model.addAttribute("errorMsg", "권한이 없는 사용자입니다.");
+            return "errorMsg";
+        }
+
         // 시험 코드에 해당하는 시험 정보 받아오기
         Long examId = examService.getExamIdByCode(code);
         HashMap<String, String> infoMap = examService.getExamInfo(examId);
@@ -101,7 +107,13 @@ public class ExamController {
 
     @ResponseBody
     @PostMapping("/exam/{code}")
-    public String saveAnswer(@PathVariable String code, @AuthenticationPrincipal UserDetailsImpl userDetails, @ModelAttribute SaveAnswerRequestDto requestDto) {
+    public String saveAnswer(@PathVariable String code, @AuthenticationPrincipal UserDetailsImpl userDetails, @ModelAttribute SaveAnswerRequestDto requestDto, Model model) {
+        User user = userDetails.getUser();
+        if (!examUserService.validationTesterByUserAndExamCode(user, code)) {
+            model.addAttribute("errorMsg", "권한이 없는 사용자입니다.");
+            return "errorMsg";
+        }
+
         String username = userDetails.getUser().getUsername();
         answerService.createAnswer(requestDto, username);
 
@@ -110,7 +122,13 @@ public class ExamController {
 
     // 응시 영상 업로드
     @PostMapping("/upload/{code}")
-    public String uploadVideo(@PathVariable String code, @AuthenticationPrincipal UserDetailsImpl userDetails, MultipartFile file) throws IOException {
+    public String uploadVideo(@PathVariable String code, @AuthenticationPrincipal UserDetailsImpl userDetails, MultipartFile file, Model model) throws IOException {
+        User user = userDetails.getUser();
+        if (!examUserService.validationTesterByUserAndExamCode(user, code)) {
+            model.addAttribute("errorMsg", "권한이 없는 사용자입니다.");
+            return "errorMsg";
+        }
+
         // s3에 응시 영상 업로드
         String username = userDetails.getUser().getUsername();
         String filePath = s3Service.upload(file, code + "_" + username);  // 영상 제목: 시험 코드_응시자 이메일
