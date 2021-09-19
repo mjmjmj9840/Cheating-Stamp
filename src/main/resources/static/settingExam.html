@@ -27,7 +27,6 @@
                     <div class="num">No</div>
                     <div class="title">시험제목</div>
                     <div class="times">시험시간</div>
-                    <div class="state">현재상황</div>
                     <div class="watch">응시목록</div>
                 </div>
                 <div class="content" th:each="exam: ${examList}">
@@ -39,7 +38,6 @@
                          #strings.substring(exam.examStartTime, 4, 6) + '-' + #strings.substring(exam.examStartTime, 6, 8) + ' ' +
                          #strings.substring(exam.examStartTime, 8, 10) + ':' + #strings.substring(exam.examStartTime, 10, 12) +
                          '~' + #strings.substring(exam.examEndTime, 8, 10) + ':' + #strings.substring(exam.examEndTime, 10, 12)}"></div>
-                    <div class="state">waiting</div>
                     <div class="watch" th:onclick="'location.href=\'' + 'watchingList?examId=' + @{${exam.examId}} + '\''"><i class="far fa-eye"></i></div>
                 </div>
             </div>

@@ -79,7 +79,7 @@ a {
     width: 8%;
 }
 .exam-list .title {
-    width: 35%;
+    width: 42%;
     text-align: left;
 }
 .exam-list .top .title {
@@ -94,10 +94,7 @@ a {
     color: inherit;
 }
 .exam-list .times {
-    width: 32%;
-}
-.exam-list .state {
-    width: 10%;
+    width: 35%;
 }
 .exam-list .watch {
     width: 10%;
