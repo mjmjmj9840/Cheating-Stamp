@@ -34,7 +34,7 @@
                     <input class="examId" type="hidden" th:value="${exam.examId}" />
                     <div class="check"><input type="checkbox" class="select"></div>
                     <div class="num" th:text="${examStat.index}+1"></div>
-                    <div class="title" th:text="${exam.examTitle}" th:onclick="'location.href=\'' + 'detailExam?examId=' + @{${exam.examId}} + '\''"></div>
+                    <div class="title title_" th:text="${exam.examTitle}" th:onclick="'location.href=\'' + 'detailExam?examId=' + @{${exam.examId}} + '\''"></div>
                     <div class="times" th:text="${#strings.substring(exam.examStartTime, 0, 4) + '-' +
                          #strings.substring(exam.examStartTime, 4, 6) + '-' + #strings.substring(exam.examStartTime, 6, 8) + ' ' +
                          #strings.substring(exam.examStartTime, 8, 10) + ':' + #strings.substring(exam.examStartTime, 10, 12) +
