@@ -3,10 +3,11 @@ let blob; // 데이터
 let rec; // 미디어스트림 기반 Media Recorder 객체
 let stream; // 미디어스트림
 let videoStream; // 비디오스트림
+let start = new Date();
 
 window.onload = async () => {  // 비디오 녹화 함수
     videoStream = await navigator.mediaDevices.getDisplayMedia({video: {width: 720, height: 480}, audio: false});
-
+    
     const tracks = [
         ...videoStream.getVideoTracks(),
     ];
@@ -17,6 +18,9 @@ window.onload = async () => {  // 비디오 녹화 함수
 
     rec = new MediaRecorder(stream, {mimeType: 'video/webm; codecs=vp9,opus'});
     rec.ondataavailable = (e) => blobs.push(e.data);
+
+    start = new Date();
+    console.log(start);
 
     rec.onstop = async () => { // 녹화 종료시 영상 파일 만들고 서버로 전송
         blob = new Blob(blobs, {type: 'video/mp4'});
@@ -67,12 +71,11 @@ function eyetracking() {
     const alert_ = document.querySelector('.alert-true')
     if (alert_ !== null) {
         let now = new Date();
-
-        let hours = ('0' + now.getHours()).slice(-2);
-        let minutes = ('0' + now.getMinutes()).slice(-2);
-        let seconds = ('0' + now.getSeconds()).slice(-2);
-
-        let nowString = hours + ':' + minutes  + ':' + seconds;
+        now = now.getTime() - start.getTime();
+        let hours = Math.floor((now % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        let minutes = Math.floor((now % (1000 * 60 * 60)) / (1000 * 60));
+        let seconds = Math.floor((now % (1000 * 60)) / 1000);
+        let nowString = ('00' + hours).slice(-2) + ':' + ('00' + minutes).slice(-2)  + ':' + ('00' + seconds).slice(-2);
 
         timestamp.push(nowString)
         console.log(timestamp)
