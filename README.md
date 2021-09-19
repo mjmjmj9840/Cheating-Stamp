@@ -62,7 +62,7 @@ Cheating Stamp를 통해 수험자는 eyetracking과 motion detecting을 포함�
 - [x] 시험 중 응시자의 화면 녹화
 - [x] 시험 중 응시자의 시선이 일정 구역을 벗어날 경우 타임스탬프 저장
 - [x] 감독관의 시험 관리 화면
-- [ ] 감독관의 응시 영상 시청 화면
+- [x] 감독관의 응시 영상 시청 화면
 - [ ] 시험 중 감독관 공지사항 전달
 - [ ] 시험 중 감독관과 응시자 사이의 질의응답
 - [ ] 모바일 기기를 통한 모션 디텍팅
@@ -71,7 +71,7 @@ Cheating Stamp를 통해 수험자는 eyetracking과 motion detecting을 포함�
 ### Preview
 
 📌Home
-<img alt="home" src="https://user-images.githubusercontent.com/53468762/132851499-46f0aa08-dfe2-436e-a0b3-6820026d0be7.PNG">
+<img alt="home" src="https://user-images.githubusercontent.com/71173591/133922631-cbb2f89f-d8c6-44d2-982a-f6e617bab8b1.jpg">
 <br/>
 
 📌Login
