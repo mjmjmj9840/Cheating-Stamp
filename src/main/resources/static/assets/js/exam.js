@@ -74,7 +74,7 @@ function eyetracking() {
         now = now.getTime() - start.getTime();
         let hours = Math.floor((now % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         let minutes = Math.floor((now % (1000 * 60 * 60)) / (1000 * 60));
-        let seconds = Math.floor((now % (1000 * 60)) / 1000);
+        let seconds = Math.floor((now % (1000 * 60)) / 1000) - 1;
         let nowString = ('00' + hours).slice(-2) + ':' + ('00' + minutes).slice(-2)  + ':' + ('00' + seconds).slice(-2);
 
         timestamp.push(nowString)
