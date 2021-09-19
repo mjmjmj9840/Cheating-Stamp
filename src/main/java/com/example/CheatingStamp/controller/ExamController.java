@@ -10,6 +10,7 @@ import com.example.CheatingStamp.service.S3Service;
 import com.example.CheatingStamp.service.VideoService;
 import com.example.CheatingStamp.service.*;
 import com.example.CheatingStamp.model.*;
+import com.example.CheatingStamp.validator.UserValidator;
 import lombok.RequiredArgsConstructor;
 import org.json.JSONArray;
 import org.springframework.stereotype.Controller;
@@ -38,21 +39,7 @@ public class ExamController {
     private final S3Service s3Service;
     private final VideoService videoService;
     private final ExamUserService examUserService;
-
-    // 시험 생성 페이지
-    @GetMapping("/createExam")
-    public String createExam(@AuthenticationPrincipal UserDetailsImpl userDetails) {
-        return "createExam";
-    }
-
-    @ResponseBody
-    @PostMapping("/createExam")
-    public String saveExam(@AuthenticationPrincipal UserDetailsImpl userDetails, @ModelAttribute CreateExamRequestDto requestDto) {
-        Long userId = userDetails.getUser().getId();
-        examService.createExam(requestDto, userId);
-
-        return "redirect:/index";
-    }
+    private final UserValidator userValidator;
 
     // 시험 대기 화면
     @GetMapping("/waiting")
@@ -60,8 +47,8 @@ public class ExamController {
         Long examId = userService.getFirstExamId(userDetails.getUser());
         // 예정된 시험이 없을 경우 홈 화면으로 넘김
         if (examId < 0) {
-            model.addAttribute("noExam", true);
-            return "index";
+            model.addAttribute("errorMsg", "예정된 시험이 없습니다.");
+            return "errorMsg";
         }
 
         // 아이트래킹 보정 전일 경우 보정 화면으로 넘김
@@ -97,8 +84,8 @@ public class ExamController {
         }
         // 시험 종료 후엔 접근할 수 없음
         if (now.compareTo(infoMap.get("examEndTime")) > 0) {
-            model.addAttribute("endExam", true);
-            return "index";
+            model.addAttribute("errorMsg", "해당 시험이 이미 종료되었습니다.");
+            return "errorMsg";
         }
 
         model.addAttribute("examId", examId);
@@ -148,14 +135,13 @@ public class ExamController {
     // 시험 관리 페이지
     @GetMapping("/settingExam")
     public String examSetting(@AuthenticationPrincipal UserDetailsImpl userDetails, Model model) {
-        // 권한을 가진 유저인지 확인
-        User user = userDetails.getUser();
-        if (user.getRole().name() != "SUPERVISOR"){
-            return "redirect:/index";
+        if (!userValidator.isSupervisor(userDetails)) {
+            model.addAttribute("errorMsg", "권한이 없는 사용자입니다.");
+            return "errorMsg";
         }
 
         // 유저가 관리하는 시험 정보 받아오기
-        Long managerId = user.getId();
+        Long managerId = userDetails.getUser().getId();
         List<HashMap<String, String>> examList = examService.getExamByManagerId(managerId);
 
         model.addAttribute("examList", examList);
@@ -165,15 +151,49 @@ public class ExamController {
 
     @ResponseBody
     @PostMapping("/settingExam")
-    public String examDelete(@AuthenticationPrincipal UserDetailsImpl userDetails, @RequestParam(value="checkedExam") List<Long> checkedExam) {
+    public String examDelete(@AuthenticationPrincipal UserDetailsImpl userDetails, @RequestParam(value="checkedExam") List<Long> checkedExam, Model model) {
+        if (!userValidator.isSupervisor(userDetails)) {
+            model.addAttribute("errorMsg", "권한이 없는 사용자입니다.");
+            return "errorMsg";
+        }
+
         examUserService.deleteByExamIds(checkedExam);
         examService.deleteExamByExamIds(checkedExam);
         return "redirect:/settingExam";
     }
 
+    // 시험 생성 페이지
+    @GetMapping("/createExam")
+    public String createExam(@AuthenticationPrincipal UserDetailsImpl userDetails, Model model) {
+        if (!userValidator.isSupervisor(userDetails)) {
+            model.addAttribute("errorMsg", "권한이 없는 사용자입니다.");
+            return "errorMsg";
+        }
+        return "createExam";
+    }
+
+    @ResponseBody
+    @PostMapping("/createExam")
+    public String saveExam(@AuthenticationPrincipal UserDetailsImpl userDetails, @ModelAttribute CreateExamRequestDto requestDto, Model model) {
+        if (!userValidator.isSupervisor(userDetails)) {
+            model.addAttribute("errorMsg", "권한이 없는 사용자입니다.");
+            return "errorMsg";
+        }
+
+        Long userId = userDetails.getUser().getId();
+        examService.createExam(requestDto, userId);
+
+        return "redirect:/settingExam";
+    }
+
     // 시험 상세 화면
     @GetMapping("/detailExam")
-    public String examDetail(@RequestParam Long examId, Model model) {
+    public String examDetail(@AuthenticationPrincipal UserDetailsImpl userDetails, @RequestParam Long examId, Model model) {
+        if (!userValidator.isSupervisor(userDetails)) {
+            model.addAttribute("errorMsg", "권한이 없는 사용자입니다.");
+            return "errorMsg";
+        }
+
         HashMap<String,String> infoMap = examService.getExamInfo(examId);
 
         model.addAttribute("examId", examId);
@@ -191,21 +211,36 @@ public class ExamController {
     }
 
     @PostMapping("/detailExam")
-    public String addExamUser(@RequestBody ExamUserRequestDto requestDto) {
+    public String addExamUser(@AuthenticationPrincipal UserDetailsImpl userDetails, @RequestBody ExamUserRequestDto requestDto, Model model) {
+        if (!userValidator.isSupervisor(userDetails)) {
+            model.addAttribute("errorMsg", "권한이 없는 사용자입니다.");
+            return "errorMsg";
+        }
+
         examUserService.addByExamIdAndUsername(requestDto);
 
         return "redirect:/";
     }
 
     @GetMapping("/deleteExam/{examId}/{username}")
-    public String deleteExamUser(@PathVariable Long examId, @PathVariable String username) {
+    public String deleteExamUser(@AuthenticationPrincipal UserDetailsImpl userDetails, @PathVariable Long examId, @PathVariable String username, Model model) {
+        if (!userValidator.isSupervisor(userDetails)) {
+            model.addAttribute("errorMsg", "권한이 없는 사용자입니다.");
+            return "errorMsg";
+        }
+
         examUserService.deleteByExamIdAndUsername(examId, username);
 
         return "redirect:/";
     }
 
     @GetMapping("/watchingVideo")
-    public String watchingVideo(@RequestParam Long videoId, Model model) {
+    public String watchingVideo(@AuthenticationPrincipal UserDetailsImpl userDetails, @RequestParam Long videoId, Model model) {
+        if (!userValidator.isSupervisor(userDetails)) {
+            model.addAttribute("errorMsg", "권한이 없는 사용자입니다.");
+            return "errorMsg";
+        }
+
         HashMap<String, String> videoInfo = videoService.getVideoInfo(videoId);
 
         if (!videoInfo.isEmpty()) {
@@ -229,7 +264,12 @@ public class ExamController {
 
     // 응시 영상 목록
     @GetMapping("/watchingList")
-    public String watchingList(@RequestParam Long examId, Model model) {
+    public String watchingList(@AuthenticationPrincipal UserDetailsImpl userDetails, @RequestParam Long examId, Model model) {
+        if (!userValidator.isSupervisor(userDetails)) {
+            model.addAttribute("errorMsg", "권한이 없는 사용자입니다.");
+            return "errorMsg";
+        }
+
         HashMap<String,String> infoMap = examService.getExamInfo(examId);
 
         model.addAttribute("examId", examId);
