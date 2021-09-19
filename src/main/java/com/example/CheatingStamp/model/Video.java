@@ -23,7 +23,7 @@ public class Video extends Timestamped {
     @Column(columnDefinition = "TEXT")
     private String filePath;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "EXAM_ID", insertable = false, updatable = false)
     private Exam exam;
 

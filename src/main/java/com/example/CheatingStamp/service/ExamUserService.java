@@ -102,4 +102,14 @@ public class ExamUserService {
             examUserRepository.deleteAllByExam_Id(examIds.get(i));
         }
     }
+
+    public boolean validationTesterByUserAndExamCode(User user, String code) {
+        Exam exam = examRepository.findByCode(code).get();
+        if(examUserRepository.findByExamAndUser(exam, user).isPresent()) {
+            System.out.println("abc");
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

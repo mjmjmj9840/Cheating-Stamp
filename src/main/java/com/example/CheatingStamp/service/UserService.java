@@ -50,7 +50,7 @@ public class UserService {
     @Transactional
     public User updateCalibrationRate(User user, CalibrationRateRequestDto requestDto) {
         user.updateCalibrationRate(requestDto);
-        return user;
+        return userRepository.save(user);
     }
 
     public Long getFirstExamId(User user) {

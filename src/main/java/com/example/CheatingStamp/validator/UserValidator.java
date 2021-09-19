@@ -2,13 +2,11 @@ package com.example.CheatingStamp.validator;
 
 import com.example.CheatingStamp.dto.SignupRequestDto;
 import com.example.CheatingStamp.model.User;
-import com.example.CheatingStamp.model.UserRole;
 import com.example.CheatingStamp.repository.UserRepository;
+import com.example.CheatingStamp.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
-import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.Optional;
@@ -40,4 +38,12 @@ public class UserValidator implements Validator {
             }
         }
 
+        public boolean isSupervisor(UserDetailsImpl userDetails) {
+            if (userDetails.getUser().getRole().name() == "SUPERVISOR") {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
 }

@@ -17,46 +17,52 @@
 
                 <div class="carousel-inner" role="listbox">
 
-                    <!-- Slide 1 -->
+                    <!-- Slide 1 수험자버전-->
                     <div class="carousel-item active">
                         <div class="carousel-container">
                             <div class="carousel-content">
-                                <h2 class="animate__animated animate__fadeInDown">Welcome to <span>Cheating Stamp</span>
+                                <h2 class="animate__animated animate__fadeInDown"> <span>Cheating Stamp</span>
                                 </h2>
-                                <p class="animate__animated animate__fadeInUp">할수있다 애들아</p>
-                                <a href="/exam" class="btn-get-started animate__animated animate__fadeInUp">Test
-                                    Start</a>
+                                <p class="animate__animated animate__fadeInUp text">시험 대기화면 바로가기</p>
+                                <a href="/waiting" class="btn-get-started animate__animated animate__fadeInUp">이동</a>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Slide 2 -->
+                    <!-- Slide 2 수험자버전-->
                     <div class="carousel-item">
                         <div class="carousel-container">
                             <div class="carousel-content">
-                                <h2 class="animate__animated fanimate__adeInDown">Lorem <span>Ipsum Dolor</span></h2>
-                                <p class="animate__animated animate__fadeInUp">Ut velit est quam dolor ad a aliquid qui
-                                    aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem
-                                    mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti
-                                    vel. Minus et tempore modi architecto.</p>
-                                <a href="" class="btn-get-started animate__animated animate__fadeInUp">Read More</a>
+                                <h2 class="animate__animated fanimate__adeInDown"><span>Cheating Stamp</span></h2>
+                                <p class="animate__animated animate__fadeInUp text">아이트래킹 보정 바로가기</p>
+                                <a href="/calibration" class="btn-get-started animate__animated animate__fadeInUp">이동</a>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Slide 3 -->
-                    <div class="carousel-item">
+                    <!-- Slide 3  관리자버전-->
+                    <!-- <div class="carousel-item active">
                         <div class="carousel-container">
                             <div class="carousel-content">
-                                <h2 class="animate__animated animate__fadeInDown">Sequi ea <span>Dime Lara</span></h2>
-                                <p class="animate__animated animate__fadeInUp">Ut velit est quam dolor ad a aliquid qui
-                                    aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem
-                                    mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti
-                                    vel. Minus et tempore modi architecto.</p>
-                                <a href="" class="btn-get-started animate__animated animate__fadeInUp">Read More</a>
+                                <h2 class="animate__animated animate__fadeInDown"> <span>Cheating Stamp</span>
+                                </h2>
+                                <p class="animate__animated animate__fadeInUp text">시험 관리페이지 바로가기</p>
+                                <a href="/settingExam" class="btn-get-started animate__animated animate__fadeInUp">이동</a>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
+
+                    <!-- Slide 4 관리자버전-->
+                    <!-- <div class="carousel-item">
+                        <div class="carousel-container">
+                            <div class="carousel-content">
+                                <h2 class="animate__animated fanimate__adeInDown"><span>Cheating Stamp</span></h2>
+                                <p class="animate__animated animate__fadeInUp text">시험 생성페이지 바로가기</p>
+                                <a href="/createExam" class="btn-get-started animate__animated animate__fadeInUp">이동</a>
+                            </div>
+                        </div>
+                    </div> -->
+                    
 
                 </div>
 
@@ -81,24 +87,23 @@
                 <div class="row">
                     <div class="col-lg-4">
                         <div class="icon-box">
-                            <i class="bi bi-card-checklist"></i>
+                            <i class="bi bi-calendar-check"></i>
                             <h3><a href="">Exam Schedule</a></h3>
                             <p>You can check the exam schedule.</p>
                         </div>
                     </div>
                     <div class="col-lg-4 mt-4 mt-lg-0">
                         <div class="icon-box">
-                            <i class="bi bi-bar-chart"></i>
+                            <i class="bi bi-eye"></i>
                             <h3><a href="">Eye tracking Accuracy</a></h3>
                             <p>You can check the self-calibration result.</p>
                         </div>
                     </div>
                     <div class="col-lg-4 mt-4 mt-lg-0">
                         <div class="icon-box">
-                            <i class="bi bi-binoculars"></i>
-                            <h3><a href="">Sed ut perspiciatis</a></h3>
-                            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                                pariatur</p>
+                            <i class="bi bi-card-checklist"></i>
+                            <h3><a href="">Exam Result</a></h3>
+                            <p>You can check the test results.</p>
                         </div>
                     </div>
                 </div>
@@ -111,8 +116,8 @@
             <div class="container">
 
                 <div class="section-title">
-                    <h2>적을게 있을까?</h2>
-                    <p>cheating stamp :)</p>
+                    <h2>좋은결과, 응원합니다 :)</h2>
+                    <p>cheating stamp</p>
                 </div>
             </div>
         </section>
@@ -136,19 +141,6 @@
 
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-    <script type="text/javascript" th:inline="javascript">
-        <!-- 시험이 없을 때 에러 메세지 -->
-        let noExam = [[ ${noExam} ]];
-        let endExam = [[ ${endExam} ]];
-        if (noExam) {
-            alert("예정된 시험이 없습니다.");
-            window.location.replace("/");
-        }
-        if (endExam) {
-            alert("해당 시험이 이미 종료되었습니다.");
-            window.location.replace("/");
-        }
-    </script>
     <div th:replace="./fragments/config.html :: fragment-config"></div>
 </body>
 </html>
