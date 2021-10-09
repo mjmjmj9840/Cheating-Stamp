@@ -233,3 +233,30 @@ caption {
 .title_ {
     cursor: pointer;
 }
+
+
+/*checkAnswer.html*/
+.answer {
+    display: block;
+    padding: 25px 10px 25px;
+}
+.answer .num {
+    color: #7c7c7c;
+    float: left;
+    font-size: 15px;
+    font-weight: 550;
+    margin-right: 10px;
+}
+.answer .question {
+    color: #545454;
+    font-size: 20px;
+    font-weight: 600;
+}
+.answer .content {
+    background: #eeeeef;
+    color: #3c3c3c;
+    display: block;
+    font-size: 18px;
+    margin: 10px;
+    padding: 10px 25px 10px;
+}
