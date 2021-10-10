@@ -595,5 +595,9 @@ FodyWeavers.xsd
 
 # End of https://www.toptal.com/developers/gitignore/api/intellij,eclipse,visualstudio,java
 
+# diff-cam-scratchpad
+.DS_Store
+Thumbs.db
+
 ### my ignore ###
 src/main/resources/application.yml
