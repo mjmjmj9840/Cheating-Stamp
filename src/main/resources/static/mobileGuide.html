@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org">
+<head>
+    <div th:replace="./fragments/header.html :: fragment-header"></div>
+    <!-- waiting page header file -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link href="./assets/css/mobileGuide.css" rel="stylesheet">
+    <script type="text/javascript" src="./assets/js/mobileGuide.js" defer></script>
+
+    <!-- QR -->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" integrity="sha512-CNgIRecGo7nphbeZ04Sc13ka07paqdeTu0WR1IM4kNcpmBAUSHSQX0FslNhTDadL4O5SAGapGt4FodqL8My0mA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+
+<body>
+    <!-- ======= Header ======= -->
+    <div th:replace="./fragments/navbar.html :: fragment-navbar"></div>
+
+    <div id="mobileUrl" class="d-none" th:text="${mobileUrl}"></div>
+
+    <section class="info">
+      <h3>공정한 온라인 시험을 위해 모바일 기기가 필요합니다!</h3> <br>
+      <h5>
+        <span class="material-icons">phone_iphone</span>
+        모바일 기기로 아래의 QR코드를 찍어주세요
+        <span class="material-icons">phone_iphone</span>
+      </h5> <br>
+    </section>
+    <!-- https://localhost:8080/m?code=mobileUrl 로 연결 -->
+    <section class="qr">
+      <input id="text" value="" type="text" readonly hidden/><br />
+      <div id="qrcode"></div>
+    </section>
+
+    <section class="info">
+      <h5>
+        <span class="material-icons">assignment</span>
+        다음 안내사항을 따라 모션디텍팅을 위한 기기 세팅을 준비 해주세요
+        <span class="material-icons">assignment</span>
+      </h5>
+      <div class="text"> ... <br>안내사항들 <br>지켜야될게 어떤게 있어...?<br>...</div>
+    </section>
+
+    <section class="info">
+      <h5>모션디텍팅 설정 완료 후 시험대기 페이지로 이동해주세요.</h5>
+      <div class="btn-end">
+        <input id='target_btn' type='button' value='대기화면으로 이동'/>
+      </div>
+    </section>
+
+    <div th:replace="./fragments/config.html :: fragment-config"></div>
+</body>
+</html>
