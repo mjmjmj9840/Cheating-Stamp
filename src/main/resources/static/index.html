@@ -15,9 +15,9 @@
 
                 <ol class="carousel-indicators" id="hero-carousel-indicators"></ol>
 
-                <div class="carousel-inner" role="listbox">
+                <div class="carousel-inner" role="listbox" id="carousel-inner">
 
-                    <!-- Slide 1 수험자버전-->
+                    <!-- Slide수험자버전-->
                     <div class="carousel-item active">
                         <div class="carousel-container">
                             <div class="carousel-content">
@@ -29,7 +29,6 @@
                         </div>
                     </div>
 
-                    <!-- Slide 2 수험자버전-->
                     <div class="carousel-item">
                         <div class="carousel-container">
                             <div class="carousel-content">
@@ -39,31 +38,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- Slide 3  관리자버전-->
-                    <!-- <div class="carousel-item active">
-                        <div class="carousel-container">
-                            <div class="carousel-content">
-                                <h2 class="animate__animated animate__fadeInDown"> <span>Cheating Stamp</span>
-                                </h2>
-                                <p class="animate__animated animate__fadeInUp text">시험 관리페이지 바로가기</p>
-                                <a href="/settingExam" class="btn-get-started animate__animated animate__fadeInUp">이동</a>
-                            </div>
-                        </div>
-                    </div> -->
-
-                    <!-- Slide 4 관리자버전-->
-                    <!-- <div class="carousel-item">
-                        <div class="carousel-container">
-                            <div class="carousel-content">
-                                <h2 class="animate__animated fanimate__adeInDown"><span>Cheating Stamp</span></h2>
-                                <p class="animate__animated animate__fadeInUp text">시험 생성페이지 바로가기</p>
-                                <a href="/createExam" class="btn-get-started animate__animated animate__fadeInUp">이동</a>
-                            </div>
-                        </div>
-                    </div> -->
-                    
-
                 </div>
 
                 <a class="carousel-control-prev" href="#heroCarousel" role="button" data-bs-slide="prev">
@@ -141,6 +115,34 @@
 
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
+    <script type="text/javascript" th:inline="javascript">
+        <!-- user role에 따라 carousel 내용 전환 -->
+        let supervisor = [[ ${supervisor} ]];
+        if (supervisor) {
+            content = `
+            <!-- Slide 관리자버전-->
+            <div class="carousel-item active">
+                <div class="carousel-container">
+                    <div class="carousel-content">
+                        <h2 class="animate__animated animate__fadeInDown"> <span>Cheating Stamp</span></h2>
+                        <p class="animate__animated animate__fadeInUp text">시험 관리페이지 바로가기</p>
+                        <a href="/settingExam" class="btn-get-started animate__animated animate__fadeInUp">이동</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="carousel-item">
+                <div class="carousel-container">
+                    <div class="carousel-content">
+                        <h2 class="animate__animated fanimate__adeInDown"><span>Cheating Stamp</span></h2>
+                        <p class="animate__animated animate__fadeInUp text">시험 생성페이지 바로가기</p>
+                        <a href="/createExam" class="btn-get-started animate__animated animate__fadeInUp">이동</a>
+                    </div>
+                </div>
+            </div>`;
+            $("#carousel-inner").html(content);
+        }
+    </script>
     <div th:replace="./fragments/config.html :: fragment-config"></div>
 </body>
 </html>
