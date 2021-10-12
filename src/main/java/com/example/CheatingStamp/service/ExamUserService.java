@@ -12,10 +12,7 @@ import org.json.simple.JSONObject;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @RequiredArgsConstructor
 @Service
@@ -89,7 +86,16 @@ public class ExamUserService {
     public void addByExamIdAndUsername(ExamUserRequestDto requestDto) {
         Exam exam = examRepository.findById(requestDto.getExamId()).get();
         User user = userRepository.findByUsername(requestDto.getUsername()).get();
-        ExamUser examUser = new ExamUser(exam, user);
+        String mobileUrl = "";
+        while (true) {  // mobileUrl의 유일성 검사
+            mobileUrl = UUID.randomUUID().toString().replace("-", "");
+            Optional<ExamUser> duplicated = examUserRepository.findByMobileUrl(mobileUrl);
+            if (!duplicated.isPresent()) {  // 중복되는 url이 없을 경우 break
+                break;
+            }
+        }
+
+        ExamUser examUser = new ExamUser(exam, user, mobileUrl);
 
         exam.getExamUsers().add(examUser);
         user.getExamUsers().add(examUser);

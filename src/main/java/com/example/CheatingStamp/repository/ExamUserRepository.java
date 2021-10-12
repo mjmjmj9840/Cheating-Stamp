@@ -9,5 +9,6 @@ import java.util.Optional;
 
 public interface ExamUserRepository extends JpaRepository<ExamUser, Long> {
     Optional<ExamUser> findByExamAndUser(Exam exam, User user);
+    Optional<ExamUser> findByMobileUrl(String mobileUrl);
     void deleteAllByExam_Id(Long exam_id);
 }
