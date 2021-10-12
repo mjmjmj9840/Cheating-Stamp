@@ -1,5 +1,6 @@
 package com.example.CheatingStamp.model;
 
+import com.sun.istack.NotNull;
 import lombok.*;
 
 import javax.persistence.*;
@@ -11,9 +12,10 @@ import javax.persistence.*;
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = { "exam_id", "user_id" }))
 public class ExamUser {
     @Builder
-    public ExamUser(Exam exam, User user) {
+    public ExamUser(Exam exam, User user, String mobileUrl) {
         this.exam = exam;
         this.user = user;
+        this.mobileUrl = mobileUrl;
     }
 
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -27,4 +29,8 @@ public class ExamUser {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    @Column(unique = true)
+    @NotNull
+    private String mobileUrl;
 }
