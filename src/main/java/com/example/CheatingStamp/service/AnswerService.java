@@ -41,4 +41,13 @@ public class AnswerService {
 
         return infoMap;
     }
+
+    public void deleteAnswer(Long examId, String username) {
+        Optional<Answer> answer = answerRepository.findByExamIdAndUsername(examId, username);
+        if (answer.isPresent()) {
+            answerRepository.delete(answer.get());
+        } else {
+            System.out.println("answer이 존재하지 않습니다.");
+        }
+    }
 }

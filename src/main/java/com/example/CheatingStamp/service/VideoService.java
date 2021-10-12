@@ -3,7 +3,6 @@ package com.example.CheatingStamp.service;
 import com.example.CheatingStamp.dto.VideoRequestDto;
 import com.example.CheatingStamp.model.Video;
 import com.example.CheatingStamp.repository.VideoRepository;
-import com.example.CheatingStamp.model.Video;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -32,5 +31,9 @@ public class VideoService {
         }
 
         return infoMap;
+    }
+
+    public void deleteVideo(Long videoId) {
+        videoRepository.deleteById(videoId);
     }
 }

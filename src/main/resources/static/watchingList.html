@@ -42,6 +42,7 @@
                          #strings.substring(examStartTime, 8, 10) + ':' + #strings.substring(examStartTime, 10, 12) +
                          '~' + #strings.substring(examEndTime, 8, 10) + ':' + #strings.substring(examEndTime, 10, 12)}"></td>
             </tr>
+            <input type="hidden" id="examId" th:value="${examId}"/>
         </table>
     </div>
 
@@ -60,6 +61,7 @@
                     <div class="username">username(e-mail)</div>
                     <div class="video">응시영상시청</div>
                     <div class="answer">답안확인</div>
+                    <div class="delete">삭제</div>
                 </div>
             </div>
             <input type="hidden" id="testerInfo" th:value="${testerInfo}"/>
