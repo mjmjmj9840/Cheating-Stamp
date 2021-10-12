@@ -23,8 +23,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 
@@ -274,9 +272,8 @@ public class ExamController {
 
             return "watchingVideo";
         } else {
-            System.out.println("수험자의 응시 영상이 존재하지 않습니다.");
-
-            return "redirect:/";
+            model.addAttribute("errorMsg", "수험자의 응시 영상이 존재하지 않습니다.");
+            return "errorMsg";
         }
     }
 
@@ -300,6 +297,35 @@ public class ExamController {
         model.addAttribute("testerInfo", testerInfo);
 
         return "watchingList";
+    }
+
+    // 응시 영상 목록 삭제
+    @GetMapping("/deleteWatchingList")
+    public String watchingVideo(@RequestParam Long examId, @RequestParam String username, @RequestParam Long videoId) throws IOException {
+        // 응시 영상 삭제
+        HashMap<String, String> videoInfo = videoService.getVideoInfo(videoId);
+        if (videoInfo.isEmpty()) {
+            System.out.println("잘못된 video id 값입니다.");
+        } else {
+            HashMap<String, String> examInfo = examService.getExamInfo(examId);
+            String examCode = examInfo.get("examCode");
+            String videoTitle = examCode + "_" + username;
+
+            boolean isDeleted = s3Service.delete(videoTitle);  // S3에서 video 삭제
+            if (!isDeleted) {
+                System.out.println("이미 S3에서 삭제된 video입니다.");
+            }
+
+            videoService.deleteVideo(videoId);  // DB에서 video 삭제
+        }
+
+        // 응시자 답안 삭제
+        answerService.deleteAnswer(examId, username);
+
+        // ExamUser 삭제
+        examUserService.deleteByExamIdAndUsername(examId, username);
+
+        return "redirect:/watchingList?examId=" + examId;
     }
 }
 

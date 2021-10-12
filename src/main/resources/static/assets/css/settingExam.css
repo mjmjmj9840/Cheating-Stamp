@@ -212,7 +212,7 @@ caption {
     width: 16%;
 }
 .exam-list .username {
-    width: 40%;
+    width: 30%;
 }
 .exam-list .video {
     width: 18%;
@@ -220,12 +220,17 @@ caption {
 .exam-list .answer {
     width: 18%;
 }
+.exam-list .delete {
+    width: 10%;
+}
 .exam-list .video:hover,
-.exam-list .answer:hover {
+.exam-list .answer:hover,
+.exam-list .delete:hover{
     color: #e96b56;
 }
 .exam-list .top .video:hover,
-.exam-list .top .answer:hover {
+.exam-list .top .answer:hover,
+.exam-list .top .delete:hover{
     color: inherit;
 }
 
