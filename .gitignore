@@ -192,6 +192,7 @@ fabric.properties
 
 # Package Files #
 *.jar
+!gradle/wrapper/gradle-wrapper.jar
 *.war
 *.nar
 *.ear
@@ -594,6 +595,10 @@ FodyWeavers.xsd
 # Additional files built by Visual Studio
 
 # End of https://www.toptal.com/developers/gitignore/api/intellij,eclipse,visualstudio,java
+
+# diff-cam-scratchpad
+.DS_Store
+Thumbs.db
 
 ### my ignore ###
 src/main/resources/application.yml

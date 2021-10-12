@@ -146,6 +146,14 @@ public class ExamController {
         return "examEnd";
     }
 
+    // ======
+
+    @GetMapping("/m")
+    public String mobile() {
+
+        return "mHome";
+    }
+
   
     // ======= 감독관용 화면 =======
     // 시험 관리 페이지
