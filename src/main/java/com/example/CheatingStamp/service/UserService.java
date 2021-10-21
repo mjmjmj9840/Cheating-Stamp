@@ -82,4 +82,11 @@ public class UserService {
 
         return firstExamId;
     }
+
+    public String getNameByUsername(String username) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new NullPointerException("해당 이메일을 가진 회원이 존재하지 않습니다."));
+
+        return user.getName();
+    }
 }
