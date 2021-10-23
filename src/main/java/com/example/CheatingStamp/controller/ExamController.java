@@ -146,10 +146,12 @@ public class ExamController {
         return "examEnd";
     }
 
-    // ======
+
+    // ======= 모바일 화면 =======
 
     @GetMapping("/m")
-    public String mobile() {
+    public String mobile(@RequestParam String code, Model model) {
+        model.addAttribute("code", code);
 
         return "mHome";
     }
@@ -164,15 +166,16 @@ public class ExamController {
             return "errorMsg";
         }
 
-        // 가장 가까운 시험의 정보 받아오기
+        // mobileUrl 전달
         String mobileUrl = examUserService.getMobileUrlByExamIdAndUserId(examId, user);
-
         model.addAttribute("mobileUrl", mobileUrl);
 
         return "mobileGuide";
     }
+
   
     // ======= 감독관용 화면 =======
+
     // 시험 관리 페이지
     @GetMapping("/settingExam")
     public String examSetting(@AuthenticationPrincipal UserDetailsImpl userDetails, Model model) {
