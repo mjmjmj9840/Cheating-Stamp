@@ -335,11 +335,5 @@ public class ExamController {
 
         return "redirect:/watchingList?examId=" + examId;
     }
-
-    // mobile motion detecting test
-    @GetMapping("/mTest")
-    public String mobileTest() {
-        return "mTest";
-    }
 }
 

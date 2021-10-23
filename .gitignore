@@ -602,3 +602,4 @@ Thumbs.db
 
 ### my ignore ###
 src/main/resources/application.yml
+keystore.p12

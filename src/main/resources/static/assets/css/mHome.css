@@ -1,0 +1,14 @@
+.box {
+	width: 100%;
+	height: 500px;
+}
+
+#video {
+	width: 50%;
+	float: left;
+}
+
+#timestamp {
+	width: 50%;
+	float: right;
+}
