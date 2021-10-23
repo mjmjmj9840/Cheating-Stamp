@@ -154,6 +154,23 @@ public class ExamController {
         return "mHome";
     }
 
+    @GetMapping("/mobileGuide")
+    public String mobileGuide(@AuthenticationPrincipal UserDetailsImpl userDetails, Model model) {
+        User user = userDetails.getUser();
+        Long examId = userService.getFirstExamId(user);
+        // 예정된 시험이 없을 경우 홈 화면으로 넘김
+        if (examId < 0) {
+            model.addAttribute("errorMsg", "예정된 시험이 없습니다.");
+            return "errorMsg";
+        }
+
+        // 가장 가까운 시험의 정보 받아오기
+        String mobileUrl = examUserService.getMobileUrlByExamIdAndUserId(examId, user);
+
+        model.addAttribute("mobileUrl", mobileUrl);
+
+        return "mobileGuide";
+    }
   
     // ======= 감독관용 화면 =======
     // 시험 관리 페이지

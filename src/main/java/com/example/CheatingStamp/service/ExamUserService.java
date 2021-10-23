@@ -71,6 +71,13 @@ public class ExamUserService {
         return jsonArray;
     }
 
+    public String getMobileUrlByExamIdAndUserId(Long examId, User user) {
+        Exam exam = examRepository.findById(examId).get();
+        String mobileUrl = examUserRepository.findByExamAndUser(exam, user).get().getMobileUrl();
+
+        return mobileUrl;
+    }
+
     @Transactional
     public void deleteByExamIdAndUsername(Long examId, String username) {
         Exam exam = examRepository.findById(examId).get();
@@ -112,7 +119,6 @@ public class ExamUserService {
     public boolean validationTesterByUserAndExamCode(User user, String code) {
         Exam exam = examRepository.findByCode(code).get();
         if(examUserRepository.findByExamAndUser(exam, user).isPresent()) {
-            System.out.println("abc");
             return true;
         } else {
             return false;
