@@ -42,6 +42,13 @@ public class AnswerService {
         return infoMap;
     }
 
+    public String getAnswersByExamIdAndUsername(Long examId, String username) {
+        Answer answer = answerRepository.findByExamIdAndUsername(examId, username)
+                .orElseThrow(() -> new NullPointerException("answer이 존재하지 않습니다."));
+
+        return answer.getAnswers();
+    }
+
     public void deleteAnswer(Long examId, String username) {
         Optional<Answer> answer = answerRepository.findByExamIdAndUsername(examId, username);
         if (answer.isPresent()) {

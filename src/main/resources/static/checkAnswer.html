@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    <script type="text/javascript" src="./assets/js/watchingList.js" defer></script>
+    <script type="text/javascript" src="./assets/js/checkAnswer.js" defer></script>
 
     <!-- ======= Header ======= -->
     <div th:replace="./fragments/navbar.html :: fragment-navbar"></div>
@@ -22,44 +22,25 @@
             <tr>
                 <td class="icon"><i class="far fa-user"></i></td>
                 <td class="top">이름</td>
-                <td class="content">김아무</td>
+                <td class="content" th:text="${name}"></td>
             </tr>
             <tr>
                 <td class="icon"><i class="far fa-envelope"></i></td>
                 <td class="top">e-mail</td>
-                <td class="content">abc@1234</td>
+                <td class="content" th:text="${email}"></td>
             </tr>
             <tr>
                 <td class="icon"><i class="far fa-edit"></i></td>
                 <td class="top">시험제목</td>
-                <td class="content">졸업할수있겠니</td>
+                <td class="content" th:text="${examTitle}"></td>
             </tr>
         </table>
     </div>
 
-    <div class="setting-box">
-
-        <div class="answer">
-            <div class="num">Q1</div>
-            <div class="question">Chating Stamp에 대해 서술하시오.</div>
-            <div class="content">
-                <p>코로나19로 인해 비대면 방식의 시험이 증가하고 있든 가운데 비대면 시험이 치뤄지는 동시에 공정성이나 형평성 논란도 지속적으로 발생하고 있다.
-                    온라인 시험의 다양한 문제점 들 중에서도 응시자 수에 비례하는 만큼의 많은 감독관이 필요하다는 점과
-                    AI 기술을 사용하더라도 부정행위를 하지 않았지만 의심받는 사례가 발생할 수 있다는 점에 주목했습니다.
-                    이에 대해 부정행위 감독을 효율적으로 하기 위해 계획된 프로젝트이다.</p>
-            </div>
-        </div>
-        <div class="answer">
-            <div class="num">Q2</div>
-            <div class="question">주요기능에 대해 서술하시오.</div>
-            <div class="content">
-                <p>첫째, 아이트래킹의 정확도를 보완하고 정면 화면만으로 확인하기 어려운 응시자 주위를 더 잘 파악하고자
-                    추가적으로 측면 촬영을 진행해 응시자의 정면 뿐 아니라 주변 환경과 동작을 확실히 확인할 수 있도록 한다.
-                    둘째, 캡쳐 장면이 아닌 영상 전체를 저장해 부정행위가 의심될 때의 정황을 파악할 수 있도록 한다.
-                    셋째, 타임스탬프 기능으로 원하는 곳으로 바로 넘어갈수 있다.</p>
-            </div>
-        </div>
-
+    <div class="setting-box" id="question-answer-box">
+        <input type="hidden" id="questions" th:value="${examQuestions}" />
+        <input type="hidden" id="answers" th:value="${answers}" />
+    </div>
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
     <div th:replace="./fragments/config.html :: fragment-config"></div>

@@ -335,5 +335,26 @@ public class ExamController {
 
         return "redirect:/watchingList?examId=" + examId;
     }
+
+    // 답안 확인
+    @GetMapping("/checkAnswer")
+    public String checkAnswer(@AuthenticationPrincipal UserDetailsImpl userDetails, @RequestParam Long examId, @RequestParam String username, Model model) {
+        if (!userValidator.isSupervisor(userDetails)) {
+            model.addAttribute("errorMsg", "권한이 없는 사용자입니다.");
+            return "errorMsg";
+        }
+
+        HashMap<String, String> examInfo = examService.getExamInfo(examId);
+        String answers = answerService.getAnswersByExamIdAndUsername(examId, username);
+        String name = userService.getNameByUsername(username);
+
+        model.addAttribute("examTitle", examInfo.get("examTitle"));
+        model.addAttribute("examQuestions", examInfo.get("examQuestions"));
+        model.addAttribute("name", name);
+        model.addAttribute("email", username);
+        model.addAttribute("answers", answers);
+
+        return "checkAnswer";
+    }
 }
 
