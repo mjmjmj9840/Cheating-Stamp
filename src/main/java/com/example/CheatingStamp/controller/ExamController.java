@@ -146,16 +146,36 @@ public class ExamController {
         return "examEnd";
     }
 
-    // ======
+
+    // ======= 모바일 화면 =======
 
     @GetMapping("/m")
-    public String mobile() {
+    public String mobile(@RequestParam String code, Model model) {
+        model.addAttribute("code", code);
 
         return "mHome";
     }
 
+    @GetMapping("/mobileGuide")
+    public String mobileGuide(@AuthenticationPrincipal UserDetailsImpl userDetails, Model model) {
+        User user = userDetails.getUser();
+        Long examId = userService.getFirstExamId(user);
+        // 예정된 시험이 없을 경우 홈 화면으로 넘김
+        if (examId < 0) {
+            model.addAttribute("errorMsg", "예정된 시험이 없습니다.");
+            return "errorMsg";
+        }
+
+        // mobileUrl 전달
+        String mobileUrl = examUserService.getMobileUrlByExamIdAndUserId(examId, user);
+        model.addAttribute("mobileUrl", mobileUrl);
+
+        return "mobileGuide";
+    }
+
   
     // ======= 감독관용 화면 =======
+
     // 시험 관리 페이지
     @GetMapping("/settingExam")
     public String examSetting(@AuthenticationPrincipal UserDetailsImpl userDetails, Model model) {
