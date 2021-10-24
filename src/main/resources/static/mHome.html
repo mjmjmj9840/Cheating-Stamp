@@ -4,25 +4,17 @@
     <meta charset="utf-8">
     <div th:replace="./fragments/header.html :: fragment-header"></div>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="./assets/css/diff-cam-scratchpad/site.css" rel="stylesheet">
+    <title>Diff Cam Example</title>
+    <link href="./assets/css/mHome.css" rel="stylesheet">
 </head>
 <body>
-<figure>
-    <video id="video" autoplay></video>
-    <figcaption>Live Video</figcaption>
-</figure>
-
-<figure>
-    <canvas id="motion"></canvas>
-    <figcaption>
-        Motion Heatmap<br>
-        Score: <span id="score">?</span>
-    </figcaption>
-    <span id="notice"></span>
-</figure>
+<div class="box">
+    <video id="video"></video>
+    <div id="timestamp"></div>
+</div>
 
 <script src="https://webrtc.github.io/adapter/adapter-1.0.7.js"></script>
-<script src="assets/diff-cam-scratchpad/diff-cam-engine.js"></script>
-<script src="assets/diff-cam-scratchpad/site.js"></script>
+<script src="./assets/diff-cam-scratchpad/diff-cam-engine.js"></script>
+<script src="./assets/diff-cam-scratchpad/site.js"></script>
 </body>
 </html>

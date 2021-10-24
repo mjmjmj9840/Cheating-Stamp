@@ -1,7 +1,5 @@
-var video = document.getElementById('video');
-var canvas = document.getElementById('motion');
-var score = document.getElementById('score');
-var notice = document.getElementById('notice');
+let video = document.getElementById('video');
+let timestamp = document.getElementById('timestamp');
 
 function initSuccess() {
 	DiffCamEngine.start();
@@ -12,19 +10,29 @@ function initError() {
 }
 
 function capture(payload) {
-	score.textContent = payload.score;
+	score = payload.score;
+	time = getNowTime();
+	if (score >= 500 && time >= '00:00:03') {
+		let tempHtml = `움직임이 감지되었습니다. timestamp ${time} score = ${score}`;
+		timestamp.append(tempHtml);
+	}
+}
 
-	if (payload.score >= 8000) {
-        notice.textContent = "수험자의 움직임이 경계 범위를 넘었습니다. 주의하세요.";
-	}
-	else {
-	    notice.textContent = "";
-	}
+let start = new Date();
+
+function getNowTime() {
+	let now = new Date();
+	now = now.getTime() - start.getTime();
+	let hours = Math.floor((now % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+	let minutes = Math.floor((now % (1000 * 60 * 60)) / (1000 * 60));
+	let seconds = Math.floor((now % (1000 * 60)) / 1000) - 1;
+	let nowString = ('00' + hours).slice(-2) + ':' + ('00' + minutes).slice(-2)  + ':' + ('00' + seconds).slice(-2);
+
+	return nowString;
 }
 
 DiffCamEngine.init({
 	video: video,
-	motionCanvas: canvas,
 	initSuccessCallback: initSuccess,
 	initErrorCallback: initError,
 	captureCallback: capture

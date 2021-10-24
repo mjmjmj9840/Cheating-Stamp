@@ -32,6 +32,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // 다음 url은 login 없이 허용
                 .antMatchers("/assets/**").permitAll()
                 .antMatchers("/").permitAll()
+                .antMatchers("/m").permitAll()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/signup").permitAll()
                 .antMatchers("/h2-console/**").permitAll()
