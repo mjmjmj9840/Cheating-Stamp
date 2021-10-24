@@ -15,11 +15,7 @@ $(document).ready(function () {
             var video = '<div class="video" onclick="location.href=\'watchingVideo?videoId=' + testerInfo[i]["watchingVideo"] + '\'"><i class="fas fa-video"></i></div>';
             var deleteBtn = '<div class="delete" onclick="location.href=\'deleteWatchingList?examId=' + examId + '&username=' + testerInfo[i]["username"] + '&videoId=' + testerInfo[i]["watchingVideo"] + '\'"><i class="fas fa-trash-alt"></i></div>';
         }
-        if (!testerInfo[i]["answer"]) { // 답안이 존재하지 않을 경우
-            var answer = '<div class="answer"><i class="fas fa-align-justify"></i></div>';
-        } else {
-            var answer = '<div class="answer"><i class="fas fa-align-justify"></i></div>';
-        }
+        var answer = '<div class="answer" onclick="location.href=\'checkAnswer?examId=' + examId + '&username=' + testerInfo[i]["username"] + '\'"><i class="fas fa-align-justify"></i></div>';
         var content = '<div class="content" id="delcon">' + num + name + username + video + answer + deleteBtn + '</div>';
 
         $('.exam-list').append(content);
