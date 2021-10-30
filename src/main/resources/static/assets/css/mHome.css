@@ -1,14 +1,8 @@
-.box {
-	width: 100%;
-	height: 500px;
-}
-
 #video {
-	width: 50%;
-	float: left;
+	width: 20%;
+	margin-bottom: 2%;
 }
 
 #timestamp {
-	width: 50%;
-	float: right;
+	margin-top: 2%;
 }
