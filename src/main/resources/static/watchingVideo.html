@@ -14,24 +14,44 @@
 
     <section>
 
+    <div class="top">
+        <div class="exam" th:text="${examTitle}"></div>
+        <div class="info" th:text="${username}"></div>
+    </div>
+
     <div class="box">
-      <div class="video">
-        <video controls>
-          <source th:src="@{${filePath}}">
-          Sorry, your browser doesn't support embedded videos.
-        </video>
+      <div>
+          <div class="video">
+              <video controls>
+                  <source th:src="@{${filePath}}">
+                  Sorry, your browser doesn't support embedded videos.
+              </video>
+          </div>
+          <div class="video2">
+              <video controls>
+                  <source th:src="@{${filePath}}">
+                  Sorry, your browser doesn't support embedded videos.
+              </video>
+          </div>
       </div>
       <div class="text">
         
         <div class="user">
-          <div class="exam" th:text="${examTitle}"></div>
-          <div class="info" th:text="${username}"></div>
+          <div class="info">EYE-STAMP</div>
         </div>
 
         <div class="stamp">
           <div class="time" th:each="stamp : ${timestamp}">
             <p class="str">[ 시선 이탈 ]</p>
             <p class="num" th:text="${stamp}"></p>
+          </div>
+        </div>
+
+        <div class="info stp2">MOTION-STAMP</div>
+        <div class="stamp stamp2">
+          <div class="time" th:each="stamp : ${mobileTimestamp}">
+              <p class="str">[ 동작 감지 ]</p>
+              <p class="num" th:text="${stamp}"></p>
           </div>
         </div>
 
