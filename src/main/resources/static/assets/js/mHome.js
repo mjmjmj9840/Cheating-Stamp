@@ -62,7 +62,7 @@ function remainTime() {
         $(".minutes").html(min);
         $(".seconds").html(sec);
 
-        //
+        //타임스탬프 표시
         document.getElementById("timestamp").style.display ='';
 
         }
