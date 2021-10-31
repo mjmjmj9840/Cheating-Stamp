@@ -5,121 +5,121 @@
 </head>
 
 <body>
-    <!-- ======= Header ======= -->
-    <div th:replace="./fragments/navbar.html :: fragment-navbar"></div>
+<!-- ======= Header ======= -->
+<div th:replace="./fragments/navbar.html :: fragment-navbar"></div>
 
-    <!-- ======= Hero Section ======= -->
-    <section id="hero">
-        <div class="hero-container">
-            <div id="heroCarousel" data-bs-interval="5000" class="carousel slide carousel-fade" data-bs-ride="carousel">
+<!-- ======= Hero Section ======= -->
+<section id="hero">
+    <div class="hero-container">
+        <div id="heroCarousel" data-bs-interval="5000" class="carousel slide carousel-fade" data-bs-ride="carousel">
 
-                <ol class="carousel-indicators" id="hero-carousel-indicators"></ol>
+            <ol class="carousel-indicators" id="hero-carousel-indicators"></ol>
 
-                <div class="carousel-inner" role="listbox" id="carousel-inner">
+            <div class="carousel-inner" role="listbox" id="carousel-inner">
 
-                    <!-- Slide수험자버전-->
-                    <div class="carousel-item active">
-                        <div class="carousel-container">
-                            <div class="carousel-content">
-                                <h2 class="animate__animated animate__fadeInDown"> <span>Cheating Stamp</span>
-                                </h2>
-                                <p class="animate__animated animate__fadeInUp text">시험 대기화면 바로가기</p>
-                                <a href="/mobileGuide" class="btn-get-started animate__animated animate__fadeInUp">이동</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="carousel-item">
-                        <div class="carousel-container">
-                            <div class="carousel-content">
-                                <h2 class="animate__animated fanimate__adeInDown"><span>Cheating Stamp</span></h2>
-                                <p class="animate__animated animate__fadeInUp text">아이트래킹 보정 바로가기</p>
-                                <a href="/calibration" class="btn-get-started animate__animated animate__fadeInUp">이동</a>
-                            </div>
+                <!-- Slide수험자버전-->
+                <div class="carousel-item active">
+                    <div class="carousel-container">
+                        <div class="carousel-content">
+                            <h2 class="animate__animated animate__fadeInDown"> <span>Cheating Stamp</span>
+                            </h2>
+                            <p class="animate__animated animate__fadeInUp text">시험 대기화면 바로가기</p>
+                            <a href="/mobileGuide" class="btn-get-started animate__animated animate__fadeInUp">이동</a>
                         </div>
                     </div>
                 </div>
 
-                <a class="carousel-control-prev" href="#heroCarousel" role="button" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon bi bi-chevron-left" aria-hidden="true"></span>
-                </a>
+                <div class="carousel-item">
+                    <div class="carousel-container">
+                        <div class="carousel-content">
+                            <h2 class="animate__animated fanimate__adeInDown"><span>Cheating Stamp</span></h2>
+                            <p class="animate__animated animate__fadeInUp text">아이트래킹 보정 바로가기</p>
+                            <a href="/calibration" class="btn-get-started animate__animated animate__fadeInUp">이동</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-                <a class="carousel-control-next" href="#heroCarousel" role="button" data-bs-slide="next">
-                    <span class="carousel-control-next-icon bi bi-chevron-right" aria-hidden="true"></span>
-                </a>
+            <a class="carousel-control-prev" href="#heroCarousel" role="button" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon bi bi-chevron-left" aria-hidden="true"></span>
+            </a>
 
+            <a class="carousel-control-next" href="#heroCarousel" role="button" data-bs-slide="next">
+                <span class="carousel-control-next-icon bi bi-chevron-right" aria-hidden="true"></span>
+            </a>
+
+        </div>
+    </div>
+</section>
+
+<main id="main">
+
+    <!-- ======= Featured Section ======= -->
+    <section id="featured" class="featured">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="icon-box">
+                        <i class="bi bi-calendar-check"></i>
+                        <h3><a href="">Exam Schedule</a></h3>
+                        <p>You can check the exam schedule.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 mt-4 mt-lg-0">
+                    <div class="icon-box">
+                        <i class="bi bi-eye"></i>
+                        <h3><a href="">Eye tracking Accuracy</a></h3>
+                        <p>You can check the self-calibration result.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 mt-4 mt-lg-0">
+                    <div class="icon-box">
+                        <i class="bi bi-card-checklist"></i>
+                        <h3><a href="">Exam Result</a></h3>
+                        <p>You can check the test results.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ======= Clients Section ======= -->
+    <section id="clients" class="clients">
+        <div class="container">
+
+            <div class="section-title">
+                <h2>좋은결과, 응원합니다 :)</h2>
+                <p>cheating stamp</p>
             </div>
         </div>
     </section>
 
-    <main id="main">
+</main>
 
-        <!-- ======= Featured Section ======= -->
-        <section id="featured" class="featured">
-            <div class="container">
-
-                <div class="row">
-                    <div class="col-lg-4">
-                        <div class="icon-box">
-                            <i class="bi bi-calendar-check"></i>
-                            <h3><a href="">Exam Schedule</a></h3>
-                            <p>You can check the exam schedule.</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 mt-4 mt-lg-0">
-                        <div class="icon-box">
-                            <i class="bi bi-eye"></i>
-                            <h3><a href="">Eye tracking Accuracy</a></h3>
-                            <p>You can check the self-calibration result.</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 mt-4 mt-lg-0">
-                        <div class="icon-box">
-                            <i class="bi bi-card-checklist"></i>
-                            <h3><a href="">Exam Result</a></h3>
-                            <p>You can check the test results.</p>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- ======= Clients Section ======= -->
-        <section id="clients" class="clients">
-            <div class="container">
-
-                <div class="section-title">
-                    <h2>좋은결과, 응원합니다 :)</h2>
-                    <p>cheating stamp</p>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <footer>
-        <div class="container">
-            <div class="copyright">
-                &copy; Copyright <strong><span>Eterna</span></strong>. All Rights Reserved
-            </div>
-            <div class="credits">
-                <!-- All the links in the footer should remain intact. -->
-                <!-- You can delete the links only if you purchased the pro version. -->
-                <!-- Licensing information: https://bootstrapmade.com/license/ -->
-                <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/eterna-free-multipurpose-bootstrap-template/ -->
-                Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-            </div>
+<footer>
+    <div class="container">
+        <div class="copyright">
+            &copy; Copyright <strong><span>Eterna</span></strong>. All Rights Reserved
         </div>
-    </footer>
+        <div class="credits">
+            <!-- All the links in the footer should remain intact. -->
+            <!-- You can delete the links only if you purchased the pro version. -->
+            <!-- Licensing information: https://bootstrapmade.com/license/ -->
+            <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/eterna-free-multipurpose-bootstrap-template/ -->
+            Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+        </div>
+    </div>
+</footer>
 
-    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-    <script type="text/javascript" th:inline="javascript">
-        <!-- user role에 따라 carousel 내용 전환 -->
-        let supervisor = [[ ${supervisor} ]];
-        if (supervisor) {
-            content = `
+<script type="text/javascript" th:inline="javascript">
+    <!-- user role에 따라 carousel 내용 전환 -->
+    let supervisor = [[ ${supervisor} ]];
+    if (supervisor) {
+        content = `
             <!-- Slide 관리자버전-->
             <div class="carousel-item active">
                 <div class="carousel-container">
@@ -130,7 +130,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="carousel-item">
                 <div class="carousel-container">
                     <div class="carousel-content">
@@ -140,9 +139,9 @@
                     </div>
                 </div>
             </div>`;
-            $("#carousel-inner").html(content);
-        }
-    </script>
-    <div th:replace="./fragments/config.html :: fragment-config"></div>
+        $("#carousel-inner").html(content);
+    }
+</script>
+<div th:replace="./fragments/config.html :: fragment-config"></div>
 </body>
 </html>
