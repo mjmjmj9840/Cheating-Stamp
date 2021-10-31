@@ -36,6 +36,9 @@ public class Answer extends Timestamped {
     private String timestamp;
 
     @NotNull
+    private String mobileTimestamp;
+
+    @NotNull
     private String username;
 
     @NotNull
