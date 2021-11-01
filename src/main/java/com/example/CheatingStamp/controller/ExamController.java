@@ -1,9 +1,6 @@
 package com.example.CheatingStamp.controller;
 
-import com.example.CheatingStamp.dto.CreateExamRequestDto;
-import com.example.CheatingStamp.dto.ExamUserRequestDto;
-import com.example.CheatingStamp.dto.SaveAnswerRequestDto;
-import com.example.CheatingStamp.dto.VideoRequestDto;
+import com.example.CheatingStamp.dto.*;
 import com.example.CheatingStamp.service.ExamService;
 import com.example.CheatingStamp.service.AnswerService;
 import com.example.CheatingStamp.service.S3Service;
@@ -134,6 +131,7 @@ public class ExamController {
         VideoRequestDto requestDto = new VideoRequestDto();
         requestDto.setUsername(username);
         requestDto.setFilePath(filePath);
+        requestDto.setMobile(false);
 
         examService.addVideoByExamCode(videoService.savePost(requestDto), code);  // 영상 저장 후 exam과 연결
 
@@ -141,6 +139,7 @@ public class ExamController {
     }
 
     // 시험 종료 화면
+    @CrossOrigin(origins = "https://localhost:8443")
     @GetMapping("/examEnd")
     public String examEnd(Model model) {
         return "examEnd";
@@ -154,6 +153,40 @@ public class ExamController {
         model.addAttribute("code", code);
 
         return "mHome";
+    }
+
+    @ResponseBody
+    @CrossOrigin(origins = "https://localhost:8443")
+    @PostMapping("/mExam/{mobileUrl}")
+    public String saveMobileTimestamp(@PathVariable String mobileUrl, @RequestBody MobileTimestampRequestDto requestDto) {
+        HashMap<String, String> infoMap = examUserService.getExamIdAndUsernameByMobileUrl(mobileUrl);
+        Long examId = Long.valueOf(infoMap.get("examId"));
+        String username = infoMap.get("username");
+
+        answerService.addMobileTimestamp(examId, username, requestDto);
+
+        return "success";
+    }
+
+    @ResponseBody
+    @CrossOrigin(origins = "https://localhost:8443")
+    @PostMapping("/mUpload/{mobileUrl}")
+    public String uploadVideo(@PathVariable String mobileUrl, MultipartFile file) throws IOException {
+        HashMap<String, String> infoMap = examUserService.getExamIdAndUsernameByMobileUrl(mobileUrl);
+        String examCode = infoMap.get("examCode");
+        String username = infoMap.get("username");
+
+        // s3에 응시 영상 업로드
+        String filePath = s3Service.upload(file, mobileUrl + "_" + username);  // 영상 제목: 모바일 url_응시자 이메일
+        // DB에 영상 이름과 url 저장
+        VideoRequestDto requestDto = new VideoRequestDto();
+        requestDto.setUsername(username);
+        requestDto.setFilePath(filePath);
+        requestDto.setMobile(true);
+
+        examService.addVideoByExamCode(videoService.savePost(requestDto), examCode);  // 영상 저장 후 exam과 연결
+
+        return "success";
     }
 
     @GetMapping("/mobileGuide")

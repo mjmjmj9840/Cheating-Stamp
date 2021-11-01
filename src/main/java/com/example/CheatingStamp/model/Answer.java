@@ -1,5 +1,6 @@
 package com.example.CheatingStamp.model;
 
+import com.example.CheatingStamp.dto.MobileTimestampRequestDto;
 import com.sun.istack.NotNull;
 import lombok.Builder;
 import lombok.Getter;
@@ -7,9 +8,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Setter
 @Getter
@@ -35,9 +33,15 @@ public class Answer extends Timestamped {
     @NotNull
     private String timestamp;
 
+    private String mobileTimestamp;
+
     @NotNull
     private String username;
 
     @NotNull
     private Long examId;
+
+    public void updateMobileTimestamp(MobileTimestampRequestDto requestDto) {
+        this.mobileTimestamp = requestDto.getMobileTimestamp();
+    }
 }

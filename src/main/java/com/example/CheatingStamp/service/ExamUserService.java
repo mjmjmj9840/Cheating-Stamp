@@ -124,4 +124,17 @@ public class ExamUserService {
             return false;
         }
     }
+
+    public HashMap<String, String> getExamIdAndUsernameByMobileUrl(String mobileUrl) {
+        HashMap<String, String> infoMap = new HashMap<String, String>();
+
+        Optional<ExamUser> examUser = examUserRepository.findByMobileUrl(mobileUrl);
+        if (examUser.isPresent()) {
+            infoMap.put("examId", examUser.get().getExam().getId().toString());
+            infoMap.put("examCode", examUser.get().getExam().getCode());
+            infoMap.put("username", examUser.get().getUser().getUsername());
+        }
+
+        return infoMap;
+    }
 }
