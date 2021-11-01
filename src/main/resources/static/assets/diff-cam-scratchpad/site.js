@@ -3,7 +3,6 @@ let timestamp_info = document.getElementById('timestamp');
 let timestamp = "";
 let hostname = window.location.hostname;
 let mobileUrl = window.location.search.slice(6);
-const xhr = new XMLHttpRequest();
 
 function initSuccess() {
 	DiffCamEngine.start();
@@ -39,8 +38,8 @@ function getNowTime() {
 
 DiffCamEngine.init({
 	video: video,
-	captureWidth: 480,
-	captureHeight: 720,
+	captureWidth: 240,
+	captureHeight: 360,
 	initSuccessCallback: initSuccess,
 	initErrorCallback: initError,
 	captureCallback: capture
@@ -59,7 +58,7 @@ window.onload = async () => {
 	startBtn.onclick = async () => {
 		var constraints = {
 			audio: false,
-			video: { facingMode: "user", width: 480, height: 720}
+			video: { facingMode: "user", width: 240, height: 360}
 		};
 
 		navigator.mediaDevices.getUserMedia(constraints)
@@ -77,20 +76,21 @@ window.onload = async () => {
 					let file = new FormData();
 					file.append('file', blob);
 
-					xhr.onreadystatechange = () => {
-						if (xhr.readyState === xhr.DONE) {
-							if (xhr.status === 200 || xhr.status === 201) {
-								alert("timestamp와 응시 영상이 성공적으로 저장되었습니다.");
-								window.location.href = "http://" + hostname + ":8080/examEnd";
-							} else {
-								alert("timestamp와 답안 저장에 실패했습니다. 관리자에게 문의해주세요.");
-								window.location.href = "http://" + hostname + ":8080/examEnd";
-							}
-						}
-					};
-
-					xhr.open('POST', "http://" + hostname + ":8080/mUpload/" + mobileUrl, true);
-					xhr.send(file);
+					$.ajax({
+						url: "http://" + hostname + ":8080/mUpload/" + mobileUrl,
+						type: "POST",
+						data: file,
+						cache: false,
+						contentType: false,
+						processData: false,
+						success: function (response) {
+							alert("timestamp와 응시 영상이 성공적으로 저장되었습니다.");
+							window.location.href = "http://" + hostname + ":8080/examEnd";
+						}, error: function (response) {
+							alert("응시 영상 저장에 실패했습니다. 관리자에게 문의해주세요.");
+							window.location.href = "http://" + hostname + ":8080/examEnd";
+						},
+					});
 				};
 
 				rec.start(); // 녹화 시작
@@ -104,19 +104,18 @@ window.onload = async () => {
 		let data = new FormData();
 		data.append('mobileTimestamp', timestamp);
 
-		xhr.onreadystatechange = () => {
-			if (xhr.readyState === xhr.DONE) {
-				if (xhr.status === 200 || xhr.status === 201) {
-					rec.stop();  // 모바일 응시 영상 저장
-				} else {
-					alert("timestamp와 답안 저장에 실패했습니다. 관리자에게 문의해주세요.");
-					window.location.href = "http://" + hostname + ":8080/examEnd";
-				}
-			}
-		};
-
-		xhr.open('POST', "http://" + hostname + ":8080/mExam/" + mobileUrl, true);
-		xhr.setRequestHeader('Content-Type', 'application/json');
-		xhr.send(JSON.stringify({mobileTimestamp: timestamp}));
+		$.ajax({
+			url: "http://" + hostname + ":8080/mExam/" + mobileUrl,
+			type: "POST",
+			contentType: 'application/json',
+			data: JSON.stringify({mobileTimestamp: timestamp}),
+			success: function (response) {
+				rec.stop() // 모바일 응시 영상 저장
+			},
+			error: function (response) {
+				alert("timestamp와 답안 저장에 실패했습니다. 관리자에게 문의해주세요.");
+				window.location.href = "http://" + hostname + ":8080/examEnd";
+			},
+		});
 	};
 };
