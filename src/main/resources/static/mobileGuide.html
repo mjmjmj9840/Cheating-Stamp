@@ -4,7 +4,7 @@
 <head>
     <div th:replace="./fragments/header.html :: fragment-header"></div>
     <!-- waiting page header file -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
     <link href="./assets/css/mobileGuide.css" rel="stylesheet">
     <script type="text/javascript" src="./assets/js/mobileGuide.js" defer></script>
 
@@ -38,11 +38,24 @@
         다음 안내사항을 따라 모션디텍팅을 위한 기기 세팅을 준비 해주세요
         <span class="material-icons">assignment</span>
       </h5>
-      <div class="text"> ... <br>안내사항들 <br>지켜야될게 어떤게 있어...?<br>...</div>
+        <div class="text">
+            <img src="https://ifh.cc/g/FznSNd.jpg" alt="모바일기기 세팅안내 이미지"> <br><br>
+            <p class="mobileInfo"><span class="material-icons-outlined">lightbulb</span> 응시자의 상체와 PC가 함께 나올 수 있도록 거리를 조정해주세요.</p>
+            <p class="mobileInfo"><span class="material-icons-outlined">lightbulb</span> PC, 마우스(손), 응시자의 옆모습이 포함되어야 합니다.</p>
+            <p class="mobileInfo"><span class="material-icons-outlined">lightbulb</span> 모바일기기는 가로모드로 촬영하는 것을 권장드립니다.</p>
+            <p class="mobileInfo"><span class="material-icons-outlined">lightbulb</span> 방해금지모드 / 알림 비활성화를 추천드립니다.</p> <br>
+            <p class="mobileInfo"><span class="material-icons-outlined">lightbulb</span> 모바일 기기의 화면세팅이 끝나면 다음순서에 맞춰 시험을 진행해주세요.</p> <br>
+            <div class="infoBox">
+                <p><span class="number">①</span> 시험시간이 되면 웹에서 <span class="point">시험시작</span> 버튼을 클릭해주세요.</p>
+                <p><span class="number">②</span> 모바일기기에서 <span class="point">녹화시작</span> 버튼을 클릭한 후 시험을 진행해주세요.</p>
+                <p><span class="number">③</span> 시험 종료를 원하시면 웹에서 <span class="point">시험종료</span> 버튼을 클릭해주세요.</p>
+                <p><span class="number">④</span> timestamp/영상 저장성공 안내가 뜨면 모바일기기에서 <span class="point">녹화종료</span> 버튼을 클릭해주세요.</p>
+            </div>
+        </div>
     </section>
 
     <section class="info">
-      <h5>모션디텍팅 설정 완료 후 시험대기 페이지로 이동해주세요.</h5>
+      <h5>위의 안내사항을 모두 확인하신 후 시험 대기화면으로 이동해주세요.</h5>
       <div class="btn-end">
         <input id='target_btn' type='button' value='대기화면으로 이동'/>
       </div>
