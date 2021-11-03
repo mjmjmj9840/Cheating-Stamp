@@ -6,7 +6,7 @@ function makeCode () {
   let mobileUrl = $('#mobileUrl').text();
   console.log(mobileUrl);
 
-  elText.value = `https://localhost:8080/m?code=${mobileUrl}`;
+  elText.value = `https://15.165.240.213//m?code=${mobileUrl}`;
   
   qrcode.makeCode(elText.value);
 }

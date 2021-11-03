@@ -139,7 +139,7 @@ public class ExamController {
     }
 
     // 시험 종료 화면
-    @CrossOrigin(origins = "https://localhost:8443")
+    @CrossOrigin(origins = "https://15.165.240.213:8443")
     @GetMapping("/examEnd")
     public String examEnd(Model model) {
         return "examEnd";
@@ -156,7 +156,7 @@ public class ExamController {
     }
 
     @ResponseBody
-    @CrossOrigin(origins = "https://localhost:8443")
+    @CrossOrigin(origins = "https://15.165.240.213:8443")
     @PostMapping("/mExam/{mobileUrl}")
     public String saveMobileTimestamp(@PathVariable String mobileUrl, @RequestBody MobileTimestampRequestDto requestDto) {
         HashMap<String, String> infoMap = examUserService.getExamIdAndUsernameByMobileUrl(mobileUrl);
@@ -169,7 +169,7 @@ public class ExamController {
     }
 
     @ResponseBody
-    @CrossOrigin(origins = "https://localhost:8443")
+    @CrossOrigin(origins = "https://15.165.240.213:8443")
     @PostMapping("/mUpload/{mobileUrl}")
     public String uploadVideo(@PathVariable String mobileUrl, MultipartFile file) throws IOException {
         HashMap<String, String> infoMap = examUserService.getExamIdAndUsernameByMobileUrl(mobileUrl);
