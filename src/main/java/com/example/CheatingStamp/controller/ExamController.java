@@ -334,7 +334,7 @@ public class ExamController {
 
     // 응시 영상 목록 삭제
     @GetMapping("/deleteWatchingList")
-    public String watchingVideo(@RequestParam Long examId, @RequestParam String username, @RequestParam Long videoId) throws IOException {
+    public String watchingVideo(@RequestParam Long examId, @RequestParam String username, @RequestParam Long videoId, @RequestParam Long mobileVideoId) throws IOException {
         // 응시 영상 삭제
         HashMap<String, String> videoInfo = videoService.getVideoInfo(videoId);
         if (videoInfo.isEmpty()) {
@@ -350,6 +350,23 @@ public class ExamController {
             }
 
             videoService.deleteVideo(videoId);  // DB에서 video 삭제
+        }
+
+        //모바일 응시 영상 삭제
+        HashMap<String, String> mobileVideoInfo = videoService.getVideoInfo(mobileVideoId);
+        if (mobileVideoInfo.isEmpty()) {
+            System.out.println("잘못된 mobile video id 값입니다.");
+        } else {
+            User user = userService.getUserIdByUsername(username);
+            String mobileUrl = examUserService.getMobileUrlByExamIdAndUserId(examId, user);
+            String mobileVideoTitle = mobileUrl + "_" + username;
+
+            boolean isDeleted = s3Service.delete(mobileVideoTitle);  // S3에서 video 삭제
+            if (!isDeleted) {
+                System.out.println("이미 S3에서 삭제된 mobile video입니다.");
+            }
+
+            videoService.deleteVideo(mobileVideoId);  // DB에서 video 삭제
         }
 
         // 응시자 답안 삭제

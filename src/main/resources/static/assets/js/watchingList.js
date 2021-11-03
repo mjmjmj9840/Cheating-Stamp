@@ -10,7 +10,7 @@ $(document).ready(function () {
         var username = '<div class="username">' + testerInfo[i]["username"] + '</div>';
         if (!testerInfo[i]["video"]) { // 응시 영상이 존재하지 않을 경우
             var video = '<div class="video"><i class="fas fa-video"></i></div>';
-            var deleteBtn = '<div class="delete" onclick="location.href=\'deleteWatchingList?examId=' + examId + '&username=' + testerInfo[i]["username"] + '&videoId=-1' + '\'"><i class="fas fa-trash-alt"></i></div>';
+            var deleteBtn = '<div class="delete" onclick="location.href=\'deleteWatchingList?examId=' + examId + '&username=' + testerInfo[i]["username"] + '&videoId=-1&mobileVideoId=-1' + '\'"><i class="fas fa-trash-alt"></i></div>';
         } else {
             var mobileVideoId = -1;
             if (testerInfo[i]["mobileVideo"]) { // 모바일 응시 영상이 존재할 경우
