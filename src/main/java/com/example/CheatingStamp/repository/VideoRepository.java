@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.*;
 
 public interface VideoRepository extends JpaRepository<Video, Long> {
-    Optional<Video> findByUsernameAndExam_Id(String username, Long exam_id);
+    Optional<Video> findByUsernameAndExam_IdAndIsMobile(String username, Long exam_id, Boolean isMobile);
 }

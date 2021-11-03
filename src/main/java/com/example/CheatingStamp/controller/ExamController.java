@@ -323,7 +323,6 @@ public class ExamController {
 
         JSONArray testerInfo = examUserService.getTestersInfo(examId);
         model.addAttribute("testerInfo", testerInfo);
-
         return "watchingList";
     }
 

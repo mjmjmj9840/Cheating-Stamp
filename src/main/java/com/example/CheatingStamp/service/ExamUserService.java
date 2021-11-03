@@ -54,15 +54,22 @@ public class ExamUserService {
             if (user.getRole() != UserRole.SUPERVISOR) {
                 JSONObject jsonObj = new JSONObject();
 
-                jsonObj.put("name", user.getName()); // 임시
+                jsonObj.put("name", user.getName());
                 String username = user.getUsername();
                 jsonObj.put("username", username);
-                Optional<Video> video = videoRepository.findByUsernameAndExam_Id(username, examId);
+                Optional<Video> video = videoRepository.findByUsernameAndExam_IdAndIsMobile(username, examId, Boolean.FALSE);
                 if (video.isPresent()) {
-                    jsonObj.put("watchingVideo", video.get().getId());
+                    jsonObj.put("video", video.get().getId());
                 }
                 else {
-                    jsonObj.put("watchingVideo", null);
+                    jsonObj.put("video", null);
+                }
+                Optional<Video> mobileVideo = videoRepository.findByUsernameAndExam_IdAndIsMobile(username, examId, Boolean.TRUE);
+                if (mobileVideo.isPresent()) {
+                    jsonObj.put("mobileVideo", mobileVideo.get().getId());
+                }
+                else {
+                    jsonObj.put("mobileVideo", null);
                 }
                 jsonArray.put(jsonObj);
             }
