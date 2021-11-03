@@ -1,8 +1,30 @@
 section {
   text-align: center;
 }
-.material-icons {
+.material-icons,
+.material-icons-outlined{
   vertical-align: middle;
+}
+.material-icons-outlined {
+  font-size: 20px;
+  color: #FFBF00;
+}
+.infoBox {
+  border: 2px black dashed;
+  width: fit-content;
+  margin: 0 auto;
+  border-radius: 10px;
+  padding: 10px;
+  text-align: left;
+  border-color: #FFBF00;
+}
+.mobileInfo,
+.number,
+.point {
+  font-weight: 700;
+}
+.number {
+  font-size: large;
 }
 
 .info {
@@ -15,6 +37,13 @@ section {
 }
 .info .text {
   margin: 3rem 0;
+}
+.text img {
+  width: 700px;
+  margin-bottom: 20px;
+}
+.text p {
+  margin-bottom: 20px;
 }
 
 
