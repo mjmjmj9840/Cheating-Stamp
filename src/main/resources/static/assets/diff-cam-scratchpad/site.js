@@ -38,8 +38,8 @@ function getNowTime() {
 
 DiffCamEngine.init({
 	video: video,
-	captureWidth: 240,
-	captureHeight: 360,
+	captureWidth: 720,
+	captureHeight: 480,
 	initSuccessCallback: initSuccess,
 	initErrorCallback: initError,
 	captureCallback: capture

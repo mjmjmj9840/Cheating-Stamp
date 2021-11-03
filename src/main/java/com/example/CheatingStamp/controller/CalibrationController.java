@@ -27,6 +27,6 @@ public class CalibrationController {
     public String saveCalibrationRate(@AuthenticationPrincipal UserDetailsImpl userDetails, @RequestBody CalibrationRateRequestDto requestDto) {
         User user = userDetails.getUser();
         userService.updateCalibrationRate(user, requestDto);
-        return "redirect:/waiting";
+        return "redirect:/";
     }
 }
