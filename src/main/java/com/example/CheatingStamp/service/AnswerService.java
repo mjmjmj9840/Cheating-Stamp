@@ -1,11 +1,13 @@
 package com.example.CheatingStamp.service;
 
+import com.example.CheatingStamp.dto.MobileTimestampRequestDto;
 import com.example.CheatingStamp.dto.SaveAnswerRequestDto;
 import com.example.CheatingStamp.model.Answer;
 import com.example.CheatingStamp.repository.AnswerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.*;
 
 @RequiredArgsConstructor
@@ -55,6 +57,15 @@ public class AnswerService {
             answerRepository.delete(answer.get());
         } else {
             System.out.println("answer이 존재하지 않습니다.");
+        }
+    }
+
+    @Transactional
+    public void addMobileTimestamp(Long examId, String username, MobileTimestampRequestDto requestDto) {
+        Optional<Answer> answer = answerRepository.findByExamIdAndUsername(examId, username);
+        if (answer.isPresent()) {
+            answer.get().updateMobileTimestamp(requestDto);
+            answerRepository.save(answer.get());
         }
     }
 }

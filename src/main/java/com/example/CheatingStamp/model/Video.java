@@ -23,6 +23,9 @@ public class Video extends Timestamped {
     @Column(columnDefinition = "TEXT")
     private String filePath;
 
+    @Column
+    private boolean isMobile;
+
     @ManyToOne
     @JoinColumn(name = "EXAM_ID", insertable = false, updatable = false)
     private Exam exam;
@@ -30,9 +33,10 @@ public class Video extends Timestamped {
     private Boolean isMobile;
 
     @Builder
-    public Video(Long id, String username, String filePath) {
+    public Video(Long id, String username, String filePath, boolean isMobile) {
         this.id = id;
         this.username = username;
         this.filePath = filePath;
+        this.isMobile = isMobile;
     }
 }

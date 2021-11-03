@@ -1,5 +1,8 @@
 let video = document.getElementById('video');
-let timestamp = document.getElementById('timestamp');
+let timestamp_info = document.getElementById('timestamp');
+let timestamp = "";
+let hostname = window.location.hostname;
+let mobileUrl = window.location.search.slice(6);
 
 function initSuccess() {
 	DiffCamEngine.start();
@@ -14,7 +17,9 @@ function capture(payload) {
 	time = getNowTime();
 	if (score >= 500 && time >= '00:00:03') {
 		let tempHtml = `움직임이 감지되었습니다. timestamp ${time} score = ${score}`;
-		timestamp.append(tempHtml);
+		timestamp_info.append(tempHtml);
+		if (timestamp.length > 0) time = "," + time;  // 처음 시간을 저장하는게 아닐 경우
+		timestamp += time;
 	}
 }
 
@@ -33,6 +38,8 @@ function getNowTime() {
 
 DiffCamEngine.init({
 	video: video,
+	captureWidth: 240,
+	captureHeight: 360,
 	initSuccessCallback: initSuccess,
 	initErrorCallback: initError,
 	captureCallback: capture
@@ -46,13 +53,12 @@ let stream; // 미디어스트림
 // 임시 버튼
 const startBtn = document.getElementById('start-btn');
 const endBtn = document.getElementById('end-btn');
-const download = document.getElementById('download');
 
 window.onload = async () => {
 	startBtn.onclick = async () => {
 		var constraints = {
 			audio: false,
-			video: { facingMode: "user" }
+			video: { facingMode: "user", width: 240, height: 360}
 		};
 
 		navigator.mediaDevices.getUserMedia(constraints)
@@ -66,11 +72,25 @@ window.onload = async () => {
 
 				rec.onstop = async () => {
 					blob = new Blob(blobs, {type: 'video/mp4'});
-					console.log(blob);
-					let url = window.URL.createObjectURL(blob);
-					download.href = url;
-					download.download = 'test.mp4';
-					download.style.display = 'block';
+
+					let file = new FormData();
+					file.append('file', blob);
+
+					$.ajax({
+						url: "http://" + hostname + ":8080/mUpload/" + mobileUrl,
+						type: "POST",
+						data: file,
+						cache: false,
+						contentType: false,
+						processData: false,
+						success: function (response) {
+							alert("timestamp와 응시 영상이 성공적으로 저장되었습니다.");
+							window.location.href = "http://" + hostname + ":8080/examEnd";
+						}, error: function (response) {
+							alert("응시 영상 저장에 실패했습니다. 관리자에게 문의해주세요.");
+							window.location.href = "http://" + hostname + ":8080/examEnd";
+						},
+					});
 				};
 
 				rec.start(); // 녹화 시작
@@ -81,8 +101,21 @@ window.onload = async () => {
 	}
 
 	endBtn.onclick = () => {
-		rec.stop(); // 화면녹화 종료 및 녹화된 영상 다운로드
-		stream.getVideoTracks().forEach(s=>s.stop())
-		stream = null;
+		let data = new FormData();
+		data.append('mobileTimestamp', timestamp);
+
+		$.ajax({
+			url: "http://" + hostname + ":8080/mExam/" + mobileUrl,
+			type: "POST",
+			contentType: 'application/json',
+			data: JSON.stringify({mobileTimestamp: timestamp}),
+			success: function (response) {
+				rec.stop() // 모바일 응시 영상 저장
+			},
+			error: function (response) {
+				alert("timestamp와 답안 저장에 실패했습니다. 관리자에게 문의해주세요.");
+				window.location.href = "http://" + hostname + ":8080/examEnd";
+			},
+		});
 	};
 };

@@ -38,3 +38,8 @@
 	height: 200px;
 	overflow: scroll;
 }
+
+.btn-box {
+	text-align: center;
+	margin-top: 1%;
+}
