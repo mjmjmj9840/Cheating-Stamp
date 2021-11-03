@@ -33,6 +33,10 @@ public class VideoService {
         return infoMap;
     }
 
+    public String getMobileVideoFilePath(Long mobileVideoId) {
+        return videoRepository.findById(mobileVideoId).get().getFilePath();
+    }
+
     public void deleteVideo(Long videoId) {
         videoRepository.deleteById(videoId);
     }

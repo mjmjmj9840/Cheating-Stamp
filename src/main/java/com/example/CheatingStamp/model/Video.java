@@ -27,6 +27,8 @@ public class Video extends Timestamped {
     @JoinColumn(name = "EXAM_ID", insertable = false, updatable = false)
     private Exam exam;
 
+    private Boolean isMobile;
+
     @Builder
     public Video(Long id, String username, String filePath) {
         this.id = id;
