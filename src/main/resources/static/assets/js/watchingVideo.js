@@ -24,6 +24,8 @@ $(document).ready(function () {
 
       let video = document.querySelector('video')
       video.currentTime = sec
+      let video2 = document.querySelectorAll('video')[1]
+      video2.currentTime = sec
     })
   })
 
