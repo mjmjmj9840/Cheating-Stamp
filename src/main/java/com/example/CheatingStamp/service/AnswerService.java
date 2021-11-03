@@ -28,16 +28,24 @@ public class AnswerService {
     public HashMap getTimestampByExamIdAndUsername(Long examId, String username) {
         HashMap<String, List> infoMap = new HashMap<String, List>();
         Optional<Answer> answer = answerRepository.findByExamIdAndUsername(examId, username);
-        List<String> timestamp = new ArrayList<>();
 
+        List<String> timestamp = new ArrayList<>();
         if (answer.isPresent()) {
             String[] tmp = answer.get().getTimestamp().split(",");
             for (int i = 0; i < tmp.length; i++) {
                 timestamp.add(tmp[i]);
             }
         }
-
         infoMap.put("timestamp", timestamp);
+
+        List<String> mobileTimestamp = new ArrayList<>();
+        if (answer.isPresent()) {
+            String[] mobileTmp = answer.get().getMobileTimestamp().split(",");
+            for (int i = 0; i < mobileTmp.length; i++) {
+                mobileTimestamp.add(mobileTmp[i]);
+            }
+        }
+        infoMap.put("mobileTimestamp", mobileTimestamp);
 
         return infoMap;
     }
