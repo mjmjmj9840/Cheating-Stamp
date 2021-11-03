@@ -279,19 +279,25 @@ public class ExamController {
     }
 
     @GetMapping("/watchingVideo")
-    public String watchingVideo(@AuthenticationPrincipal UserDetailsImpl userDetails, @RequestParam Long videoId, Model model) {
+    public String watchingVideo(@AuthenticationPrincipal UserDetailsImpl userDetails, @RequestParam Long videoId, @RequestParam Long mobileVideoId, Model model) {
         if (!userValidator.isSupervisor(userDetails)) {
             model.addAttribute("errorMsg", "권한이 없는 사용자입니다.");
             return "errorMsg";
         }
 
         HashMap<String, String> videoInfo = videoService.getVideoInfo(videoId);
+        String mobileFilePath = null;
+        if (mobileVideoId != -1) {  // 모바일 응시 영상이 있는 경우
+            mobileFilePath = videoService.getMobileVideoFilePath(mobileVideoId);
+        }
 
         if (!videoInfo.isEmpty()) {
             String username = videoInfo.get("username");
             Long examId = Long.valueOf(videoInfo.get("examId"));
 
             model.addAttribute("filePath", videoInfo.get("filePath"));
+            model.addAttribute("mobileFilePath", mobileFilePath);
+
             model.addAttribute("examTitle", videoInfo.get("examTitle"));
             model.addAttribute("username", username);
 
