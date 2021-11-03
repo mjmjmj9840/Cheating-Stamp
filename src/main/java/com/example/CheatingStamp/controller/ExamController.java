@@ -336,8 +336,11 @@ public class ExamController {
 
             HashMap<String, List> timestampInfo = answerService.getTimestampByExamIdAndUsername(examId, username);
             model.addAttribute("timestamp", timestampInfo.get("timestamp"));
+            model.addAttribute("mobileTimestamp", timestampInfo.get("mobileTimestamp"));
+            System.out.println(timestampInfo);
 
             return "watchingVideo";
+
         } else {
             model.addAttribute("errorMsg", "수험자의 응시 영상이 존재하지 않습니다.");
             return "errorMsg";
