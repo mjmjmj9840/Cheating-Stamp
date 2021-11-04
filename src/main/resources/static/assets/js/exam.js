@@ -4,6 +4,7 @@ let rec; // 미디어스트림 기반 Media Recorder 객체
 let stream; // 미디어스트림
 let videoStream; // 비디오스트림
 let start = new Date();
+let hostname = window.location.hostname;
 
 window.onload = async () => {  // 비디오 녹화 함수
     videoStream = await navigator.mediaDevices.getDisplayMedia({video: {width: 720, height: 480}, audio: false});
@@ -36,10 +37,10 @@ window.onload = async () => {  // 비디오 녹화 함수
             processData: false,
             success: function (response) {
                 alert("timestamp와 응시 영상이 성공적으로 저장되었습니다.");
-                window.location.href = '/examEnd'
+                window.location.href = "http://" + hostname + ":8080/examEnd";
             }, error: function (response) {
                 alert("응시 영상 저장에 실패했습니다. 관리자에게 문의해주세요.");
-                window.location.href = '/examEnd'
+                window.location.href = "http://" + hostname + ":8080/examEnd";
             },
         });
     };
@@ -161,7 +162,7 @@ function remainTime() {
             },
             error: function (response) {
                 alert("timestamp와 답안 저장에 실패했습니다. 관리자에게 문의해주세요.");
-                window.location.href = '/examEnd';
+                window.location.href = "http://" + hostname + ":8080/examEnd";
             },
         });
     } else { //현재시간이 시험시작시간보다 늦고 시험종료시간보다 이르면 시험종료시간까지 남은 시간을 구한다.
@@ -207,7 +208,7 @@ $("#end-btn").click(function () {
         },
         error: function (response) {
             alert("timestamp와 답안 저장에 실패했습니다. 관리자에게 문의해주세요.");
-            window.location.href = '/examEnd';
+            window.location.href = "http://" + hostname + ":8080/examEnd";
         },
     });
 });

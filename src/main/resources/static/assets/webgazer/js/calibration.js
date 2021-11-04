@@ -1,5 +1,6 @@
 var PointCalibrate = 0;
 var CalibrationPoints={};
+let hostname = window.location.hostname;
 
 /**
  * Clear the canvas and the calibration button.
@@ -188,7 +189,7 @@ function CalculateMeasurement() {
                       data: JSON.stringify({calibrationRate: precision_measurement}),
                       success: function (response) {
                           alert("아이트래킹 보정 과정을 완료했습니다.");
-                          window.location.href = '/waiting'
+                          window.location.href = "http://" + hostname + ":8080/waiting";
                       }, error: function (response) {
                           alert("아이트래킹 보정 결과 저장에 실패했습니다. 아이트래킹 보정을 다시 진행해주세요.");
                           window.location.href = '/calibration'

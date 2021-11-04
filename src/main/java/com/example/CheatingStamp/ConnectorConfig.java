@@ -22,6 +22,8 @@ public class ConnectorConfig {
                 securityConstraint.setUserConstraint("CONFIDENTIAL");
                 SecurityCollection collection = new SecurityCollection();
                 collection.addPattern("/m");
+                collection.addPattern("/exam");
+                collection.addPattern("/calibration");
                 securityConstraint.addCollection(collection);
                 context.addConstraint(securityConstraint);
             }
