@@ -58,7 +58,7 @@ window.onload = async () => {
 	startBtn.onclick = async () => {
 		var constraints = {
 			audio: false,
-			video: { facingMode: "user", width: 240, height: 360}
+			video: { facingMode: "user", width: 720, height: 480}
 		};
 
 		navigator.mediaDevices.getUserMedia(constraints)
