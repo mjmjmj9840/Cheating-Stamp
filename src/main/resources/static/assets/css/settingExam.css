@@ -1,0 +1,267 @@
+* { margin: 0;  padding: 0; }
+ul, li { list-style: none; }
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+
+@media (max-width: 1200px) {
+    .setting-box,
+    .info-box {
+        width: 100%;
+        min-width: 320px;
+        padding: 0 30px;
+        box-sizing: border-box;
+    }
+    .exam-list .num {
+        display: none;
+    }
+    .exam-list .title {
+        width: 30%;
+        text-align: left;
+    }
+    .exam-list .times {
+        width: 25%;
+    }
+}
+
+
+.setting-box {
+    width: 1200px;
+    margin: 100px auto;
+    margin-top: 70px;
+}
+
+.setting-title {
+    margin-bottom: 25px;
+}
+.setting-title strong {
+    color: #3c3c3c;
+    font-size: 30px;
+}
+.setting-title p {
+    margin-top:  5px;
+    color: #545454;
+    font-size: 14px;
+}
+
+.exam-list {
+    width: 100%;
+    border-top: 2.5px solid #3c3c3c;
+    color: #545454;
+}
+.exam-list > div {
+    border-bottom: 1.35px solid #d8d8d8;
+    font-size: 0;
+}
+.exam-list > div.top {
+    border-bottom: 1.35px solid #7c7c7c;
+    color: #3c3c3c;
+}
+.exam-list > div:last-child {
+    border-bottom: 1.35px solid #3c3c3c;
+}
+
+.exam-list > div > div {
+    display: inline-block;
+    padding: 15px 0;
+    text-align: center;
+    font-size: 14px;
+}
+.exam-list > div.top > div {
+    font-weight: 600;
+}
+.exam-list .check {
+    width: 5%;
+}
+.exam-list .num {
+    width: 8%;
+}
+.exam-list .title {
+    width: 42%;
+    text-align: left;
+}
+.exam-list .top .title {
+    text-align: center;
+}
+.exam-list .title:hover {
+    text-decoration: underline;
+    color: #e96b56;
+}
+.exam-list .top .title:hover {
+    text-decoration: none;
+    color: inherit;
+}
+.exam-list .times {
+    width: 35%;
+}
+.exam-list .watch {
+    width: 10%;
+}
+.exam-list .watch:hover {
+    color: #e96b56;
+}
+.exam-list .top .watch:hover {
+    color: inherit;
+}
+
+
+/*paging
+.paging {
+    margin-top: 30px;
+    text-align: center;
+    font-size: 0;
+}
+.paging a {
+    display: inline-block;
+    width: 32px;    height: 32px;
+    box-sizing: border-box;
+    vertical-align: middle;
+    border: 1px solid #fff;
+    border-left: 0;
+    padding-top: 9.5px;
+    line-height: 100%;
+}
+.paging a:first-child {
+    border-left: 1px solid #fff;
+}
+.paging a.btn {
+    font-size: 12px;
+    letter-spacing: -1px;
+}
+.paging a.num {
+    font-size: 14px;
+}
+.paging a.num.on {
+    border-color: #999;
+    background: #999;
+    color: #fff;
+}
+*/
+
+
+.btn-box{
+    margin-top: 30px;
+    text-align: center;
+    font-size: 0;
+}
+.btn-box button{
+    display: inline-block;
+    min-width: 80px;
+    margin-left: 10px;
+    border: 0;
+    padding: 10px;
+    background: #7c7c7c;
+    color: #fff;
+    border-radius: 25px;
+    font-size: 14px;
+}
+.btn .create {
+    margin-left: 0;
+}
+.btn-box .delete {
+    background: #ee8b7a;
+    color: #fff;
+}
+
+
+/*watchingList.html 에 필요한 css*/
+table {
+    border-collapse: collapse;
+}
+caption {
+    display: none;
+}
+
+.info-box {
+    width: 1200px;
+    margin: 70px auto;
+    
+}
+.info-box .setting-title {
+    margin-bottom: 20px;
+}
+
+.exam-board {
+    border-top: 1.4px solid #3c3c3c;
+    border-bottom: 1.4px solid #3c3c3c;
+    width: 50%;
+    color: #545454;
+    font-size: 14px;
+}
+.exam-board tr {
+    border-bottom: 1.35px solid #d8d8d8;
+}
+.exam-board td {
+    text-align: center;
+    padding: 10px;
+}
+.exam-board .icon {
+    color: #7c7c7c;
+    width : 10%
+}
+.exam-board .top {
+    color: #3c3c3c;
+    font-weight: 600;
+    text-align: left;
+    width : 15%
+}
+
+.exam-list .name {
+    width: 16%;
+}
+.exam-list .username {
+    width: 30%;
+}
+.exam-list .video {
+    width: 18%;
+}
+.exam-list .answer {
+    width: 18%;
+}
+.exam-list .delete {
+    width: 10%;
+}
+.exam-list .video:hover,
+.exam-list .answer:hover,
+.exam-list .delete:hover{
+    color: #e96b56;
+}
+.exam-list .top .video:hover,
+.exam-list .top .answer:hover,
+.exam-list .top .delete:hover{
+    color: inherit;
+}
+
+/* 시험제목 누를때 커서 포인터 모양으로 */
+.title_ {
+    cursor: pointer;
+}
+
+
+/*checkAnswer.html*/
+.answer {
+    display: block;
+    padding: 25px 10px 25px;
+}
+.answer .num {
+    color: #7c7c7c;
+    float: left;
+    font-size: 15px;
+    font-weight: 550;
+    margin-right: 10px;
+}
+.answer .question {
+    color: #545454;
+    font-size: 20px;
+    font-weight: 600;
+}
+.answer .content {
+    background: #eeeeef;
+    color: #3c3c3c;
+    display: block;
+    font-size: 18px;
+    margin: 10px;
+    padding: 10px 25px 10px;
+}

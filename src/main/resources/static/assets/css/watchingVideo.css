@@ -1,0 +1,73 @@
+.top {
+  width: fit-content;
+  min-width: 200px;
+  margin: 0 auto;
+}
+.box {
+  display: flex;
+  height: fit-content;
+  justify-content: center;
+}
+.video {
+  margin-top: 80px;
+  margin-right: 10vmin;
+}
+.video2 {
+  margin-top: 70px;
+  margin-right: 10vmin;
+}
+
+video {
+  width: 110vmin;
+}
+
+.box .text {
+  margin-top: 80px;
+}
+.exam,
+.info,
+.stp2 {
+  margin-top: 20px;
+  height: 7vh;
+  border-bottom: 3px solid;
+  text-align: center;
+  font-size: 1.5vw;
+  font-weight: 700;
+}
+
+.box .text .stamp {
+  width: 26vw;
+  margin-top: 30px;
+  height: 40vh;
+  background-color: rgba(228, 228, 228, 0.274);
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+.stp2 {
+  margin-top: 22vh !important;
+}
+.time {
+  height: 7vh;
+  width: 24vw;
+  text-align: center;
+  border: 2px white solid;
+  display: flex;
+  text-align: center;
+}
+.time p {
+  width: 12vw;
+  margin: 0 0;
+}
+.time .str {
+  font-size: 1.3vw;
+  color: #f8593d;
+}
+.time .num {
+  font-size: 1.2vw;
+  cursor: pointer;
+  font-weight: 600;
+}
+.time .num:hover {
+  color: rgba(0, 0, 250, 0.849);
+}
+

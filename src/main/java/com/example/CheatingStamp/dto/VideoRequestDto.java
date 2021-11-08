@@ -9,22 +9,25 @@ import lombok.*;
 @NoArgsConstructor
 public class VideoRequestDto {
     private Long id;
-    private String title;  // title에 업로드한 username 저장
+    private String username;
     private String filePath;
+    private boolean isMobile;
 
     public Video toEntity(){
         Video build = Video.builder()
                 .id(id)
-                .title(title)
+                .username(username)
                 .filePath(filePath)
+                .isMobile(isMobile)
                 .build();
         return build;
     }
 
     @Builder
-    public VideoRequestDto(Long id, String title, String filePath) {
+    public VideoRequestDto(Long id, String username, String filePath, boolean isMobile) {
         this.id = id;
-        this.title = title;
+        this.username = username;
         this.filePath = filePath;
+        this.isMobile = isMobile;
     }
 }

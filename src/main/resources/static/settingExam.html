@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="./fragments/header.html :: fragment-header"></div>
+    <!--setting page header file-->
+    <meta charset="UTF-8">
+    <link href="./assets/css/settingExam.css" rel="stylesheet">
+    <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+</head>
+
+<body>
+    <!-- ======= Header ======= -->
+    <div th:replace="./fragments/navbar.html :: fragment-navbar"></div>
+
+    <div class="setting-box">
+        
+        <div class="setting-title">
+            <strong>시험목록</strong>
+            <p>시험에 대한 정보를 확인 및 관리할 수 있습니다.</p>
+        </div>
+
+        <div class="exam-list-box">
+            <div class="exam-list">
+                <div class="top">
+                    <div class="check"><input type="checkbox" id="select-all"></div>
+                    <div class="num">No</div>
+                    <div class="title">시험제목</div>
+                    <div class="times">시험시간</div>
+                    <div class="watch">응시목록</div>
+                </div>
+                <div class="content" th:each="exam: ${examList}">
+                    <input class="examId" type="hidden" th:value="${exam.examId}" />
+                    <div class="check"><input type="checkbox" class="select"></div>
+                    <div class="num" th:text="${examStat.index}+1"></div>
+                    <div class="title title_" th:text="${exam.examTitle}" th:onclick="'location.href=\'' + 'detailExam?examId=' + @{${exam.examId}} + '\''"></div>
+                    <div class="times" th:text="${#strings.substring(exam.examStartTime, 0, 4) + '-' +
+                         #strings.substring(exam.examStartTime, 4, 6) + '-' + #strings.substring(exam.examStartTime, 6, 8) + ' ' +
+                         #strings.substring(exam.examStartTime, 8, 10) + ':' + #strings.substring(exam.examStartTime, 10, 12) +
+                         '~' + #strings.substring(exam.examEndTime, 8, 10) + ':' + #strings.substring(exam.examEndTime, 10, 12)}"></div>
+                    <div class="watch" th:onclick="'location.href=\'' + 'watchingList?examId=' + @{${exam.examId}} + '\''"><i class="far fa-eye"></i></div>
+                </div>
+            </div>
+
+            <!--paging
+            <div class="paging">
+                <a href="#" class="btn first"> << </a>
+                <a href="#" class="btn prev"> < </a>
+                <a href="#" class="num on">1</a>
+                <a href="#" class="num">2</a>
+                <a href="#" class="num">3</a>
+                <a href="#" class="num">4</a>
+                <a href="#" class="num">5</a>
+                <a href="#" class="btn next"> > </a>
+                <a href="#" class="btn last"> >> </a>
+            </div>
+            -->
+
+            <div class="btn-box">
+                <button class="create" onClick="location.href='/createExam'">생성</button>
+                <button class="delete" disabled onClick="password()">삭제</button>
+            </div>
+        </div>
+
+    </div>
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+    <div th:replace="./fragments/config.html :: fragment-config"></div>
+    <script src="./assets/js/settingExam.js"></script>
+
+</body>
+</html>

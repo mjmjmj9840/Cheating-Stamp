@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org">
+<head>
+    <div th:replace="./fragments/header.html :: fragment-header"></div>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link href="./assets/css/watchingVideo.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- ======= Header ======= -->
+    <div th:replace="./fragments/navbar.html :: fragment-navbar"></div>
+
+
+    <section>
+
+    <div class="top">
+        <div class="exam" th:text="${examTitle}"></div>
+        <div class="info" th:text="${username}"></div>
+    </div>
+
+    <div class="box">
+      <div>
+          <div class="video">
+              <video controls>
+                  <source th:src="@{${filePath}}">
+                  Sorry, your browser doesn't support embedded videos.
+              </video>
+          </div>
+          <div class="video2">
+              <video controls>
+                  <source th:src="@{${mobileFilePath}}">
+                  Sorry, your browser doesn't support embedded videos.
+              </video>
+          </div>
+      </div>
+      <div class="text">
+        
+        <div class="user">
+          <div class="info">EYE-STAMP</div>
+        </div>
+
+        <div class="stamp">
+          <div class="time" th:each="stamp : ${timestamp}">
+            <p class="str">[ 시선 이탈 ]</p>
+            <p class="num" th:text="${stamp}"></p>
+          </div>
+        </div>
+
+        <div class="info stp2">MOTION-STAMP</div>
+        <div class="stamp stamp2">
+          <div class="time" th:each="stamp : ${mobileTimestamp}">
+              <p class="str">[ 동작 감지 ]</p>
+              <p class="num" th:text="${stamp}"></p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+
+    <script type="text/javascript" src="./assets/js/watchingVideo.js" defer></script>
+    <div th:replace="./fragments/config.html :: fragment-config"></div>
+</body>
+</html>

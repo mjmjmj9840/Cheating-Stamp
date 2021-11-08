@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="./fragments/header.html :: fragment-header"></div>
+    <!--setting page header file-->
+    <meta charset="UTF-8">
+    <link href="./assets/css/settingExam.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+</head>
+
+<body>
+    <script type="text/javascript" src="./assets/js/checkAnswer.js" defer></script>
+
+    <!-- ======= Header ======= -->
+    <div th:replace="./fragments/navbar.html :: fragment-navbar"></div>
+
+    <div class="info-box">
+        <table class="exam-board">
+            <caption>학생정보테이블</caption>
+            <tr>
+                <td class="icon"><i class="far fa-user"></i></td>
+                <td class="top">이름</td>
+                <td class="content" th:text="${name}"></td>
+            </tr>
+            <tr>
+                <td class="icon"><i class="far fa-envelope"></i></td>
+                <td class="top">e-mail</td>
+                <td class="content" th:text="${email}"></td>
+            </tr>
+            <tr>
+                <td class="icon"><i class="far fa-edit"></i></td>
+                <td class="top">시험제목</td>
+                <td class="content" th:text="${examTitle}"></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="setting-box" id="question-answer-box">
+        <input type="hidden" id="questions" th:value="${examQuestions}" />
+        <input type="hidden" id="answers" th:value="${answers}" />
+    </div>
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+    <div th:replace="./fragments/config.html :: fragment-config"></div>
+
+</body>
+</html>

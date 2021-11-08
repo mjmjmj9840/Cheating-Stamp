@@ -18,19 +18,23 @@ public class Video extends Timestamped {
     private Long id;
 
     @NotNull
-    private String title;  // 업로드한 user의 username으로 영상 이름 저장
+    private String username;
 
     @Column(columnDefinition = "TEXT")
     private String filePath;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @Column
+    private boolean isMobile;
+
+    @ManyToOne
     @JoinColumn(name = "EXAM_ID", insertable = false, updatable = false)
     private Exam exam;
 
     @Builder
-    public Video(Long id, String title, String filePath) {
+    public Video(Long id, String username, String filePath, boolean isMobile) {
         this.id = id;
-        this.title = title;
+        this.username = username;
         this.filePath = filePath;
+        this.isMobile = isMobile;
     }
 }

@@ -2,16 +2,18 @@ package com.example.CheatingStamp.service;
 
 import com.example.CheatingStamp.dto.CalibrationRateRequestDto;
 import com.example.CheatingStamp.dto.SignupRequestDto;
+import com.example.CheatingStamp.model.Exam;
+import com.example.CheatingStamp.model.ExamUser;
 import com.example.CheatingStamp.model.User;
 import com.example.CheatingStamp.model.UserRole;
 import com.example.CheatingStamp.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import com.example.CheatingStamp.security.UserDetailsServiceImpl;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.Errors;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -22,7 +24,8 @@ public class UserService {
     private static final String SUPERVISOR_TOKEN = "1234";
 
     public void registerUser(SignupRequestDto requestDto) {
-        String username = requestDto.getUsername();
+        String username = requestDto.getUsername();  // 사용자 이메일
+        String name = requestDto.getName();  // 사용자 이름
         // 회원 email 중복 확인
         Optional<User> found = userRepository.findByUsername(username);
         if (found.isPresent()) {
@@ -40,14 +43,54 @@ public class UserService {
             }
             role = UserRole.SUPERVISOR;
         }
-
-        User user = new User(username, password, role);
+        User user = new User(username, name, password, role);
         userRepository.save(user);
     }
 
     @Transactional
     public User updateCalibrationRate(User user, CalibrationRateRequestDto requestDto) {
         user.updateCalibrationRate(requestDto);
-        return user;
+        return userRepository.save(user);
+    }
+
+    public Long getFirstExamId(User user) {
+        List<ExamUser> examUsers = user.getExamUsers();
+        if (examUsers.size() == 0) {  // 예정된 시험이 없을 경우
+            return -1L;
+        }
+        Long firstExamId = examUsers.get(0).getExam().getId();
+        LocalDateTime firstExamStartTime = examUsers.get(0).getExam().getStartTime();
+        LocalDateTime firstExamEndTime = examUsers.get(0).getExam().getEndTime();
+        for (int i = 1; i < examUsers.size(); i++) {
+            Exam exam = examUsers.get(i).getExam();
+            // 종료되지 않은 시험 중 가장 가까운 시험 id 갱신
+            if (firstExamEndTime.compareTo(LocalDateTime.now()) < 0) {
+                firstExamId = exam.getId();
+                firstExamStartTime = exam.getStartTime();
+                firstExamEndTime = exam.getEndTime();
+            } else if (exam.getStartTime().compareTo(firstExamStartTime) < 0 && exam.getEndTime().compareTo(LocalDateTime.now()) > 0){
+                firstExamId = exam.getId();
+                firstExamStartTime = exam.getStartTime();
+                firstExamEndTime = exam.getEndTime();
+            }
+        }
+
+        // 가장 빠른 시험이 이미 종료된 경우
+        if (firstExamEndTime.compareTo(LocalDateTime.now()) < 0) {
+            return -1L;
+        }
+
+        return firstExamId;
+    }
+
+    public String getNameByUsername(String username) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new NullPointerException("해당 이메일을 가진 회원이 존재하지 않습니다."));
+
+        return user.getName();
+    }
+
+    public User getUserIdByUsername(String username) {
+        return userRepository.findByUsername(username).get();
     }
 }

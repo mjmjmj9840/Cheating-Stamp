@@ -6,7 +6,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,8 +17,9 @@ import java.util.List;
 public class User extends Timestamped {
 
     @Builder
-    public User(String username, String password, UserRole role) {
+    public User(String username, String name, String password, UserRole role) {
         this.username = username;
+        this.name = name;
         this.password = password;
         this.role = role;
     }
@@ -27,6 +27,7 @@ public class User extends Timestamped {
     // 증가하는 ID 자동 생성
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
+    @Column(name = "user_id")
     private Long id;
 
     // username으로 email 저장
@@ -35,14 +36,17 @@ public class User extends Timestamped {
     private String username;
 
     @NotNull
+    private String name;
+
+    @NotNull
     private String password;
 
     @NotNull
     @Enumerated(value = EnumType.STRING)
     private UserRole role;
 
-    @ManyToMany(mappedBy = "users")
-    private List<Exam> exams = new ArrayList<Exam>();
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    private List<ExamUser> examUsers = new ArrayList<ExamUser>();
 
     @Column
     private int calibrationRate;  // 아이트래킹 결과

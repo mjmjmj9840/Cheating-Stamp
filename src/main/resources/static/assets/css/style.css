@@ -459,22 +459,23 @@ footer .container {
 --------------------------------------------------------------*/
 #hero {
   width: 100%;
-  height: 70vh;
+  height: 58vh;
   background-color: rgba(59, 59, 59, 0.8);
   overflow: hidden;
   padding: 0;
-  margin-bottom: -120px;
+  margin-bottom: -40px;
   position: relative;
   z-index: 1;
 }
 
 #hero .carousel-item {
   width: 100%;
-  height: 70vh;
+  height: 58vh;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   background-position: center center;
+  background-color: white;
 }
 
 #hero .carousel-item::before {
@@ -508,6 +509,7 @@ footer .container {
   margin-bottom: 30px;
   font-size: 48px;
   font-weight: 700;
+  margin-top: 10px;
 }
 
 #hero h2 span {
@@ -560,7 +562,9 @@ footer .container {
   height: auto;
   color: #545454;
 }
-
+#hero .carousel-indicators{
+  margin-bottom: 2rem;
+}
 #hero .carousel-indicators li {
   cursor: pointer;
   background: #e96b56;
@@ -603,7 +607,7 @@ footer .container {
 
 @media (max-height: 768px), (max-width: 1200px) {
   #hero {
-    margin-bottom: 60px;
+    margin-bottom: 10px;
   }
   #hero .carousel-container {
     padding-bottom: 0;
@@ -629,6 +633,11 @@ footer .container {
   #hero .carousel-control-prev, #hero .carousel-control-next {
     width: 5%;
   }
+}
+
+.animate__animated.text {
+  font-weight: 700;
+  font-size: 16px;
 }
 
 /*--------------------------------------------------------------

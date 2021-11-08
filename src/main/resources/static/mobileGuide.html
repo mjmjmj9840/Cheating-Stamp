@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org">
+<head>
+    <div th:replace="./fragments/header.html :: fragment-header"></div>
+    <!-- waiting page header file -->
+    <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
+    <link href="./assets/css/mobileGuide.css" rel="stylesheet">
+    <script type="text/javascript" src="./assets/js/mobileGuide.js" defer></script>
+
+    <!-- QR -->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" integrity="sha512-CNgIRecGo7nphbeZ04Sc13ka07paqdeTu0WR1IM4kNcpmBAUSHSQX0FslNhTDadL4O5SAGapGt4FodqL8My0mA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+
+<body>
+    <!-- ======= Header ======= -->
+    <div th:replace="./fragments/navbar.html :: fragment-navbar"></div>
+
+    <div id="mobileUrl" class="d-none" th:text="${mobileUrl}"></div>
+
+    <section class="info">
+      <h3>공정한 온라인 시험을 위해 모바일 기기가 필요합니다!</h3> <br>
+      <h5>
+        <span class="material-icons">phone_iphone</span>
+        모바일 기기로 아래의 QR코드를 찍어주세요
+        <span class="material-icons">phone_iphone</span>
+      </h5> <br>
+    </section>
+    <!-- https://localhost:8080/m?code=mobileUrl 로 연결 -->
+    <section class="qr">
+      <input id="text" value="" type="text" readonly hidden/><br />
+      <div id="qrcode"></div>
+    </section>
+
+    <section class="info">
+      <h5>
+        <span class="material-icons">assignment</span>
+        다음 안내사항을 따라 모션디텍팅을 위한 기기 세팅을 준비 해주세요
+        <span class="material-icons">assignment</span>
+      </h5>
+        <div class="text">
+            <img src="https://ifh.cc/g/FznSNd.jpg" alt="모바일기기 세팅안내 이미지"> <br><br>
+            <p class="mobileInfo"><span class="material-icons-outlined">lightbulb</span> 응시자의 상체와 PC가 함께 나올 수 있도록 거리를 조정해주세요.</p>
+            <p class="mobileInfo"><span class="material-icons-outlined">lightbulb</span> PC, 마우스(손), 응시자의 옆모습이 포함되어야 합니다.</p>
+            <p class="mobileInfo"><span class="material-icons-outlined">lightbulb</span> 모바일기기는 가로모드로 촬영하는 것을 권장드립니다.</p>
+            <p class="mobileInfo"><span class="material-icons-outlined">lightbulb</span> 방해금지모드 / 알림 비활성화를 추천드립니다.</p> <br>
+            <p class="mobileInfo"><span class="material-icons-outlined">lightbulb</span> 모바일 기기의 화면세팅이 끝나면 다음순서에 맞춰 시험을 진행해주세요.</p> <br>
+            <div class="infoBox">
+                <p><span class="number">①</span> 시험시간이 되면 웹에서 <span class="point">시험시작</span> 버튼을 클릭해주세요.</p>
+                <p><span class="number">②</span> 모바일기기에서 <span class="point">녹화시작</span> 버튼을 클릭한 후 시험을 진행해주세요.</p>
+                <p><span class="number">③</span> 시험 종료를 원하시면 웹에서 <span class="point">시험종료</span> 버튼을 클릭해주세요.</p>
+                <p><span class="number">④</span> timestamp/영상 저장성공 안내가 뜨면 모바일기기에서 <span class="point">녹화종료</span> 버튼을 클릭해주세요.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="info">
+      <h5>위의 안내사항을 모두 확인하신 후 시험 대기화면으로 이동해주세요.</h5>
+      <div class="btn-end">
+        <input id='target_btn' type='button' value='대기화면으로 이동'/>
+      </div>
+    </section>
+
+    <div th:replace="./fragments/config.html :: fragment-config"></div>
+</body>
+</html>

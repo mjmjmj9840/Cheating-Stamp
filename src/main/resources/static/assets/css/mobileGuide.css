@@ -1,0 +1,76 @@
+section {
+  text-align: center;
+}
+.material-icons,
+.material-icons-outlined{
+  vertical-align: middle;
+}
+.material-icons-outlined {
+  font-size: 20px;
+  color: #FFBF00;
+}
+.infoBox {
+  border: 2px black dashed;
+  width: fit-content;
+  margin: 0 auto;
+  border-radius: 10px;
+  padding: 10px;
+  text-align: left;
+  border-color: #FFBF00;
+}
+.mobileInfo,
+.number,
+.point {
+  font-weight: 700;
+}
+.number {
+  font-size: large;
+}
+
+.info {
+  margin: 1rem 0 -6rem 0;
+}
+.info h3,
+.info h5 {
+  margin-top: 1rem;
+  font-weight: 700;
+}
+.info .text {
+  margin: 3rem 0;
+}
+.text img {
+  width: 700px;
+  margin-bottom: 20px;
+}
+.text p {
+  margin-bottom: 20px;
+}
+
+
+#qrcode {
+  width: fit-content;
+  margin: 0 auto;
+}
+
+
+/* 버튼 */
+.btn-end {
+  text-align: center;
+  margin-top: 2rem;
+}
+.btn-end input {
+  padding: 6px 30px;
+  background: #ee8b7a;
+  color: #fff;
+  font-size: 18px;
+  border: none;
+  border-radius: 25px;
+  font-weight: 600;
+  outline: none;
+  box-shadow: 1px 2.5px 0 rgb(0,0,0,0.5);
+}
+.btn-end input:active {
+  position: relative;
+  top:2px;
+  box-shadow: 1px 1px 0 rgb(0,0,0,0.5);
+}

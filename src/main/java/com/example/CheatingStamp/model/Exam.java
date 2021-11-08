@@ -18,16 +18,18 @@ import java.util.List;
 public class Exam extends Timestamped {
 
     @Builder
-    public Exam(String code, String title, LocalDateTime startTime, LocalDateTime endTime, String questions) {
+    public Exam(String code, String title, LocalDateTime startTime, LocalDateTime endTime, String questions, Long managerId) {
         this.code = code;
         this.title = title;
         this.startTime = startTime;
         this.endTime = endTime;
         this.questions = questions;
+        this.managerId = managerId;
     }
 
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
+    @Column(name = "exam_id")
     private Long id;
 
     @Column(unique = true)
@@ -46,15 +48,14 @@ public class Exam extends Timestamped {
     @NotNull
     private String questions;
 
-    @ManyToMany
-    @JoinTable(
-            name = "user_exam",
-            joinColumns = @JoinColumn(name = "user_id"),    // 현재 엔티티를 참조하는 외래 키
-            inverseJoinColumns = @JoinColumn(name = "exam_id")) // 반대 방향 엔티티를 참조하는 외래 키
-    private List<User> users = new ArrayList<User>();
+    @NotNull
+    private Long managerId;
 
-    @OneToMany
-    @JoinColumn(name = "EXAM_ID")
+    @OneToMany(mappedBy = "exam")
+    private List<ExamUser> examUsers = new ArrayList<ExamUser>();
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "exam_id")
     private List<Video> videos = new ArrayList<Video>();
 
     public void addVideo(Video video) {

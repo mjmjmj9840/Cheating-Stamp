@@ -56,4 +56,14 @@ public class S3Service {
                 .withCannedAcl(CannedAccessControlList.PublicRead));
         return s3Client.getUrl(bucket, title).toString();
     }
+
+    public boolean delete(String title) throws IOException {
+        // bucket에 title을 키로 갖는 객체가 있는지 확인
+        boolean isExistObject = s3Client.doesObjectExist(bucket, title);
+        if (isExistObject) {
+            s3Client.deleteObject(bucket, title);
+        }
+
+        return isExistObject;
+    }
 }

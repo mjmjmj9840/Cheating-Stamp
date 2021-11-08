@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org">
+<head>
+    <div th:replace="./fragments/header.html :: fragment-header"></div>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link href="./assets/css/detail.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- ======= Header ======= -->
+    <div th:replace="./fragments/navbar.html :: fragment-navbar"></div>
+
+
+    <section class="mainArea">
+        <h1 th:text="${examTitle}"></h1>
+        <input type="hidden" id="examId" th:value="${examId}"/>
+
+        <div class="inputEmail">
+            <div class="board">
+                <div class="role"><h5>감독관</h5></div>
+                <input type="text" id="supervisorEmail" placeholder="이메일 입력"/>
+                <button class="addBtnS">추가</button>
+                <div class="screen">
+                    <div th:each="supervisor : ${supervisors}">
+                        <span th:text="${supervisor}"></span>
+                        <button class='removeBtn'>-</button>
+                    </div>
+                </div>
+            </div>
+            <div class="board">
+                <div class="role"><h5>수험자</h5></div>
+                <input type="text" id="testerEmail" placeholder="이메일 입력"/>
+                <button class="addBtnT">추가</button>
+                <div class="screen">
+                    <div th:each="tester : ${testers}">
+                        <span th:text="${tester}"></span>
+                        <button class='removeBtn'>-</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <script type="text/javascript" src="./assets/js/detail.js" defer></script>
+    <div th:replace="./fragments/config.html :: fragment-config"></div>
+</body>
+</html>
