@@ -41,6 +41,11 @@ public class ExamController {
     // 시험 대기 화면
     @GetMapping("/waiting")
     public String waiting(@AuthenticationPrincipal UserDetailsImpl userDetails, Model model) {
+        if (userValidator.isSupervisor(userDetails)) {
+            model.addAttribute("errorMsg", "감독관은 시험을 응시할 수 없습니다.");
+            return "errorMsg";
+        }
+
         Long examId = userService.getFirstExamId(userDetails.getUser());
         // 예정된 시험이 없을 경우 홈 화면으로 넘김
         if (examId < 0) {
@@ -78,6 +83,11 @@ public class ExamController {
     // 시험 화면
     @GetMapping("/exam")
     public String exam(@AuthenticationPrincipal UserDetailsImpl userDetails, @RequestParam String code, Model model) {
+        if (userValidator.isSupervisor(userDetails)) {
+            model.addAttribute("errorMsg", "감독관은 시험을 응시할 수 없습니다.");
+            return "errorMsg";
+        }
+
         User user = userDetails.getUser();
         if (!examUserService.validationTesterByUserAndExamCode(user, code)) {
             model.addAttribute("errorMsg", "권한이 없는 사용자입니다.");
@@ -112,6 +122,11 @@ public class ExamController {
     @ResponseBody
     @PostMapping("/exam/{code}")
     public String saveAnswer(@PathVariable String code, @AuthenticationPrincipal UserDetailsImpl userDetails, @ModelAttribute SaveAnswerRequestDto requestDto, Model model) {
+        if (userValidator.isSupervisor(userDetails)) {
+            model.addAttribute("errorMsg", "감독관은 시험을 응시할 수 없습니다.");
+            return "errorMsg";
+        }
+
         User user = userDetails.getUser();
         if (!examUserService.validationTesterByUserAndExamCode(user, code)) {
             model.addAttribute("errorMsg", "권한이 없는 사용자입니다.");
@@ -127,6 +142,11 @@ public class ExamController {
     // 응시 영상 업로드
     @PostMapping("/upload/{code}")
     public String uploadVideo(@PathVariable String code, @AuthenticationPrincipal UserDetailsImpl userDetails, MultipartFile file, Model model) throws IOException {
+        if (userValidator.isSupervisor(userDetails)) {
+            model.addAttribute("errorMsg", "감독관은 시험을 응시할 수 없습니다.");
+            return "errorMsg";
+        }
+
         User user = userDetails.getUser();
         if (!examUserService.validationTesterByUserAndExamCode(user, code)) {
             model.addAttribute("errorMsg", "권한이 없는 사용자입니다.");
