@@ -53,10 +53,12 @@ public class AnswerService {
     }
 
     public String getAnswersByExamIdAndUsername(Long examId, String username) {
-        Answer answer = answerRepository.findByExamIdAndUsername(examId, username)
-                .orElseThrow(() -> new NullPointerException("answer이 존재하지 않습니다."));
-
-        return answer.getAnswers();
+        Optional<Answer> answer = answerRepository.findByExamIdAndUsername(examId, username);
+        if (answer.isPresent()) {
+            return answer.get().getAnswers();
+        } else {
+            return null;
+        }
     }
 
     public void deleteAnswer(Long examId, String username) {

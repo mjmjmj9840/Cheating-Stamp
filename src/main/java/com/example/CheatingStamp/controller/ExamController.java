@@ -18,6 +18,7 @@ import com.example.CheatingStamp.security.UserDetailsImpl;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.io.IOException;
@@ -44,6 +45,13 @@ public class ExamController {
         // 예정된 시험이 없을 경우 홈 화면으로 넘김
         if (examId < 0) {
             model.addAttribute("errorMsg", "예정된 시험이 없습니다.");
+            return "errorMsg";
+        }
+
+        // answer에 값 있으면 홈 화면으로 넘김
+        String answer = answerService.getAnswersByExamIdAndUsername(examId, userDetails.getUsername());
+        if (answer != null) {
+            model.addAttribute("errorMsg", "이미 답안을 제출한 시험입니다.");
             return "errorMsg";
         }
 
