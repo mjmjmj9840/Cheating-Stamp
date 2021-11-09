@@ -428,8 +428,14 @@ public class ExamController {
             return "errorMsg";
         }
 
-        HashMap<String, String> examInfo = examService.getExamInfo(examId);
         String answers = answerService.getAnswersByExamIdAndUsername(examId, username);
+        if (answers == null) {
+            model.addAttribute("errorMsg", "제출된 답안이 없습니다.");
+            model.addAttribute("redirect", "watchingList?examId=" + examId);
+            return "errorMsg";
+        }
+
+        HashMap<String, String> examInfo = examService.getExamInfo(examId);
         String name = userService.getNameByUsername(username);
 
         model.addAttribute("examTitle", examInfo.get("examTitle"));
