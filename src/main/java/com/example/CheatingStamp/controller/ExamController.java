@@ -242,7 +242,7 @@ public class ExamController {
 
         examUserService.deleteByExamIds(checkedExam);
         examService.deleteExamByExamIds(checkedExam);
-        return "redirect:/settingExam";
+        return "settingExam";
     }
 
     // 시험 생성 페이지
@@ -264,9 +264,10 @@ public class ExamController {
         }
 
         Long userId = userDetails.getUser().getId();
-        examService.createExam(requestDto, userId);
-
-        return "redirect:/settingExam";
+        Long examId = examService.createExam(requestDto, userId);
+        ExamUserRequestDto examUserRequestDto  = new ExamUserRequestDto(examId, userDetails.getUsername());
+        examUserService.addByExamIdAndUsername(examUserRequestDto);
+        return "settingExam";
     }
 
     // 시험 상세 화면
