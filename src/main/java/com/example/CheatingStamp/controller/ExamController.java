@@ -24,6 +24,7 @@ import java.time.format.DateTimeFormatter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 
 @RequiredArgsConstructor
@@ -321,6 +322,10 @@ public class ExamController {
             return "errorMsg";
         }
 
+        if (userService.getUserByUsername(requestDto.getUsername()) == null) {
+            throw new NoSuchElementException("존재하지 않는 사용자입니다.");
+        }
+
         examUserService.addByExamIdAndUsername(requestDto);
 
         return "redirect:/";
@@ -420,7 +425,7 @@ public class ExamController {
         if (mobileVideoInfo.isEmpty()) {
             System.out.println("잘못된 mobile video id 값입니다.");
         } else {
-            User user = userService.getUserIdByUsername(username);
+            User user = userService.getUserByUsername(username);
             String mobileUrl = examUserService.getMobileUrlByExamIdAndUserId(examId, user);
             String mobileVideoTitle = mobileUrl + "_" + username;
 
