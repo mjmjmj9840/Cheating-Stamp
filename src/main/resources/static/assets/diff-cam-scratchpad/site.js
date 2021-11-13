@@ -1,5 +1,4 @@
 let video = document.getElementById('video');
-let timestamp_info = document.getElementById('timestamp');
 let timestamp = "";
 let hostname = window.location.hostname;
 let mobileUrl = window.location.search.slice(6);
@@ -16,8 +15,6 @@ function capture(payload) {
 	score = payload.score;
 	time = getNowTime();
 	if (score >= 500 && time >= '00:00:03') {
-		let tempHtml = `움직임이 감지되었습니다. timestamp ${time} score = ${score}`;
-		timestamp_info.append(tempHtml);
 		if (timestamp.length > 0) time = "," + time;  // 처음 시간을 저장하는게 아닐 경우
 		timestamp += time;
 	}
@@ -56,6 +53,9 @@ const endBtn = document.getElementById('end-btn');
 
 window.onload = async () => {
 	startBtn.onclick = async () => {
+		$('#start-btn').addClass('disabled');  // 시작버튼 비활성화
+		$('#end-btn').removeClass('disabled');  // 종료버튼 활성화
+
 		var constraints = {
 			audio: false,
 			video: { facingMode: "user", width: 720, height: 480}
