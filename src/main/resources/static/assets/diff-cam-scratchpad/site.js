@@ -77,7 +77,7 @@ window.onload = async () => {
 					file.append('file', blob);
 
 					$.ajax({
-						url: "http://" + hostname + ":8080/mUpload/" + mobileUrl,
+						url: "https://" + hostname + ":8443/mUpload/" + mobileUrl,
 						type: "POST",
 						data: file,
 						cache: false,
@@ -85,10 +85,10 @@ window.onload = async () => {
 						processData: false,
 						success: function (response) {
 							alert("timestamp와 응시 영상이 성공적으로 저장되었습니다.");
-							window.location.href = "http://" + hostname + ":8080/examEnd";
+							window.location.href = "https://" + hostname + ":8443/examEnd";
 						}, error: function (response) {
 							alert("응시 영상 저장에 실패했습니다. 관리자에게 문의해주세요.");
-							window.location.href = "http://" + hostname + ":8080/examEnd";
+							window.location.href = "https://" + hostname + ":8443/examEnd";
 						},
 					});
 				};
@@ -105,7 +105,7 @@ window.onload = async () => {
 		data.append('mobileTimestamp', timestamp);
 
 		$.ajax({
-			url: "http://" + hostname + ":8080/mExam/" + mobileUrl,
+			url: "https://" + hostname + ":8443/mExam/" + mobileUrl,
 			type: "POST",
 			contentType: 'application/json',
 			data: JSON.stringify({mobileTimestamp: timestamp}),
@@ -114,7 +114,7 @@ window.onload = async () => {
 			},
 			error: function (response) {
 				alert("timestamp와 답안 저장에 실패했습니다. 관리자에게 문의해주세요.");
-				window.location.href = "http://" + hostname + ":8080/examEnd";
+				window.location.href = "https://" + hostname + ":8443/examEnd";
 			},
 		});
 	};
