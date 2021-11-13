@@ -18,11 +18,13 @@ import com.example.CheatingStamp.security.UserDetailsImpl;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 
 @RequiredArgsConstructor
@@ -40,10 +42,22 @@ public class ExamController {
     // 시험 대기 화면
     @GetMapping("/waiting")
     public String waiting(@AuthenticationPrincipal UserDetailsImpl userDetails, Model model) {
+        if (userValidator.isSupervisor(userDetails)) {
+            model.addAttribute("errorMsg", "감독관은 시험을 응시할 수 없습니다.");
+            return "errorMsg";
+        }
+
         Long examId = userService.getFirstExamId(userDetails.getUser());
         // 예정된 시험이 없을 경우 홈 화면으로 넘김
         if (examId < 0) {
             model.addAttribute("errorMsg", "예정된 시험이 없습니다.");
+            return "errorMsg";
+        }
+
+        // answer에 값 있으면 홈 화면으로 넘김
+        String answer = answerService.getAnswersByExamIdAndUsername(examId, userDetails.getUsername());
+        if (answer != null) {
+            model.addAttribute("errorMsg", "이미 답안을 제출한 시험입니다.");
             return "errorMsg";
         }
 
@@ -70,6 +84,11 @@ public class ExamController {
     // 시험 화면
     @GetMapping("/exam")
     public String exam(@AuthenticationPrincipal UserDetailsImpl userDetails, @RequestParam String code, Model model) {
+        if (userValidator.isSupervisor(userDetails)) {
+            model.addAttribute("errorMsg", "감독관은 시험을 응시할 수 없습니다.");
+            return "errorMsg";
+        }
+
         User user = userDetails.getUser();
         if (!examUserService.validationTesterByUserAndExamCode(user, code)) {
             model.addAttribute("errorMsg", "권한이 없는 사용자입니다.");
@@ -104,6 +123,11 @@ public class ExamController {
     @ResponseBody
     @PostMapping("/exam/{code}")
     public String saveAnswer(@PathVariable String code, @AuthenticationPrincipal UserDetailsImpl userDetails, @ModelAttribute SaveAnswerRequestDto requestDto, Model model) {
+        if (userValidator.isSupervisor(userDetails)) {
+            model.addAttribute("errorMsg", "감독관은 시험을 응시할 수 없습니다.");
+            return "errorMsg";
+        }
+
         User user = userDetails.getUser();
         if (!examUserService.validationTesterByUserAndExamCode(user, code)) {
             model.addAttribute("errorMsg", "권한이 없는 사용자입니다.");
@@ -119,6 +143,11 @@ public class ExamController {
     // 응시 영상 업로드
     @PostMapping("/upload/{code}")
     public String uploadVideo(@PathVariable String code, @AuthenticationPrincipal UserDetailsImpl userDetails, MultipartFile file, Model model) throws IOException {
+        if (userValidator.isSupervisor(userDetails)) {
+            model.addAttribute("errorMsg", "감독관은 시험을 응시할 수 없습니다.");
+            return "errorMsg";
+        }
+
         User user = userDetails.getUser();
         if (!examUserService.validationTesterByUserAndExamCode(user, code)) {
             model.addAttribute("errorMsg", "권한이 없는 사용자입니다.");
@@ -234,7 +263,7 @@ public class ExamController {
 
         examUserService.deleteByExamIds(checkedExam);
         examService.deleteExamByExamIds(checkedExam);
-        return "redirect:/settingExam";
+        return "settingExam";
     }
 
     // 시험 생성 페이지
@@ -256,9 +285,10 @@ public class ExamController {
         }
 
         Long userId = userDetails.getUser().getId();
-        examService.createExam(requestDto, userId);
-
-        return "redirect:/settingExam";
+        Long examId = examService.createExam(requestDto, userId);
+        ExamUserRequestDto examUserRequestDto  = new ExamUserRequestDto(examId, userDetails.getUsername());
+        examUserService.addByExamIdAndUsername(examUserRequestDto);
+        return "settingExam";
     }
 
     // 시험 상세 화면
@@ -290,6 +320,10 @@ public class ExamController {
         if (!userValidator.isSupervisor(userDetails)) {
             model.addAttribute("errorMsg", "권한이 없는 사용자입니다.");
             return "errorMsg";
+        }
+
+        if (userService.getUserByUsername(requestDto.getUsername()) == null) {
+            throw new NoSuchElementException("존재하지 않는 사용자입니다.");
         }
 
         examUserService.addByExamIdAndUsername(requestDto);
@@ -391,7 +425,7 @@ public class ExamController {
         if (mobileVideoInfo.isEmpty()) {
             System.out.println("잘못된 mobile video id 값입니다.");
         } else {
-            User user = userService.getUserIdByUsername(username);
+            User user = userService.getUserByUsername(username);
             String mobileUrl = examUserService.getMobileUrlByExamIdAndUserId(examId, user);
             String mobileVideoTitle = mobileUrl + "_" + username;
 
@@ -420,8 +454,14 @@ public class ExamController {
             return "errorMsg";
         }
 
-        HashMap<String, String> examInfo = examService.getExamInfo(examId);
         String answers = answerService.getAnswersByExamIdAndUsername(examId, username);
+        if (answers == null) {
+            model.addAttribute("errorMsg", "제출된 답안이 없습니다.");
+            model.addAttribute("redirect", "watchingList?examId=" + examId);
+            return "errorMsg";
+        }
+
+        HashMap<String, String> examInfo = examService.getExamInfo(examId);
         String name = userService.getNameByUsername(username);
 
         model.addAttribute("examTitle", examInfo.get("examTitle"));

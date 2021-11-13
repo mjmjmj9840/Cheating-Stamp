@@ -34,7 +34,7 @@ $(document).ready(function () {
                 window.location.reload();
             },
             error: function (response) {
-                alert("저장에 실패했습니다. 관리자에게 문의해주세요.");
+                alert("존재하지 않는 사용자입니다.");
                 window.location.reload();
             },
         });
@@ -57,7 +57,7 @@ $(document).ready(function () {
                 window.location.reload();
             },
             error: function (response) {
-                alert("저장에 실패했습니다. 관리자에게 문의해주세요.");
+                alert("존재하지 않는 사용자입니다.");
                 window.location.reload();
             },
         });
