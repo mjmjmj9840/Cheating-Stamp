@@ -40,7 +40,9 @@
                 <td class="content" th:text="${#strings.substring(examStartTime, 0, 4) + '-' +
                          #strings.substring(examStartTime, 4, 6) + '-' + #strings.substring(examStartTime, 6, 8) + ' ' +
                          #strings.substring(examStartTime, 8, 10) + ':' + #strings.substring(examStartTime, 10, 12) +
-                         '~' + #strings.substring(examEndTime, 8, 10) + ':' + #strings.substring(examEndTime, 10, 12)}"></td>
+                         '~' + #strings.substring(examStartTime, 0, 4) + '-' +
+                         #strings.substring(examStartTime, 4, 6) + '-' + #strings.substring(examStartTime, 6, 8) + ' ' +
+                         #strings.substring(examEndTime, 8, 10) + ':' + #strings.substring(examEndTime, 10, 12)}"></td>
             </tr>
             <input type="hidden" id="examId" th:value="${examId}"/>
         </table>

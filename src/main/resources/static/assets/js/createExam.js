@@ -64,11 +64,11 @@ $(document).ready(function () {
                 data: data,
                 success: function (response) {
                     alert("시험을 성공적으로 생성했습니다.");
-                    window.location.href = '/';
+                    window.location.href = '/settingExam' ;
                 },
                 error: function (response) {
                     alert("시험 생성에 실패했습니다. 관리자에게 문의해주세요.");
-                    window.location.href = '/';
+                    window.location.href = '/settingExam';
                 }
             });
         }

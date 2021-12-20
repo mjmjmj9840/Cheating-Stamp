@@ -2,10 +2,7 @@ package com.example.CheatingStamp.service;
 
 import com.example.CheatingStamp.dto.CalibrationRateRequestDto;
 import com.example.CheatingStamp.dto.SignupRequestDto;
-import com.example.CheatingStamp.model.Exam;
-import com.example.CheatingStamp.model.ExamUser;
-import com.example.CheatingStamp.model.User;
-import com.example.CheatingStamp.model.UserRole;
+import com.example.CheatingStamp.model.*;
 import com.example.CheatingStamp.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,6 +11,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -90,7 +88,13 @@ public class UserService {
         return user.getName();
     }
 
-    public User getUserIdByUsername(String username) {
-        return userRepository.findByUsername(username).get();
+    public User getUserByUsername(String username) {
+        Optional<User> user = userRepository.findByUsername(username);
+        if (user.isPresent()) {
+            return user.get();
+        }
+        else {
+            return null;
+        }
     }
 }

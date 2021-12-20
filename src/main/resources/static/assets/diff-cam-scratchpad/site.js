@@ -1,5 +1,4 @@
 let video = document.getElementById('video');
-let timestamp_info = document.getElementById('timestamp');
 let timestamp = "";
 let hostname = window.location.hostname;
 let mobileUrl = window.location.search.slice(6);
@@ -16,8 +15,6 @@ function capture(payload) {
 	score = payload.score;
 	time = getNowTime();
 	if (score >= 500 && time >= '00:00:03') {
-		let tempHtml = `움직임이 감지되었습니다. timestamp ${time} score = ${score}`;
-		timestamp_info.append(tempHtml);
 		if (timestamp.length > 0) time = "," + time;  // 처음 시간을 저장하는게 아닐 경우
 		timestamp += time;
 	}
@@ -56,6 +53,9 @@ const endBtn = document.getElementById('end-btn');
 
 window.onload = async () => {
 	startBtn.onclick = async () => {
+		$('#start-btn').addClass('disabled');  // 시작버튼 비활성화
+		$('#end-btn').removeClass('disabled');  // 종료버튼 활성화
+
 		var constraints = {
 			audio: false,
 			video: { facingMode: "user", width: 720, height: 480}
@@ -77,7 +77,7 @@ window.onload = async () => {
 					file.append('file', blob);
 
 					$.ajax({
-						url: "http://" + hostname + ":8080/mUpload/" + mobileUrl,
+						url: "https://" + hostname + ":8443/mUpload/" + mobileUrl,
 						type: "POST",
 						data: file,
 						cache: false,
@@ -85,10 +85,10 @@ window.onload = async () => {
 						processData: false,
 						success: function (response) {
 							alert("timestamp와 응시 영상이 성공적으로 저장되었습니다.");
-							window.location.href = "http://" + hostname + ":8080/examEnd";
+							window.location.href = "https://" + hostname + ":8443/examEnd";
 						}, error: function (response) {
 							alert("응시 영상 저장에 실패했습니다. 관리자에게 문의해주세요.");
-							window.location.href = "http://" + hostname + ":8080/examEnd";
+							window.location.href = "https://" + hostname + ":8443/examEnd";
 						},
 					});
 				};
@@ -105,7 +105,7 @@ window.onload = async () => {
 		data.append('mobileTimestamp', timestamp);
 
 		$.ajax({
-			url: "http://" + hostname + ":8080/mExam/" + mobileUrl,
+			url: "https://" + hostname + ":8443/mExam/" + mobileUrl,
 			type: "POST",
 			contentType: 'application/json',
 			data: JSON.stringify({mobileTimestamp: timestamp}),
@@ -114,7 +114,7 @@ window.onload = async () => {
 			},
 			error: function (response) {
 				alert("timestamp와 답안 저장에 실패했습니다. 관리자에게 문의해주세요.");
-				window.location.href = "http://" + hostname + ":8080/examEnd";
+				window.location.href = "https://" + hostname + ":8443/examEnd";
 			},
 		});
 	};
